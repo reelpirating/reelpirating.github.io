@@ -1,0 +1,789 @@
+e@leg ~ % clear
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+e@leg ~ % node --check "/Users/e/Documents/Reel-test-hls-vidrift-visible 2.html" 
+node:internal/modules/esm/get_format:243
+  throw new ERR_UNKNOWN_FILE_EXTENSION(ext, filepath);
+        ^
+
+TypeError [ERR_UNKNOWN_FILE_EXTENSION]: Unknown file extension ".html" for /Users/e/Documents/Reel-test-hls-vidrift-visible 2.html
+    at Object.getFileProtocolModuleFormat [as file:] (node:internal/modules/esm/get_format:243:9)
+    at defaultGetFormat (node:internal/modules/esm/get_format:283:36)
+    at checkSyntax (node:internal/main/check_syntax:67:20) {
+  code: 'ERR_UNKNOWN_FILE_EXTENSION'
+}
+
+Node.js v26.5.0
+e@leg ~ % grep -nE "reelHardPlay|function play|function playFilm|custom_hls|vidking|reelPlayerUrl" "/Users/e/Documents/Reel-test-hls-vidrift-visible 2.html" | tail -120
+6368:function playFilmFromCard(id){
+6401:async function playTMDBItem(id,type){
+6486:function playDetailFilm(){
+6500:function playDetailEpisode(season, episode){
+6524:async function playFilm(
+6893:  const source = localStorage.getItem("reel_player_source") || "custom_hls";
+7246:function playEpisode(
+7264:  const source = localStorage.getItem("reel_player_source") || "custom_hls";
+8513:function playFeatured(){
+9517:      sourceEl.value=window.getReelPlayerSource ? window.getReelPlayerSource() : (localStorage.getItem('reel_player_source')||'custom_hls');
+9585:    const source = localStorage.getItem("reel_player_source") || "custom_hls";
+9733: window.reelPlayerSource = localStorage.getItem("reelPlayerSource") || "custom_hls";
+9744:  const valid = ["custom_hls","vidsrc","vidsrc_tw","vidcore","autoembed","cinesrc","vidfast","videasy","stream_api"];
+9745:  window.getReelPlayerSource=function(){ const v=localStorage.getItem(KEY); return valid.includes(v)?v:"custom_hls"; };
+9747:  window.reelPlayerUrl=function(type,id,season,episode){
+9779:  window.reelSelectedSource=function(){return window.getReelPlayerSource ? window.getReelPlayerSource() : (localStorage.getItem("reel_player_source")||"vidking");};
+9780:  window.reelMoviePlayerUrl=function(id){return window.reelPlayerUrl ? window.reelPlayerUrl("movie",id) : ""+encodeURIComponent(id)+"?autoPlay=true";};
+9781:  window.reelTVPlayerUrl=function(id,s,e){return window.reelPlayerUrl ? window.reelPlayerUrl("tv",id,s,e) : ""+encodeURIComponent(id)+"/"+encodeURIComponent(s)+"/"+encodeURIComponent(e)+"?autoPlay=true";};
+9820:  function source(){return (window.getReelPlayerSource && window.getReelPlayerSource()) || localStorage.getItem('reel_player_source') || 'custom_hls';}
+9943:  const SOURCES=['custom_hls','vidsrc','vidsrc_tw','vidcore','autoembed','cinesrc','vidfast','videasy','stream_api'];
+9952:    const v=localStorage.getItem('reel_player_source')||'custom_hls';
+9953:    return SOURCES.includes(v)?v:'custom_hls';
+10038:  async function playStreamApi(film, season, episode, startTime){
+10167:    const saved=localStorage.getItem('reel_player_source') || 'custom_hls';
+10184:        localStorage.getItem('reel_player_source') === 'custom_hls';
+10290:  window.reelHardPlay = function(film, season, episode){
+10322:    reelHardPlay({...film},season,episode);
+10328:    reelHardPlay({...film},Number(season)||1,Number(episode)||1);
+10333:    if(film)reelHardPlay({...film});
+10607:      const resume=()=>{if(typeof window.reelHardPlay==='function')window.reelHardPlay({...film},Number(saved.season)||1,Number(saved.episode)||1,Number(saved.position)||0);else if(typeof window.playFilm==='function')window.playFilm(film)};
+10634:  const hardPlay=window.reelHardPlay;
+10636:    window.reelHardPlay=function(film,season,episode,startTime){
+10654:    if(typeof window.reelHardPlay==='function')return window.reelHardPlay({...film},season,episode,Number(saved?.position)||0);
+10785:      localStorage.setItem('reel_player_source','custom_hls');
+10807:  function playVidriftIfAvailable(film,season,episode,startTime){
+10816:  var original=window.reelHardPlay;
+10823:    window.reelHardPlay=wrapped;
+10975:  function playExact(film, season, episode){
+10984:      if(typeof window.reelHardPlay==='function') return window.reelHardPlay(Object.assign({},film),s,e,0);
+11521:  const CUSTOM='custom_hls';
+11523:  const URL_KEY='reel_custom_hls_url';
+11660:  async function playCustom(film,season,episode,startTime){
+11886:      const previous=localStorage.getItem('reel_player_source')||'custom_hls';
+11894:    if(typeof window.reelHardPlay==='function'&&!window.reelHardPlay.__customHls){
+11895:      originalHardPlay=window.reelHardPlay;
+11896:      const old=window.reelHardPlay;
+11897:      window.reelHardPlay=function(film,season,episode,startTime){
+11901:      window.reelHardPlay.__customHls=true;
+e@leg ~ % nl -ba "/Users/e/Documents/Reel-test-hls-vidrift-visible 2.html" | sed -n '9700,10400p'
+  9700	      event.preventDefault();
+  9701	      event.stopPropagation();
+  9702	
+  9703	      if (document.fullscreenElement && document.exitFullscreen) {
+  9704	        document.exitFullscreen().catch(() => {});
+  9705	      }
+  9706	
+  9707	      if (watchOpen && typeof closeWatch === "function") {
+  9708	        closeWatch();
+  9709	      } else {
+  9710	        closeReelPlayerWithEscape();
+  9711	      }
+  9712	    }
+  9713	  }, true);
+  9714	})();
+  9715	</script>
+  9716	
+  9717	
+  9718	<script id="reel-dulo-info-embed">
+  9719	(function(){
+  9720	 window.openDuloInfo = function(id,type="movie"){
+  9721	   const url = `https://dulo.gd/?info=${type}:${id}`;
+  9722	   const overlay = document.getElementById("watchOverlay");
+  9723	   const frame = document.getElementById("trailerFrame") || document.querySelector("#watchOverlay iframe");
+  9724	   if(frame){
+  9725	     frame.src = url;
+  9726	     frame.style.display="block";
+  9727	   } else if(overlay){
+  9728	     overlay.classList.add("open");
+  9729	     overlay.innerHTML = `<iframe style="width:100%;height:100%;border:0" src="${url}"></iframe>`;
+  9730	   }
+  9731	 };
+  9732	
+  9733	 window.reelPlayerSource = localStorage.getItem("reelPlayerSource") || "custom_hls";
+  9734	 window.setReelPlayerSource = function(v){
+  9735	   localStorage.setItem("reelPlayerSource",v);
+  9736	   window.reelPlayerSource=v;
+  9737	 };
+  9738	})();
+  9739	</script>
+  9740	
+  9741	<script>
+  9742	(function(){
+  9743	  const KEY = "reel_player_source";
+  9744	  const valid = ["custom_hls","vidsrc","vidsrc_tw","vidcore","autoembed","cinesrc","vidfast","videasy","stream_api"];
+  9745	  window.getReelPlayerSource=function(){ const v=localStorage.getItem(KEY); return valid.includes(v)?v:"custom_hls"; };
+  9746	  window.setReelPlayerSource=function(source){ if(valid.includes(source)) localStorage.setItem(KEY,source); };
+  9747	  window.reelPlayerUrl=function(type,id,season,episode){
+  9748	    const source=window.getReelPlayerSource();
+  9749	    if(source==="vidsrc") return type==="tv"
+  9750	      ? `https://vidsrc.to/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`
+  9751	      : `https://vidsrc.to/embed/movie/${encodeURIComponent(id)}`;
+  9752	    if(source==="vidsrc_tw") return type==="tv"
+  9753	      ? `https://vidsrc.tw/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`
+  9754	      : `https://vidsrc.tw/embed/movie/${encodeURIComponent(id)}`;
+  9755	    if(source==="vidcore") return type==="tv"
+  9756	      ? `https://www.vidcore.org/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`
+  9757	      : `https://www.vidcore.org/embed/movie/${encodeURIComponent(id)}`;
+  9758	    if(source==="autoembed") return type==="tv"
+  9759	      ? `https://player.autoembed.cc/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`
+  9760	      : `https://player.autoembed.cc/embed/movie/${encodeURIComponent(id)}`;
+  9761	    if(source==="cinesrc") return type==="tv"
+  9762	      ? `https://cinesrc.st/embed/tv/${encodeURIComponent(id)}?s=${encodeURIComponent(season)}&e=${encodeURIComponent(episode)}&autoplay=true`
+  9763	      : `https://cinesrc.st/embed/movie/${encodeURIComponent(id)}?autoplay=true`;
+  9764	    if(source==="vidfast") return type==="tv"
+  9765	      ? `https://vidfast.to/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`
+  9766	      : `https://vidfast.to/embed/movie/${encodeURIComponent(id)}`;
+  9767	    return type==="tv"
+  9768	      ? ""
+  9769	      : "";
+  9770	  };
+  9771	})();
+  9772	</script>
+  9773	
+  9774	
+  9775	
+  9776	<script>
+  9777	/* FINAL PLAYER SOURCE PATCH */
+  9778	(function(){
+  9779	  window.reelSelectedSource=function(){return window.getReelPlayerSource ? window.getReelPlayerSource() : (localStorage.getItem("reel_player_source")||"vidking");};
+  9780	  window.reelMoviePlayerUrl=function(id){return window.reelPlayerUrl ? window.reelPlayerUrl("movie",id) : ""+encodeURIComponent(id)+"?autoPlay=true";};
+  9781	  window.reelTVPlayerUrl=function(id,s,e){return window.reelPlayerUrl ? window.reelPlayerUrl("tv",id,s,e) : ""+encodeURIComponent(id)+"/"+encodeURIComponent(s)+"/"+encodeURIComponent(e)+"?autoPlay=true";};
+  9782	})();
+  9783	
+  9784	
+  9785	// Keyboard shortcut: Escape closes the player first, then the detail page.
+  9786	document.addEventListener('keydown', function(event){
+  9787	  if(event.key !== 'Escape') return;
+  9788	  const watch = document.getElementById('watchOverlay');
+  9789	  const detail = document.getElementById('detailPage');
+  9790	  if(watch && watch.classList.contains('open')) {
+  9791	    closeWatch();
+  9792	    return;
+  9793	  }
+  9794	  if(detail && detail.classList.contains('open')) {
+  9795	    closeDetail();
+  9796	  }
+  9797	});
+  9798	</script>
+  9799	
+  9800	
+  9801	
+  9802	
+  9803	
+  9804	
+  9805	<style id="reel-extra-features">
+  9806	/* Player extras: compact, non-blocking controls. */
+  9807	#reel-extra-controls{display:none!important}
+  9808	#reelUpgradeSpeed{display:none!important;position:fixed!important;right:18px!important;bottom:18px!important;z-index:10050!important;width:auto!important;min-width:92px!important;height:40px!important;padding:0 34px 0 12px!important;background:#171b23!important;color:#fff!important;border:1px solid rgba(255,255,255,.22)!important;border-radius:9px!important;box-shadow:0 8px 24px rgba(0,0,0,.35)!important;font-size:13px!important;font-weight:700!important}
+  9809	#reelUpgradeSpeed:focus{outline:2px solid #e3b23c!important;outline-offset:2px!important}
+  9810	#reelUpgradeSpeed option{background:#171b23;color:#fff}
+  9811	#reelSpeedStatus{display:none!important;position:fixed;right:18px;bottom:66px;z-index:10051;padding:7px 10px;border-radius:8px;background:rgba(12,15,20,.94);border:1px solid rgba(255,255,255,.14);color:#f5f1e8;font-size:11px;display:none;pointer-events:none}
+  9812	</style>
+  9813	<script id="reel-extra-features-js">
+  9814	(function(){
+  9815	  const SPEEDS=['0.5','0.75','1','1.25','1.5','1.75','2'];
+  9816	  const SPEED_KEY='reel_speed';
+  9817	
+  9818	  function activeFrame(){return document.getElementById('playerFrame');}
+  9819	
+  9820	  function source(){return (window.getReelPlayerSource && window.getReelPlayerSource()) || localStorage.getItem('reel_player_source') || 'custom_hls';}
+  9821	
+  9822	  function status(msg){
+  9823	    let el=document.getElementById('reelSpeedStatus');
+  9824	    if(!el){el=document.createElement('div');el.id='reelSpeedStatus';document.body.appendChild(el)}
+  9825	    el.textContent=msg; el.style.display='block'; clearTimeout(el._t); el._t=setTimeout(()=>el.style.display='none',1800);
+  9826	  }
+  9827	
+  9828	  function sendSpeed(rate){
+  9829	    const frame=activeFrame();
+  9830	    if(!frame || !frame.contentWindow){status('Open a video first');return false;}
+  9831	    const src=source();
+  9832	    // CineSrc documents a setPlaybackRate postMessage API.
+  9833	    if(src==='cinesrc'){
+  9834	      frame.contentWindow.postMessage({type:'cinesrc:command',command:'setPlaybackRate',args:[Number(rate)]},'https://cinesrc.st');
+  9835	      status(`Speed ${rate}×`);
+  9836	      return true;
+  9837	    }
+  9838	    // Best-effort messages for embeds that implement a compatible API.
+  9839	    const messages=[
+  9840	      {method:'setPlaybackRate',value:Number(rate)},
+  9841	      {method:'setPlaybackRate',rate:Number(rate)},
+  9842	      {action:'setPlaybackRate',value:Number(rate)},
+  9843	      {type:'setPlaybackRate',rate:Number(rate)},
+  9844	      {type:'playbackRate',value:Number(rate)}
+  9845	    ];
+  9846	    messages.forEach(m=>frame.contentWindow.postMessage(m,'*'));
+  9847	
+  9848	    return true;
+  9849	  }
+  9850	
+  9851	  function ensureSpeed(){
+  9852	    const watch=document.getElementById('watchOverlay');
+  9853	    const open=watch && watch.classList.contains('open');
+  9854	    let sel=document.getElementById('reelUpgradeSpeed');
+  9855	    if(!open){if(sel) sel.remove(); const st=document.getElementById('reelSpeedStatus'); if(st) st.remove(); return;}
+  9856	    if(!sel){
+  9857	      sel=document.createElement('select'); sel.id='reelUpgradeSpeed'; sel.setAttribute('aria-label','Playback speed');
+  9858	      sel.innerHTML=SPEEDS.map(v=>`<option value="${v}">${v}×</option>`).join('');
+  9859	      sel.value=SPEEDS.includes(localStorage.getItem(SPEED_KEY)) ? localStorage.getItem(SPEED_KEY) : '1';
+  9860	      sel.addEventListener('change',()=>{localStorage.setItem(SPEED_KEY,sel.value);sendSpeed(sel.value);});
+  9861	      document.body.appendChild(sel);
+  9862	    }
+  9863	    // If the player iframe was recreated, re-send the saved rate once it exists.
+  9864	    const frame=activeFrame();
+  9865	    if(frame && !frame.dataset.reelSpeedApplied){
+  9866	      frame.dataset.reelSpeedApplied='1';
+  9867	      setTimeout(()=>sendSpeed(sel.value),700);
+  9868	    }
+  9869	  }
+  9870	  setInterval(ensureSpeed,500);
+  9871	
+  9872	  // Make actor cards real buttons so clicks don't depend on fragile inline handlers.
+  9873	  function repairActorCards(){
+  9874	    document.querySelectorAll('#detailCastGrid .cast-card').forEach(card=>{
+  9875	      if(card.dataset.actorRepaired==='1') return;
+  9876	      const id=Number(card.dataset.personId);
+  9877	      if(!id) return;
+  9878	      card.dataset.actorRepaired='1';
+  9879	      card.setAttribute('role','button');
+  9880	      card.setAttribute('tabindex','0');
+  9881	      card.addEventListener('click',e=>{e.preventDefault();e.stopPropagation();window.openPersonDetail(id);});
+  9882	      card.addEventListener('keydown',e=>{
+  9883	        if(e.key==='Enter'||e.key===' '){e.preventDefault();e.stopPropagation();window.openPersonDetail(id);}
+  9884	      });
+  9885	    });
+  9886	  }
+  9887	  setInterval(repairActorCards,500);
+  9888	
+  9889	  // Expose a direct speed helper for debugging/other Reel controls.
+  9890	  window.reelSetPlaybackSpeed=function(rate){
+  9891	    rate=Number(rate); if(!SPEEDS.includes(String(rate))) return false;
+  9892	    localStorage.setItem(SPEED_KEY,String(rate));
+  9893	    const sel=document.getElementById('reelUpgradeSpeed'); if(sel) sel.value=String(rate);
+  9894	    return sendSpeed(rate);
+  9895	  };
+  9896	})();
+  9897	</script>
+  9898	
+  9899	
+  9900	<style id="reel-v5-polish">
+  9901	:root{--reel-header-space:132px}
+  9902	html{scroll-padding-top:var(--reel-header-space)!important}
+  9903	body{padding-top:var(--reel-header-space)!important}
+  9904	header{position:fixed!important;top:0!important;left:0!important;right:0!important;width:100%!important;height:var(--reel-header-space)!important;z-index:100000!important;background:rgba(12,15,20,.97)!important;backdrop-filter:blur(16px)!important;-webkit-backdrop-filter:blur(16px)!important}
+  9905	main,section,.hero{scroll-margin-top:var(--reel-header-space)!important}
+  9906	.nav{height:110px!important;min-height:110px!important}
+  9907	.navlinks{flex:0 0 auto!important;white-space:nowrap!important;min-height:58px!important}
+  9908	.navlinks a{min-width:84px!important;padding:0 18px!important}
+  9909	#detailPage{padding-top:var(--reel-header-space)!important;z-index:10000!important}
+  9910	#detailPage .detail-topbar{height:76px!important;padding:16px 40px!important;align-items:center!important}
+  9911	#detailPage .detail-back{width:46px!important;min-width:46px!important;height:46px!important;padding:0!important;border-radius:50%!important;justify-content:center!important;font-size:0!important}
+  9912	#detailPage .detail-back::before{content:"<";font-size:25px;font-weight:500;line-height:1}
+  9913	#detailPage .detail-back:hover{transform:translateX(-2px);background:var(--gold)!important}
+  9914	.detail-action,.btn,.genre-btn,.row-tab,.settings-icon{transition:transform .18s ease,background .18s ease,border-color .18s ease,box-shadow .18s ease,opacity .18s ease}
+  9915	.detail-action:hover,.btn:hover,.genre-btn:hover,.row-tab:hover{transform:translateY(-1px)}
+  9916	.cast-card{transition:transform .18s ease,border-color .18s ease;cursor:pointer}
+  9917	.cast-card:hover{transform:translateY(-4px)}
+  9918	.episode-grid-card{transition:transform .18s ease,border-color .18s ease,background .18s ease;cursor:pointer}
+  9919	.episode-grid-card:hover{transform:translateY(-3px);border-color:var(--gold)!important}
+  9920	.continue-card{position:relative}
+  9921	.continue-poster{cursor:pointer}
+  9922	.continue-card .play-circle{cursor:pointer;pointer-events:auto;position:relative;z-index:4}
+  9923	.continue-card .continue-remove{position:relative;z-index:5}
+  9924	.reel-player-toolbar{position:absolute;top:16px;left:16px;right:16px;z-index:120;display:flex;align-items:center;justify-content:space-between;gap:10px;pointer-events:none}
+  9925	.reel-player-toolbar>*{pointer-events:auto}
+  9926	.reel-player-title{padding:9px 12px;border:1px solid rgba(255,255,255,.14);border-radius:10px;background:rgba(10,12,16,.72);backdrop-filter:blur(12px);font-size:13px;font-weight:700;max-width:55vw;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  9927	.reel-player-tools{display:flex;gap:8px;align-items:center}
+  9928	.reel-player-tools button,.reel-player-tools select{height:38px;border:1px solid rgba(255,255,255,.16);border-radius:10px;background:rgba(10,12,16,.78);color:#fff;padding:0 11px;font-size:12px;font-weight:700}
+  9929	.reel-player-tools button:hover,.reel-player-tools select:hover{border-color:var(--gold)}
+  9930	#reelV5Speed{min-width:76px}
+  9931	#reelV5Source{min-width:150px}
+  9932	.reel-source-status{position:absolute;left:18px;bottom:18px;z-index:121;padding:8px 10px;border-radius:9px;background:rgba(10,12,16,.82);border:1px solid rgba(255,255,255,.12);font-size:11px;color:var(--muted);pointer-events:none}
+  9933	.reel-source-status.ok{color:#9fe3a7}.reel-source-status.fail{color:#ff9d95}
+  9934	.reel-next-source{position:absolute;right:18px;bottom:18px;z-index:122;border:1px solid var(--gold);background:rgba(227,178,60,.95);color:#111;border-radius:10px;padding:9px 12px;font-size:11px;font-weight:800;display:none}
+  9935	.reel-next-source.show{display:block}
+  9936	.reduced-motion *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  9937	@media(max-width:900px){:root{--reel-header-space:150px}.nav{height:128px!important;flex-wrap:wrap!important;padding:12px 18px!important}.navlinks{order:3;width:100%;overflow-x:auto}.reel-player-toolbar{top:10px;left:10px;right:10px}.reel-player-tools{flex-wrap:wrap;justify-content:flex-end}.reel-player-title{max-width:42vw}}
+  9938	@media(max-width:700px){#detailPage .detail-topbar{padding:12px 18px;height:66px}.reel-player-title{display:none}#reelV5Source{min-width:120px}}
+  9939	</style>
+  9940	
+  9941	<script id="reel-v5-polish-js">
+  9942	(function(){
+  9943	  const SOURCES=['custom_hls','vidsrc','vidsrc_tw','vidcore','autoembed','cinesrc','vidfast','videasy','stream_api'];
+  9944	  const LABELS={vidsrc:'VidSrc',vidsrc_tw:'VidSrc TW',vidcore:'VidCore',autoembed:'AutoEmbed',cinesrc:'CineSrc',vidfast:'VidFast',videasy:'Videasy',stream_api:'Stream API'};
+  9945	  const SPEEDS=['0.5','0.75','1','1.25','1.5','1.75','2'];
+  9946	  let sourceIndex=0;
+  9947	  let sourceTimer=null;
+  9948	  let sourceAttempt=0;
+  9949	  let autoFallback=true;
+  9950	
+  9951	  function getSource(){
+  9952	    const v=localStorage.getItem('reel_player_source')||'custom_hls';
+  9953	    return SOURCES.includes(v)?v:'custom_hls';
+  9954	  }
+  9955	  function setSource(v){if(SOURCES.includes(v))localStorage.setItem('reel_player_source',v);}
+  9956	  function getFilm(){return window.currentShow || (typeof currentShow!=='undefined'?currentShow:null);}
+  9957	  function status(text,kind=''){
+  9958	    let el=document.getElementById('reelV5Status');
+  9959	    if(!el){el=document.createElement('div');el.id='reelV5Status';el.className='reel-source-status';const w=document.getElementById('videoWrap');if(w)w.appendChild(el)}
+  9960	    el.textContent=text;el.className='reel-source-status '+kind;
+  9961	  }
+  9962	  function clearTimer(){if(sourceTimer){clearTimeout(sourceTimer);sourceTimer=null}}
+  9963	  function makeUrl(type,id,season,episode,source){
+  9964	    if(source==='vidsrc') return type==='tv'?`https://vidsrc.to/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`:`https://vidsrc.to/embed/movie/${encodeURIComponent(id)}`;
+  9965	    if(source==='vidsrc_tw') return type==='tv'?`https://vidsrc.tw/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`:`https://vidsrc.tw/embed/movie/${encodeURIComponent(id)}`;
+  9966	    if(source==='vidcore') return type==='tv'?`https://www.vidcore.org/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`:`https://www.vidcore.org/embed/movie/${encodeURIComponent(id)}`;
+  9967	    if(source==='autoembed') return type==='tv'?`https://player.autoembed.cc/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`:`https://player.autoembed.cc/embed/movie/${encodeURIComponent(id)}`;
+  9968	    if(source==='cinesrc') return type==='tv'?`https://cinesrc.st/embed/tv/${encodeURIComponent(id)}?s=${encodeURIComponent(season)}&e=${encodeURIComponent(episode)}&autoplay=true`:`https://cinesrc.st/embed/movie/${encodeURIComponent(id)}?autoplay=true`;
+  9969	    if(source==='vidfast') return type==='tv'?`https://vidfast.to/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`:`https://vidfast.to/embed/movie/${encodeURIComponent(id)}`;
+  9970	     if(source==='videasy') return type==='tv'?`https://player.videasy.net/tv/${encodeURIComponent(id)}/${encodeURIComponent(season)}/${encodeURIComponent(episode)}`:`https://player.videasy.net/movie/${encodeURIComponent(id)}`;
+  9971	    return type==='tv'?"":"";
+  9972	  }
+  9973	  function activeFrame(){return document.getElementById('playerFrame')}
+  9974	  function showNextButton(){
+  9975	    let b=document.getElementById('reelV5NextSource');
+  9976	    if(!b){b=document.createElement('button');b.id='reelV5NextSource';b.className='reel-next-source';b.textContent='Try next source';b.onclick=()=>tryNextSource();const w=document.getElementById('videoWrap');if(w)w.appendChild(b)}
+  9977	    b.classList.add('show');
+  9978	  }
+  9979	  function hideNextButton(){const b=document.getElementById('reelV5NextSource');if(b)b.classList.remove('show')}
+  9980	  function buildPlayerSettings(){
+  9981	    const w=document.getElementById('videoWrap'); if(!w)return;
+  9982	    let panel=w.querySelector('#reelV5SettingsPanel');
+  9983	    if(!panel){
+  9984	      panel=document.createElement('div');
+  9985	      panel.id='reelV5SettingsPanel';
+  9986	      panel.className='reel-player-settings-panel';
+  9987	      panel.innerHTML=`
+  9988	        <div class="reel-settings-head"><strong>Player settings</strong><button type="button" class="reel-settings-close" aria-label="Close settings">×</button></div>
+  9989	        <label class="reel-setting-row"><span>Source</span><select id="reelV5Source" aria-label="Player source">${SOURCES.map(s=>`<option value="${s}">${LABELS[s]}</option>`).join('')}<option value="auto">Auto fallback</option></select></label>
+  9990	        <label class="reel-setting-row"><span>Playback speed</span><select id="reelV5Speed" aria-label="Playback speed">${SPEEDS.map(s=>`<option value="${s}">${s}×</option>`).join('')}</select></label>
+  9991	        <div class="reel-setting-block"><span>Audio sync</span><div class="reel-sync-buttons"><button type="button" data-sync="-0.5">−0.5s</button><button type="button" data-sync="-0.1">−0.1s</button><b id="reelV5SyncValue">+0.0s</b><button type="button" data-sync="0.1">+0.1s</button><button type="button" data-sync="0.5">+0.5s</button><button type="button" data-sync="reset">Reset</button></div></div>
+  9992	        <label class="reel-setting-toggle"><span>Automatic source fallback</span><input id="reelV5Auto" type="checkbox" checked><i></i></label>
+  9993	        <button id="reelV5SkipIntro" type="button" class="reel-setting-action">Skip intro</button>
+  9994	      `;
+  9995	      w.appendChild(panel);
+  9996	      const cog=document.getElementById('reelV5SettingsCog') || document.getElementById('reelHardCog');
+  9997	      const close=panel.querySelector('.reel-settings-close');
+  9998	      const toggle=()=>panel.classList.toggle('open');
+  9999	      if(cog) cog.onclick=e=>{e.preventDefault();e.stopPropagation();toggle()};
+ 10000	      close.onclick=()=>panel.classList.remove('open');
+ 10001	      document.addEventListener('click',e=>{if(panel.classList.contains('open')&&!panel.contains(e.target)&&e.target!==cog)panel.classList.remove('open')});
+ 10002	      const ss=panel.querySelector('#reelV5Source');
+ 10003	      ss.value=autoFallback?'auto':getSource();
+ 10004	      ss.onchange=()=>{if(ss.value==='auto'){autoFallback=true;localStorage.setItem('reel_auto_fallback','true');trySource(0)}else{autoFallback=false;localStorage.setItem('reel_auto_fallback','false');setSource(ss.value);trySource(SOURCES.indexOf(ss.value))}};
+ 10005	      const sp=panel.querySelector('#reelV5Speed');
+ 10006	      sp.value=localStorage.getItem('reel_speed')||'1';
+ 10007	      sp.onchange=()=>{localStorage.setItem('reel_speed',sp.value);applySpeed(sp.value)};
+ 10008	      const auto=panel.querySelector('#reelV5Auto');
+ 10009	      auto.checked=autoFallback;
+ 10010	      auto.onchange=()=>{autoFallback=auto.checked;localStorage.setItem('reel_auto_fallback',auto.checked?'true':'false');ss.value=auto.checked?'auto':getSource()};
+ 10011	      panel.querySelectorAll('[data-sync]').forEach(btn=>btn.onclick=()=>{const v=btn.dataset.sync;if(v==='reset'){if(typeof resetAudioSync==='function')resetAudioSync()}else if(typeof adjustAudioSync==='function')adjustAudioSync(Number(v));updatePlayerSyncValue()});
+ 10012	      panel.querySelector('#reelV5SkipIntro').onclick=()=>{if(typeof skipIntro==='function')skipIntro();else if(typeof skipIntroBtn!=='undefined')skipIntroBtn.click();panel.classList.remove('open')};
+ 10013	    }
+ 10014	    const syncVal=panel.querySelector('#reelV5SyncValue');
+ 10015	    if(syncVal)syncVal.textContent=`${(typeof audioSyncOffset!=='undefined'&&audioSyncOffset>=0)?'+':''}${(typeof audioSyncOffset!=='undefined'?audioSyncOffset:0).toFixed(1)}s`;
+ 10016	  }
+ 10017	  function updatePlayerSyncValue(){
+ 10018	    const el=document.querySelector('#reelV5SettingsPanel #reelV5SyncValue');
+ 10019	    if(el){const v=(typeof audioSyncOffset!=='undefined'?audioSyncOffset:0);el.textContent=`${v>=0?'+':''}${v.toFixed(1)}s`;}
+ 10020	  }
+ 10021	
+ 10022	  function addToolbar(){
+ 10023	    const w=document.getElementById('videoWrap'); if(!w||!document.getElementById('playerFrame'))return;
+ 10024	    let bar=document.getElementById('reelV5Toolbar');
+ 10025	    if(bar)bar.remove();
+ 10026	    bar=document.createElement('div');bar.id='reelV5Toolbar';bar.className='reel-player-toolbar';
+ 10027	    const title=(typeof currentPlayerTitle!=='undefined'?currentPlayerTitle:'Reel');
+ 10028	    bar.innerHTML=`<div class="reel-player-title">${escapeHTML(title)}</div><div class="reel-player-tools"><button id="reelV5SettingsCog" class="reel-player-cog" type="button" aria-label="Player settings" title="Player settings">⚙</button></div>`;
+ 10029	    w.appendChild(bar);
+ 10030	    buildPlayerSettings();
+ 10031	  }
+ 10032	  function applySpeed(rate){
+ 10033	    const f=activeFrame();if(!f)return;
+ 10034	    try{if(f.contentWindow){f.contentWindow.postMessage({action:'setPlaybackRate',value:Number(rate)},'*');f.contentWindow.postMessage({type:'setPlaybackRate',rate:Number(rate)},'*');f.contentWindow.postMessage({method:'setPlaybackRate',value:Number(rate)},'*');}}catch(e){}
+ 10035	    const native=f.contentDocument?.querySelector?.('video');if(native){try{native.playbackRate=Number(rate)}catch(e){}}
+ 10036	    status(`Speed ${rate}× requested`);
+ 10037	  }
+ 10038	  async function playStreamApi(film, season, episode, startTime){
+ 10039	    let base=(localStorage.getItem('reel_stream_api_base')||'').trim().replace(/\/$/,'');
+ 10040	    if(!base){
+ 10041	      const entered=window.prompt('Enter your own authorized Stream API base URL:', '');
+ 10042	      if(!entered)return false;
+ 10043	      base=entered.trim().replace(/\/$/,''); localStorage.setItem('reel_stream_api_base',base);
+ 10044	    }
+ 10045	    const params=new URLSearchParams({tmdbId:String(film.tmdbId)});
+ 10046	    if(film.type==='tv'){params.set('season',String(season||1));params.set('episode',String(episode||1));}
+ 10047	    const w=document.getElementById('videoWrap'); if(!w)return false;
+ 10048	    w.classList.add('reel-custom-hls-wrap'); w.innerHTML='';
+ 10049	    const video=document.createElement('video'); video.className='reel-custom-video'; video.controls=true; video.playsInline=true; video.autoplay=true; video.preload='auto';
+ 10050	    video.title=film.type==='tv'?`${film.title} - S${season} E${episode}`:(film.title||'Reel'); w.appendChild(video);
+ 10051	    const close=document.createElement('button'); close.className='player-close'; close.type='button'; close.textContent='<'; close.setAttribute('aria-label','Back'); close.onclick=()=>{try{window.reelStreamApiHls?.destroy()}catch(e){} if(typeof closeWatch==='function')closeWatch()}; w.appendChild(close);
+ 10052	    const bar=document.createElement('div'); bar.className='reel-player-toolbar'; bar.innerHTML=`<div class="reel-player-title">${typeof escapeHTML==='function'?escapeHTML(video.title):video.title}</div>`; w.appendChild(bar);
+ 10053	    status('Finding stream…');
+ 10054	    try{
+ 10055	      const response=await fetch(`${base}?${params.toString()}`,{headers:{Accept:'application/json'}});
+ 10056	      if(!response.ok)throw new Error(`API returned HTTP ${response.status}`);
+ 10057	      const data=await response.json(); const url=String(data?.url||data?.stream||data?.m3u8||'').trim();
+ 10058	      if(!/^https?:\/\//i.test(url))throw new Error('API did not return a playable URL');
+ 10059	      window.currentPlayerBaseUrl=url; window.currentPlayerTitle=video.title; window.currentPlayerTime=Number(startTime)||0;
+ 10060	      video.addEventListener('loadedmetadata',()=>{const t=Number(startTime)||0;if(t>0&&Number.isFinite(video.duration))try{video.currentTime=Math.min(t,Math.max(0,video.duration-1))}catch(e){} status('Stream ready','ok');video.play().catch(()=>{})},{once:true});
+ 10061	      video.addEventListener('error',()=>status('Stream could not be played. Check the API response and CORS.','fail'));
+ 10062	      if(video.canPlayType('application/vnd.apple.mpegurl')) video.src=url;
+ 10063	      else { const Hls=await ensureHls(); if(!Hls||!Hls.isSupported())throw new Error('HLS is not supported in this browser'); const playerHls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:90,maxBufferLength:30}); window.reelStreamApiHls=playerHls; playerHls.loadSource(url); playerHls.attachMedia(video); playerHls.on(Hls.Events.MANIFEST_PARSED,()=>{status('Stream ready','ok');video.play().catch(()=>{})}); playerHls.on(Hls.Events.ERROR,(_,d)=>{if(d?.fatal)status(`HLS error: ${d.details||'stream failed'}`,'fail')}); }
+ 10064	      return true;
+ 10065	    }catch(err){console.error(err);status(`Stream API failed: ${err.message||err}`,'fail');return false;}
+ 10066	  }
+ 10067	
+ 10068	  function trySource(i){
+ 10069	    const film=getFilm();if(!film||!film.tmdbId)return;
+ 10070	    sourceIndex=(i+SOURCES.length)%SOURCES.length;sourceAttempt++;
+ 10071	    const source=SOURCES[sourceIndex];setSource(source);
+ 10072	    const type=film.type==='tv'?'tv':'movie';
+ 10073	    if(source==='stream_api'){ playStreamApi(film,typeof currentSeason!=='undefined'?currentSeason:1,typeof currentEpisode!=='undefined'?currentEpisode:1,typeof currentPlayerTime!=='undefined'?currentPlayerTime:0).then(ok=>{if(!ok&&autoFallback)tryNextSource()}); return; }
+ 10074	    const url=makeUrl(type,film.tmdbId,typeof currentSeason!=='undefined'?currentSeason:1,typeof currentEpisode!=='undefined'?currentEpisode:1,source);
+ 10075	    currentPlayerBaseUrl=url;
+ 10076	    clearTimer();hideNextButton();status(`Connecting to ${LABELS[source]}…`);
+ 10077	    const w=document.getElementById('videoWrap');if(!w)return;
+ 10078	    const old=w.querySelector('#playerFrame');if(old)old.remove();
+ 10079	    const frame=document.createElement('iframe');frame.id='playerFrame';frame.src=url;frame.title=typeof currentPlayerTitle!=='undefined'?currentPlayerTitle:'Reel';frame.allow='autoplay; fullscreen; picture-in-picture';frame.allowFullscreen=true;
+ 10080	    w.insertBefore(frame,w.firstChild);
+ 10081	    frame.addEventListener('load',()=>{clearTimer();status(`${LABELS[source]} loaded`,'ok');addToolbar();setTimeout(()=>applySpeed(localStorage.getItem('reel_speed')||'1'),700)});
+ 10082	    frame.addEventListener('error',()=>{status(`${LABELS[source]} failed`,'fail');showNextButton();if(autoFallback)tryNextSource()});
+ 10083	    sourceTimer=setTimeout(()=>{status(`${LABELS[source]} timed out`,'fail');showNextButton();if(autoFallback)tryNextSource()},9000);
+ 10084	    addToolbar();
+ 10085	  }
+ 10086	  function tryNextSource(){clearTimer();if(sourceAttempt>=SOURCES.length){status('All Reel sources failed','fail');showNextButton();return}trySource(sourceIndex+1)}
+ 10087	  window.reelTryNextSource=tryNextSource;
+ 10088	
+ 10089	  // Override the site's player renderer with a source-aware renderer while preserving its UI.
+ 10090	  window.reelV5RenderPlayer=function(startTime){
+ 10091	    const film=getFilm();if(!film)return;
+ 10092	    sourceAttempt=0;autoFallback=true;
+ 10093	    const saved=getSource();const start=SOURCES.indexOf(saved);sourceIndex=start<0?0:start;
+ 10094	    trySource(sourceIndex);
+ 10095	  };
+ 10096	
+ 10097	  // Patch current movie/episode player entry points to use the fallback renderer.
+ 10098	  const patch=()=>{
+ 10099	    if(typeof window.renderVidKingPlayer==='function'&&!window.renderVidKingPlayer.__v5){
+ 10100	      const old=window.renderVidKingPlayer;
+ 10101	      window.renderVidKingPlayer=function(){window.reelV5RenderPlayer(arguments[0]||0)};
+ 10102	      window.renderVidKingPlayer.__v5=true;
+ 10103	      window._reelOldRender=old;
+ 10104	    }
+ 10105	  };
+ 10106	  setTimeout(patch,0);
+ 10107	
+ 10108	  // Continue Watching: thumbnail/details, play button resumes playback.
+ 10109	  window.reelResumeFromContinue=async function(film){
+ 10110	    const resume=typeof ensureSavedProgressKey==='function'?ensureSavedProgressKey(film):null;
+ 10111	    currentShow={...film};
+ 10112	    if(film.type==='tv'&&resume){currentSeason=Number(resume.season)||1;currentEpisode=Number(resume.episode)||1}
+ 10113	    await playFilm(currentShow);
+ 10114	    if(film.type==='tv'&&resume){const ep=(currentEpisodes||[]).find(e=>Number(e.episode_number)===currentEpisode);if(ep)playEpisode(ep)}
+ 10115	  };
+ 10116	
+ 10117	  // Reliable actor-card click handling.
+ 10118	  function repairActors(){document.querySelectorAll('#detailCastGrid .cast-card').forEach(card=>{if(card.dataset.v5actor)return;const id=Number(card.dataset.personId);if(!id)return;card.dataset.v5actor='1';card.onclick=(e)=>{e.preventDefault();e.stopPropagation();if(window.openPersonDetail)window.openPersonDetail(id)};card.onkeydown=(e)=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();if(window.openPersonDetail)window.openPersonDetail(id)}}})}
+ 10119	  setInterval(repairActors,300);
+ 10120	
+ 10121	  // Navigation tabs scroll to real sections and keep active state.
+ 10122	  function initNav(){document.querySelectorAll('header .navlinks a').forEach(a=>{if(a.dataset.v5nav)return;a.dataset.v5nav='1';a.addEventListener('click',e=>{const href=a.getAttribute('href')||'';if(!href.startsWith('#'))return;const target=document.querySelector(href);if(target){e.preventDefault();target.scrollIntoView({behavior:'smooth',block:'start'});document.querySelectorAll('header .navlinks a').forEach(x=>x.classList.remove('active'));a.classList.add('active')}})})}
+ 10123	  initNav();setTimeout(initNav,1000);
+ 10124	
+ 10125	  // Global Escape order: player -> actor/search -> detail.
+ 10126	  document.addEventListener('keydown',e=>{if(e.key!=='Escape')return;const p=document.getElementById('personOverlay'),s=document.getElementById('searchOverlay'),w=document.getElementById('watchOverlay'),d=document.getElementById('detailPage');if(p?.classList.contains('open')){e.preventDefault();e.stopImmediatePropagation();closePersonDetail?.();return}if(s?.classList.contains('open')){e.preventDefault();e.stopImmediatePropagation();closeSearch?.();return}if(w?.classList.contains('open')){e.preventDefault();e.stopImmediatePropagation();closeWatch?.();return}if(d?.classList.contains('open')){e.preventDefault();e.stopImmediatePropagation();closeDetail?.()}} ,true);
+ 10127	
+ 10128	  // Add a polished source/speed preference row to settings if missing.
+ 10129	  function addSettings(){const panel=document.querySelector('#settings .settings-card:nth-of-type(2) .settings-grid');if(!panel||document.getElementById('settingsAutoFallback'))return;const row=document.createElement('div');row.className='setting-row';row.innerHTML='<div><div class="setting-label">Automatic source fallback</div><div class="setting-help">Try the next player if the current source fails or times out</div></div><label class="switch"><input type="checkbox" id="settingsAutoFallback" checked><span class="switch-track"></span></label>';panel.appendChild(row);const cb=row.querySelector('input');cb.checked=localStorage.getItem('reel_auto_fallback')!=='false';cb.onchange=()=>{localStorage.setItem('reel_auto_fallback',cb.checked?'true':'false');autoFallback=cb.checked};const speedRow=document.createElement('div');speedRow.className='setting-row';speedRow.innerHTML='<div><div class="setting-label">Default playback speed</div><div class="setting-help">Used whenever a player opens</div></div><select id="settingsDefaultSpeed" class="settings-select">'+SPEEDS.map(s=>`<option value="${s}">${s}×</option>`).join('')+'</select>';panel.appendChild(speedRow);const sp=speedRow.querySelector('select');sp.value=localStorage.getItem('reel_speed')||'1';sp.onchange=()=>localStorage.setItem('reel_speed',sp.value)}
+ 10130	  setTimeout(addSettings,500);
+ 10131	
+ 10132	  // Remove text Back labels and use the same '<' visual everywhere.
+ 10133	  function fixBackButtons(){document.querySelectorAll('.detail-back,.player-close,[data-back],.back-button').forEach(b=>{if(b.dataset.v5back)return;b.dataset.v5back='1';b.textContent='<';b.setAttribute('aria-label','Back');b.title='Back'})}
+ 10134	  setInterval(fixBackButtons,500);
+ 10135	
+ 10136	  // Player message errors/end events can trigger source fallback.
+ 10137	  window.addEventListener('message',e=>{const d=e.data;if(!d||typeof d!=='object')return;const text=JSON.stringify(d).toLowerCase();if(text.includes('error')||text.includes('failed')||text.includes('unavailable')){if(autoFallback)tryNextSource()}});
+ 10138	
+ 10139	  // Expose current settings for other Reel code.
+ 10140	  window.reelV5GetSources=()=>SOURCES.map(s=>({id:s,label:LABELS[s]}));
+ 10141	  window.reelV5SetAutoFallback=v=>{autoFallback=!!v;localStorage.setItem('reel_auto_fallback',autoFallback?'true':'false')};
+ 10142	  autoFallback=localStorage.getItem('reel_auto_fallback')!=='false';
+ 10143	})();
+ 10144	</script>
+ 10145	
+ 10146	
+ 10147	<script id="reel-v6-player-hard-fix">
+ 10148	(function(){
+ 10149	  // Final player repair.  This bypasses the older player wrappers that can
+ 10150	  // leave an empty video area when the detail-page Play button is pressed.
+ 10151	  const REEL_SOURCES = [
+ 10152	    {id:label:'VidKing', movie:id=>"", tv:(id,s,e)=>""},
+ 10153	    {id:'vidsrc', label:'VidSrc', movie:id=>`https://vidsrc.to/embed/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://vidsrc.to/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`},
+ 10154	    {id:'vidsrc_tw', label:'VidSrc TW', movie:id=>`https://vidsrc.tw/embed/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://vidsrc.tw/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`},
+ 10155	    {id:'vidcore', label:'VidCore', movie:id=>`https://www.vidcore.org/embed/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://www.vidcore.org/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`},
+ 10156	    {id:'autoembed', label:'AutoEmbed', movie:id=>`https://player.autoembed.cc/embed/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://player.autoembed.cc/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`},
+ 10157	    {id:'cinesrc', label:'CineSRC', movie:id=>`https://cinesrc.st/embed/movie/${encodeURIComponent(id)}?autoplay=true`, tv:(id,s,e)=>`https://cinesrc.st/embed/tv/${encodeURIComponent(id)}?s=${encodeURIComponent(s)}&e=${encodeURIComponent(e)}&autoplay=true`},
+ 10158	    {id:'vidfast', label:'VidFast', movie:id=>`https://vidfast.to/embed/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://vidfast.to/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`},
+ 10159	    {id:'videasy', label:'Videasy', movie:id=>`https://player.videasy.net/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://player.videasy.net/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`}
+ 10160	  ];
+ 10161	  let timer=null, attempt=0;
+ 10162	
+ 10163	  function filmNow(){
+ 10164	    try { return currentShow || window.currentShow || null; } catch(e){ return window.currentShow || null; }
+ 10165	  }
+ 10166	  function sourceStart(){
+ 10167	    const saved=localStorage.getItem('reel_player_source') || 'custom_hls';
+ 10168	    const i=REEL_SOURCES.findIndex(x=>x.id===saved);
+ 10169	    return i>=0?i:0;
+ 10170	  }
+ 10171	  function setStatus(text, ok){
+ 10172	    const w=document.getElementById('videoWrap'); if(!w)return;
+ 10173	    let el=w.querySelector('#reelHardStatus');
+ 10174	    if(!el){el=document.createElement('div');el.id='reelHardStatus';el.className='reel-source-status';w.appendChild(el)}
+ 10175	    el.textContent=text; el.className='reel-source-status '+(ok?'ok':'');
+ 10176	  }
+ 10177	  function clear(){if(timer){clearTimeout(timer);timer=null}}
+ 10178	  function openFrame(sourceIndex, startTime){
+ 10179	    // [Reel] TV: trying Custom HLS before normal sources
+ 10180	    // Custom HLS gets first chance for TV episodes. If it cannot resolve
+ 10181	    // a stream, normal source routing remains available.
+ 10182	    try {
+ 10183	      const customSource =
+ 10184	        localStorage.getItem('reel_player_source') === 'custom_hls';
+ 10185	
+ 10186	      const tvFilm =
+ 10187	        typeof getFilm === 'function' ? getFilm() : null;
+ 10188	
+ 10189	      const tvSeason =
+ 10190	        typeof getSeason === 'function' ? Number(getSeason()) || 1 : 1;
+ 10191	
+ 10192	      const tvEpisode =
+ 10193	        typeof getEpisode === 'function' ? Number(getEpisode()) || 1 : 1;
+ 10194	
+ 10195	      const isTV =
+ 10196	        tvFilm &&
+ 10197	        (tvFilm.type === 'tv' ||
+ 10198	         typeof currentShow !== 'undefined' && currentShow);
+ 10199	
+ 10200	      if (
+ 10201	        customSource &&
+ 10202	        isTV &&
+ 10203	        typeof playCustom === 'function'
+ 10204	      ) {
+ 10205	        console.log(
+ 10206	          '[Reel] TV: trying Custom HLS before normal sources',
+ 10207	          tvFilm?.title,
+ 10208	          tvSeason,
+ 10209	          tvEpisode
+ 10210	        );
+ 10211	
+ 10212	        Promise.resolve(
+ 10213	          playCustom(
+ 10214	            tvFilm,
+ 10215	            tvSeason,
+ 10216	            tvEpisode,
+ 10217	            Number(startTime) || 0
+ 10218	          )
+ 10219	        ).catch(err => {
+ 10220	          console.warn(
+ 10221	            '[Reel] Custom HLS TV playback failed; normal source routing remains available.',
+ 10222	            err
+ 10223	          );
+ 10224	        });
+ 10225	
+ 10226	        return;
+ 10227	      }
+ 10228	    } catch (err) {
+ 10229	      console.warn(
+ 10230	        '[Reel] Custom HLS TV routing check failed:',
+ 10231	        err
+ 10232	      );
+ 10233	    }
+ 10234	
+ 10235	
+ 10236	    const film=filmNow();
+ 10237	    const wrap=document.getElementById('videoWrap');
+ 10238	    if(!film || !film.tmdbId || !wrap)return;
+ 10239	    const source=REEL_SOURCES[sourceIndex];
+ 10240	    const isTV=film.type==='tv';
+ 10241	    const season=Number(typeof currentSeason !== 'undefined' ? currentSeason : (window.currentSeason || 1));
+ 10242	    const episode=Number(typeof currentEpisode !== 'undefined' ? currentEpisode : (window.currentEpisode || 1));
+ 10243	    const baseUrl=isTV ? source.tv(film.tmdbId,season,episode) : source.movie(film.tmdbId);
+ 10244	    let url=baseUrl;
+ 10245	    try {
+ 10246	      const resume=Number(startTime)||0;
+ 10247	      if(resume>0){ const u=new URL(baseUrl); u.searchParams.set('progress',resume.toFixed(1)); url=u.toString(); }
+ 10248	    } catch(e) {}
+ 10249	    attempt=sourceIndex;
+ 10250	    localStorage.setItem('reel_player_source',source.id);
+ 10251	    try { currentPlayerBaseUrl=baseUrl; currentPlayerTitle=isTV?`${film.title} - S${season} E${episode}`:(film.title||'Movie'); currentPlayerTime=Number(startTime)||0; } catch(e){}
+ 10252	    clear();
+ 10253	    wrap.innerHTML='';
+ 10254	    const frame=document.createElement('iframe');
+ 10255	    frame.id='playerFrame';
+ 10256	    frame.src=url;
+ 10257	    frame.title=isTV?`${film.title} - S${season} E${episode}`:(film.title||'Reel');
+ 10258	    frame.allow='autoplay; fullscreen; picture-in-picture; encrypted-media';
+ 10259	    frame.loading='eager';
+ 10260	    frame.setAttribute('importance','high');
+ 10261	    frame.setAttribute('allowfullscreen','');
+ 10262	    frame.referrerPolicy='no-referrer-when-downgrade';
+ 10263	    wrap.appendChild(frame);
+ 10264	
+ 10265	    const close=document.createElement('button');
+ 10266	    close.className='player-close'; close.type='button'; close.textContent='<'; close.setAttribute('aria-label','Close player'); close.onclick=()=>{if(typeof closeWatch==='function')closeWatch()};
+ 10267	    wrap.appendChild(close);
+ 10268	
+ 10269	    const title=document.createElement('div');
+ 10270	    title.className='reel-player-toolbar';
+ 10271	    title.innerHTML=`<div class="reel-player-title">${typeof escapeHTML==='function'?escapeHTML(frame.title):frame.title}</div><div class="reel-player-tools"><button type="button" class="reel-player-cog" id="reelHardCog" aria-label="Player settings">⚙</button></div>`;
+ 10272	    wrap.appendChild(title);
+ 10273	
+ 10274	    frame.addEventListener('load',()=>{clear();setStatus(`${source.label} loaded`,true);setTimeout(()=>{try{const rate=Number(localStorage.getItem('reel_speed')||1);frame.contentWindow?.postMessage({action:'setPlaybackRate',value:rate},'*');frame.contentWindow?.postMessage({type:'setPlaybackRate',rate},'*')}catch(e){}},800)});
+ 10275	    frame.addEventListener('error',()=>{clear();setStatus(`${source.label} failed`);if(localStorage.getItem('reel_auto_fallback')!=='false')nextSource()});
+ 10276	    // Do not switch sources merely because the iframe takes a while to load.
+ 10277	    // Third-party players can spend longer than 10s negotiating the stream, and
+ 10278	    // restarting here makes buffering worse by throwing away a healthy session.
+ 10279	    timer=setTimeout(()=>{setStatus(`${source.label} is taking a while to start…`);},30000);
+ 10280	
+ 10281	    const cog=title.querySelector('#reelHardCog');
+ 10282	    cog.onclick=(e)=>{e.preventDefault();e.stopPropagation(); if(typeof reelOpenPlayerSettings==='function') reelOpenPlayerSettings(); else if(typeof buildPlayerSettings==='function'){buildPlayerSettings();const p=wrap.querySelector('#reelV5SettingsPanel');if(p)p.classList.add('open')}};
+ 10283	  }
+ 10284	  function nextSource(){clear(); if(attempt+1>=REEL_SOURCES.length){setStatus('All player sources failed');return} openFrame(attempt+1,0)}
+ 10285	
+ 10286	  // Mark the player as optimized so other legacy wrappers do not
+ 10287	  // repeatedly rebuild the iframe while it is already loading.
+ 10288	  window.reelBufferingOptimized=true;
+ 10289	
+ 10290	  window.reelHardPlay = function(film, season, episode){
+ 10291	    if(!film || !film.tmdbId)return;
+ 10292	    window.currentShow=film;
+ 10293	    try { currentShow=film; } catch(e){}
+ 10294	    if(film.type==='tv'){
+ 10295	      try { currentSeason=Number(season)||1; currentEpisode=Number(episode)||1; } catch(e){}
+ 10296	    }
+ 10297	    try { addToLibrary(film,true); saveCurrentProgress(); } catch(e){}
+ 10298	    const overlay=document.getElementById('watchOverlay');
+ 10299	    const wrap=document.getElementById('videoWrap');
+ 10300	    if(!overlay||!wrap)return;
+ 10301	    overlay.classList.add('open','player-only');
+ 10302	    document.body.classList.add('reel-player-open');
+ 10303	    document.body.style.overflow='hidden';
+ 10304	    const wt=document.getElementById('watchTitle'); if(wt)wt.textContent=film.title||'Reel';
+ 10305	    const wd=document.getElementById('watchDescription'); if(wd)wd.textContent=film.desc||'';
+ 10306	    const poster=document.getElementById('watchPoster'); if(poster)poster.style.display='none';
+ 10307	    const trailer=document.getElementById('trailerFrame'); if(trailer){trailer.style.display='none';trailer.innerHTML=''}
+ 10308	    const tb=document.getElementById('trailerButton'); if(tb)tb.style.display='none';
+ 10309	    const tc=document.getElementById('tvControls'); if(tc)tc.classList.remove('show');
+ 10310	    const ei=document.getElementById('episodeInfo'); if(ei)ei.style.display='none';
+ 10311	    const start=sourceStart();
+ 10312	    openFrame(start,Number(currentPlayerTime)||0);
+ 10313	  };
+ 10314	
+ 10315	  // Make the detail-page Play button use the repaired path.
+ 10316	  window.playDetailFilm = function(){
+ 10317	    const film=window.currentDetailFilm || (typeof currentDetailFilm!=='undefined'?currentDetailFilm:null);
+ 10318	    if(!film)return;
+ 10319	    let season=1,episode=1;
+ 10320	    try{const saved=ensureSavedProgressKey(film);season=Number(saved?.season)||1;episode=Number(saved?.episode)||1}catch(e){}
+ 10321	    try{closeDetail()}catch(e){const p=document.getElementById('detailPage');p?.classList.remove('open')}
+ 10322	    reelHardPlay({...film},season,episode);
+ 10323	  };
+ 10324	  window.playDetailEpisode = function(season,episode){
+ 10325	    const film=window.currentDetailFilm || (typeof currentDetailFilm!=='undefined'?currentDetailFilm:null);
+ 10326	    if(!film)return;
+ 10327	    try{closeDetail()}catch(e){}
+ 10328	    reelHardPlay({...film},Number(season)||1,Number(episode)||1);
+ 10329	  };
+ 10330	  window.playFilmFromCard = function(id){
+ 10331	    const all=[...(typeof allFilms!=='undefined'?allFilms:[]),...(typeof movies!=='undefined'?movies:[]),...(typeof discoverItems!=='undefined'?discoverItems:[]),...(typeof watchlist!=='undefined'?watchlist:[]),...(typeof library!=='undefined'?library:[]),...(typeof favorites!=='undefined'?favorites:[])];
+ 10332	    const film=all.find(x=>Number(x.id)===Number(id)||Number(x.tmdbId)===Number(id));
+ 10333	    if(film)reelHardPlay({...film});
+ 10334	  };
+ 10335	  window.reelTryNextSource=nextSource;
+ 10336	})();
+ 10337	</script>
+ 10338	
+ 10339	
+ 10340	
+ 10341	
+ 10342	<!-- ============================================================
+ 10343	     REEL PROFESSIONAL V4
+ 10344	     Live TV + robust Continue Watching + player cleanup
+ 10345	============================================================ -->
+ 10346	<style id="reel-v4-style">
+ 10347	/* The app/header must not show the old global settings popup. */
+ 10348	#settingsCog,#reelCogMenu{display:none!important}
+ 10349	
+ 10350	/* Live TV */
+ 10351	.live-tv-shell{display:grid;gap:22px}
+ 10352	.live-tv-hero{position:relative;min-height:340px;border-radius:18px;overflow:hidden;background:#05070a;border:1px solid var(--line);display:grid;grid-template-columns:minmax(0,1.4fr) minmax(260px,.7fr);align-items:end}
+ 10353	.live-tv-hero-bg{position:absolute;inset:0;background:radial-gradient(circle at 72% 28%,rgba(227,178,60,.2),transparent 38%),linear-gradient(90deg,rgba(5,7,10,.96) 0%,rgba(5,7,10,.72) 48%,rgba(5,7,10,.3) 100%);pointer-events:none}
+ 10354	.live-tv-hero-copy{position:relative;z-index:2;padding:38px;max-width:720px}
+ 10355	.live-tv-kicker{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:10px}
+ 10356	.live-tv-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(48px,7vw,86px);line-height:.9;margin-bottom:14px}
+ 10357	.live-tv-subtitle{color:var(--muted);line-height:1.6;max-width:620px}
+ 10358	.live-tv-now{position:relative;z-index:2;margin:24px 24px 24px 0;align-self:stretch;min-height:290px;border:1px solid rgba(255,255,255,.12);border-radius:14px;background:rgba(12,15,20,.8);backdrop-filter:blur(12px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+ 10359	.live-tv-now video{width:100%;height:100%;object-fit:contain;background:#000}
+ 10360	.live-tv-now-empty{padding:28px;text-align:center;color:var(--muted);font-family:'JetBrains Mono',monospace;font-size:11px}
+ 10361	.live-tv-toolbar{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+ 10362	.live-tv-search{flex:1;min-width:220px;height:42px;padding:0 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);outline:none}
+ 10363	.live-tv-select{height:42px;padding:0 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--text);min-width:160px}
+ 10364	.live-tv-status{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+ 10365	.live-tv-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px}
+ 10366	.live-channel{position:relative;min-height:128px;padding:16px;display:flex;flex-direction:column;justify-content:flex-end;gap:8px;text-align:left;border:1px solid var(--line);border-radius:12px;background:linear-gradient(145deg,var(--surface),var(--surface-2));color:var(--text);overflow:hidden;transition:transform .18s,border-color .18s,box-shadow .18s;cursor:pointer}
+ 10367	.live-channel:hover{transform:translateY(-3px);border-color:var(--gold);box-shadow:0 12px 30px rgba(0,0,0,.28)}
+ 10368	.live-channel-logo{position:absolute;top:14px;left:14px;width:72px;height:42px;object-fit:contain;object-position:left center}
+ 10369	.live-channel-name{font-weight:700;font-size:13px;max-width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ 10370	.live-channel-meta{font-size:10px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+ 10371	.live-badge{position:absolute;right:12px;top:12px;padding:4px 7px;border-radius:999px;background:rgba(193,68,61,.9);font-size:9px;font-weight:800;letter-spacing:.08em}
+ 10372	.live-tv-empty{padding:50px 20px;text-align:center;border:1px dashed var(--line);border-radius:12px;color:var(--muted);font-family:'JetBrains Mono',monospace}
+ 10373	
+ 10374	/* Player: match the clean reference layout — back left, title centered, cog right. */
+ 10375	#videoWrap .reel-live-player{width:100%!important;height:100%!important;display:block;background:#000;object-fit:contain}
+ 10376	#watchOverlay.player-only .player-close{left:18px!important;right:auto!important;top:16px!important;width:44px!important;height:44px!important;border-radius:50%!important;background:rgba(0,0,0,.68)!important;border:1px solid rgba(255,255,255,.22)!important;font-size:23px!important;z-index:2147483647!important}
+ 10377	#watchOverlay.player-only .reel-player-toolbar{top:16px!important;left:16px!important;right:16px!important;height:44px!important;z-index:2147483646!important;pointer-events:none!important}
+ 10378	#watchOverlay.player-only .reel-player-title{left:50%!important;top:0!important;transform:translateX(-50%)!important}
+ 10379	#watchOverlay.player-only .reel-player-tools{right:0!important;top:0!important;z-index:2147483647!important}
+ 10380	#watchOverlay.player-only .reel-player-cog{width:44px!important;height:44px!important;border-radius:50%!important;display:grid!important;place-items:center!important;background:rgba(0,0,0,.68)!important;border:1px solid rgba(255,255,255,.22)!important;z-index:2147483647!important}
+ 10381	#watchOverlay.player-only #reelV5SettingsPanel{top:72px!important;right:18px!important;z-index:2147483647!important}
+ 10382	
+ 10383	/* Off-screen performance */
+ 10384	main .section.tab-active .home-row,.live-tv-grid,.continue-grid,.discover-grid,.watchlist-grid,.library-grid{content-visibility:auto;contain-intrinsic-size:400px}
+ 10385	main .section.tab-active .hcard,main .section.tab-active .continue-card,main .section.tab-active .cast-card,main .section.tab-active .episode-grid-card{contain:content}
+ 10386	
+ 10387	@media(max-width:900px){.live-tv-hero{grid-template-columns:1fr}.live-tv-now{margin:0 20px 20px;min-height:220px}.live-tv-hero-copy{padding:28px}.live-tv-grid{grid-template-columns:repeat(auto-fill,minmax(150px,1fr))}}
+ 10388	@media(max-width:700px){.live-tv-title{font-size:56px}.live-tv-toolbar{align-items:stretch}.live-tv-search,.live-tv-select{width:100%;min-width:0}.live-tv-grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.live-channel{min-height:112px;padding:12px}.live-channel-logo{width:60px;height:34px}}
+ 10389	</style>
+ 10390	
+ 10391	<script id="reel-v4-js">
+ 10392	(function(){
+ 10393	  'use strict';
+ 10394	
+ 10395	  /* ------------------------------------------------------------
+ 10396	     1) LIVE TV — iptv-org public playlists
+ 10397	  ------------------------------------------------------------ */
+ 10398	  const LIVE_COUNTRIES = [
+ 10399	    ['au','Australia'],['us','United States'],['gb','United Kingdom'],
+ 10400	    ['ca','Canada'],['nz','New Zealand'],['de','Germany'],['fr','France'],
+e@leg ~ % 
