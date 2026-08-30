@@ -1,43 +1,7 @@
-e@leg Documents % clear
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-e@leg Documents % ps -p 22119 -o pid,command
-  PID COMMAND
-22119 /opt/homebrew/Cellar/python@3.14/3.14.6/Frameworks/Python.framework/Versi
-e@leg Documents % curl -i http://127.0.0.1:8080/
-HTTP/1.0 200 OK
-Server: SimpleHTTP/0.6 Python/3.14.6
-Date: Sun, 30 Aug 2026 04:16:14 GMT
-Content-type: text/html
-Content-Length: 304921
-Last-Modified: Fri, 28 Aug 2026 11:57:50 GMT
-
-x<!-- Reel Professional v1 build -->
 <!DOCTYPE html>
+<!-- Reel Professional v1 build -->
 <html lang="en">
 <head>
-
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -3197,6 +3161,73 @@ header .nav > .btn{
 <link rel="preconnect" href="https://cinesrc.st" crossorigin>
 <link rel="preconnect" href="https://vidfast.to" crossorigin>
 
+
+<style id="reel-vidrift-visible-fix">
+/* Ensure the custom HLS video has a real, visible rendering box. */
+#watchOverlay #videoWrap.reel-custom-hls-wrap {
+  position: relative !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  aspect-ratio: 16 / 9 !important;
+  height: auto !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background: #000 !important;
+  overflow: hidden !important;
+}
+#watchOverlay #videoWrap.reel-custom-hls-wrap > video.reel-custom-video,
+#watchOverlay #videoWrap.reel-custom-hls-wrap > #reelCustomVideo {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  position: relative !important;
+  z-index: 2 !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-width: 0 !important;
+  min-height: 0 !important;
+  max-width: 100% !important;
+  max-height: 100% !important;
+  object-fit: contain !important;
+  background: #000 !important;
+}
+#watchOverlay.player-only #videoWrap.reel-custom-hls-wrap {
+  width: 100vw !important;
+  height: 100vh !important;
+  min-height: 100vh !important;
+  aspect-ratio: auto !important;
+}
+#watchOverlay.player-only #videoWrap.reel-custom-hls-wrap > video.reel-custom-video,
+#watchOverlay.player-only #videoWrap.reel-custom-hls-wrap > #reelCustomVideo {
+  width: min(98vw, 177.7778vh) !important;
+  height: min(98vh, 55.125vw) !important;
+  max-width: 98vw !important;
+  max-height: 98vh !important;
+  flex: 0 0 auto !important;
+}
+</style>
+
+<style id="reel-custom-hls-controls-fix">
+.reel-custom-hls-wrap {
+  position: relative !important;
+  overflow: hidden !important;
+}
+.reel-custom-hls-wrap video {
+  display: block !important;
+  pointer-events: auto !important;
+  z-index: 10 !important;
+}
+.reel-custom-settings {
+  opacity: .9;
+}
+.reel-custom-settings:hover {
+  opacity: 1;
+  transform: scale(1.05);
+}
+</style>
+
 </head>
 
 <body>
@@ -3509,6 +3540,14 @@ header .nav > .btn{
           <span id="liveTvDetectStatus">Checking for live games…</span>
         </div>
         <button type="button" class="btn btn-ghost" id="liveTvRefreshBtn">↻ Refresh</button>
+      </div>
+      <div class="reel-live-search">
+        <div class="reel-live-search-wrap">
+          <span class="reel-live-search-icon">⌕</span>
+          <input id="liveTvSearchInput" class="reel-live-search-input" type="search" autocomplete="off" placeholder="Search live games, teams or sports…" aria-label="Search live games, teams or sports">
+          <button type="button" class="reel-live-search-clear" id="liveTvSearchClear" aria-label="Clear live game search" hidden>×</button>
+        </div>
+        <span class="reel-live-search-count" id="liveTvSearchCount"></span>
       </div>
       <div class="reel-live-games" id="liveTvGames">
         <div class="reel-live-games-empty">Looking for games that are live now…</div>
@@ -9304,7 +9343,7 @@ initHomeRowControls();
 loadHomeRows();
 loadHeroCarousel();
 
-initBooks();
+if(typeof window.initBooks === 'function'){ window.initBooks(); }
 
 </script>
 
@@ -10150,6 +10189,63 @@ main,section,.hero{scroll-margin-top:var(--reel-header-space)!important}
   }
   function clear(){if(timer){clearTimeout(timer);timer=null}}
   function openFrame(sourceIndex, startTime){
+    // [Reel] TV: trying Custom HLS before normal sources
+    // Custom HLS gets first chance for TV episodes. If it cannot resolve
+    // a stream, normal source routing remains available.
+    try {
+      const customSource =
+        localStorage.getItem('reel_player_source') === 'custom_hls';
+
+      const tvFilm =
+        typeof getFilm === 'function' ? getFilm() : null;
+
+      const tvSeason =
+        typeof getSeason === 'function' ? Number(getSeason()) || 1 : 1;
+
+      const tvEpisode =
+        typeof getEpisode === 'function' ? Number(getEpisode()) || 1 : 1;
+
+      const isTV =
+        tvFilm &&
+        (tvFilm.type === 'tv' ||
+         typeof currentShow !== 'undefined' && currentShow);
+
+      if (
+        customSource &&
+        isTV &&
+        typeof playCustom === 'function'
+      ) {
+        console.log(
+          '[Reel] TV: trying Custom HLS before normal sources',
+          tvFilm?.title,
+          tvSeason,
+          tvEpisode
+        );
+
+        Promise.resolve(
+          playCustom(
+            tvFilm,
+            tvSeason,
+            tvEpisode,
+            Number(startTime) || 0
+          )
+        ).catch(err => {
+          console.warn(
+            '[Reel] Custom HLS TV playback failed; normal source routing remains available.',
+            err
+          );
+        });
+
+        return;
+      }
+    } catch (err) {
+      console.warn(
+        '[Reel] Custom HLS TV routing check failed:',
+        err
+      );
+    }
+
+
     const film=filmNow();
     const wrap=document.getElementById('videoWrap');
     if(!film || !film.tmdbId || !wrap)return;
@@ -10677,6 +10773,77 @@ main .section.tab-active .hcard,main .section.tab-active .continue-card,main .se
 header .navlinks a{border-radius:999px !important;}
 header .navlinks a.active{border-radius:999px !important;}
 </style>
+<style id="reel-test-streams-css">
+#reelTestStreams{position:fixed;right:18px;bottom:18px;z-index:99999;display:none;background:rgba(23,27,35,.98);border:1px solid #2A303D;border-radius:14px;padding:12px;box-shadow:0 18px 50px rgba(0,0,0,.5);width:260px}
+#reelTestStreams.open{display:block}
+#reelTestStreams h3{font-size:13px;margin-bottom:8px}
+#reelTestStreams p{font-size:10px;color:#838B99;line-height:1.4;margin-bottom:10px}
+#reelTestStreams button{display:block;width:100%;margin:6px 0;padding:9px 10px;border-radius:9px;border:1px solid #2A303D;background:#1E2330;color:#F5F1E8;text-align:left;cursor:pointer}
+#reelTestStreams button:hover{border-color:#E3B23C}
+</style>
+<div id="reelTestStreams" aria-label="Reel HLS test streams">
+  <h3>Reel HLS tests</h3>
+  <p>Direct master playlists supplied for player testing.</p>
+  <button type="button" data-reel-test="The Odyssey">▶ The Odyssey</button>
+  <button type="button" data-reel-test="Spider-Man: Brand New Day">▶ Spider-Man: Brand New Day</button>
+</div>
+<script>
+(function(){
+  const panel=document.getElementById('reelTestStreams');
+  function sync(){if(panel)panel.classList.toggle('open',location.hash==='#reel-test-streams')}
+  window.addEventListener('hashchange',sync); sync();
+  panel?.querySelectorAll('[data-reel-test]').forEach(b=>b.addEventListener('click',()=>{
+    const title=b.getAttribute('data-reel-test');
+    if(window.reelCustomHls?.playTest){
+      localStorage.setItem('reel_player_source','custom_hls');
+      window.reelCustomHls.playTest(title).catch(console.error);
+    }
+  }));
+})();
+</script>
+<script id="reel-vidrift-primary-override">
+(function(){
+  'use strict';
+  function titleMatchesVidrift(film){
+    if(!film) return false;
+    if(film.type !== 'tv' && typeof window.reelVidriftHlsUrl==='function'){
+      var movieId=film.tmdbId ?? film.tmdb_id ?? film.id;
+      if(/^\d+$/.test(String(movieId||'').trim())) return true;
+    }
+    var t=String(film.title||'').trim();
+    return typeof window.reelVidriftHlsUrl==='function' && !!(
+      /the\s+odyssey/i.test(t) ||
+      /spider-man\s*:\s*brand\s+new\s+day/i.test(t) ||
+      /spiderman\s+brand\s+new\s+day/i.test(t)
+    );
+  }
+  function playVidriftIfAvailable(film,season,episode,startTime){
+    if(!titleMatchesVidrift(film) || !window.reelCustomHls || typeof window.reelCustomHls.play!=='function') return false;
+    window.currentShow=film;
+    try { currentShow=film; } catch(e){}
+    if(film.type==='tv'){
+      try { currentSeason=Number(season)||1; currentEpisode=Number(episode)||1; } catch(e){}
+    }
+    return window.reelCustomHls.play(film,Number(season)||1,Number(episode)||1,Number(startTime)||0);
+  }
+  var original=window.reelHardPlay;
+  if(typeof original==='function' && !original.__vidriftPrimary){
+    var wrapped=function(film,season,episode,startTime){
+      if(playVidriftIfAvailable(film,season,episode,startTime)) return;
+      return original.apply(this,arguments);
+    };
+    wrapped.__vidriftPrimary=true;
+    window.reelHardPlay=wrapped;
+  }
+  // Ensure the test buttons always use the custom HLS player directly.
+  if(window.reelCustomHls && typeof window.reelCustomHls.playTest==='function'){
+    var oldTest=window.reelCustomHls.playTest;
+    window.reelCustomHls.playTest=function(title){
+      return oldTest.call(this,title);
+    };
+  }
+})();
+</script>
 </body>
 
 <style id="reel-v7-cog-nav-fix">
@@ -11259,11 +11426,103 @@ header .nav > .btn.btn-primary{
 </style>
 
 <!-- Reel custom HLS player -->
+
+<style id="reel-custom-hls-ui-polish">
+/* Custom HLS: match Reel's normal player controls */
+#watchOverlay #videoWrap.reel-custom-hls-wrap .reel-player-toolbar{
+  position:absolute !important;
+  top:16px !important;
+  left:16px !important;
+  right:16px !important;
+  height:44px !important;
+  z-index:2147483646 !important;
+  pointer-events:none !important;
+  display:flex !important;
+  align-items:center !important;
+  justify-content:space-between !important;
+}
+
+#watchOverlay #videoWrap.reel-custom-hls-wrap .reel-player-title{
+  pointer-events:auto !important;
+  padding:9px 14px !important;
+  border:1px solid rgba(255,255,255,.16) !important;
+  border-radius:12px !important;
+  background:rgba(10,12,16,.72) !important;
+  backdrop-filter:blur(12px) !important;
+  color:#fff !important;
+  font-size:13px !important;
+  font-weight:700 !important;
+  max-width:55vw !important;
+  overflow:hidden !important;
+  text-overflow:ellipsis !important;
+  white-space:nowrap !important;
+}
+
+#watchOverlay #videoWrap.reel-custom-hls-wrap .reel-player-tools{
+  pointer-events:auto !important;
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+}
+
+#watchOverlay #videoWrap.reel-custom-hls-wrap #reelCustomCog{
+  width:44px !important;
+  height:44px !important;
+  padding:0 !important;
+  display:grid !important;
+  place-items:center !important;
+  border-radius:50% !important;
+  border:1px solid rgba(255,255,255,.22) !important;
+  background:rgba(0,0,0,.68) !important;
+  color:#fff !important;
+  font-size:18px !important;
+  cursor:pointer !important;
+  transition:transform .18s ease,border-color .18s ease,background .18s ease !important;
+}
+
+#watchOverlay #videoWrap.reel-custom-hls-wrap #reelCustomCog:hover{
+  transform:rotate(25deg) !important;
+  border-color:var(--gold) !important;
+  background:rgba(20,20,20,.9) !important;
+}
+
+#watchOverlay #videoWrap.reel-custom-hls-wrap .player-close{
+  position:absolute !important;
+  left:18px !important;
+  right:auto !important;
+  top:16px !important;
+  width:44px !important;
+  height:44px !important;
+  z-index:2147483647 !important;
+}
+
+/* Keep status/buffer indicators clean and out of the native controls */
+#watchOverlay #videoWrap.reel-custom-hls-wrap .reel-custom-status,
+#watchOverlay #videoWrap.reel-custom-hls-wrap .reel-buffer-ahead{
+  bottom:22px !important;
+  z-index:2147483640 !important;
+}
+
+/* Fullscreen custom player */
+#watchOverlay.player-only #videoWrap.reel-custom-hls-wrap .reel-player-title{
+  position:absolute !important;
+  left:50% !important;
+  transform:translateX(-50%) !important;
+}
+
+@media(max-width:700px){
+  #watchOverlay #videoWrap.reel-custom-hls-wrap .reel-player-title{
+    display:none !important;
+  }
+}
+</style>
+
 <style id="reel-custom-hls-player-css">
 #videoWrap.reel-custom-hls-wrap{background:#000;position:relative}
 #videoWrap .reel-custom-video{width:100%;height:100%;display:block;background:#000;object-fit:contain}
 #videoWrap .reel-custom-status{position:absolute;left:18px;bottom:18px;z-index:130;padding:9px 12px;border-radius:10px;background:rgba(8,10,14,.82);border:1px solid rgba(255,255,255,.15);color:#fff;font:11px 'JetBrains Mono',monospace;pointer-events:none}
 #videoWrap .reel-custom-status.error{color:#ffaaa3;border-color:#c1443d}
+#videoWrap .reel-buffer-ahead{position:absolute;right:18px;bottom:18px;z-index:130;padding:9px 12px;border-radius:10px;background:rgba(8,10,14,.82);border:1px solid rgba(255,255,255,.15);color:#fff;font:11px 'JetBrains Mono',monospace;pointer-events:none}
 #videoWrap .reel-custom-url{position:absolute;left:18px;right:18px;bottom:58px;z-index:131;display:none;gap:8px}
 #videoWrap .reel-custom-url input{flex:1;min-width:0;background:rgba(10,12,16,.92);border:1px solid rgba(255,255,255,.18);border-radius:10px;color:#fff;padding:10px 12px;font-size:12px;outline:none}
 #videoWrap .reel-custom-url button{border:1px solid var(--gold);background:var(--gold);color:#111;border-radius:10px;padding:10px 14px;font-size:12px;font-weight:800}
@@ -11298,28 +11557,320 @@ header .nav > .btn.btn-primary{
     if(!el){el=document.createElement('div');el.className='reel-custom-status';w.appendChild(el)}
     el.textContent=text;el.classList.toggle('error',!!error);
   }
-  function destroy(){if(hls){try{hls.destroy()}catch(e){}hls=null}}
-  function promptUrl(){
-    const old=localStorage.getItem(URL_KEY)||'';
-    const url=window.prompt('Paste the direct .m3u8 stream URL for this movie/episode:',old);
-    if(url===null)return null;
-    const clean=url.trim();
-    if(!/^https?:\/\//i.test(clean)||!(/\.m3u8(?:[?#]|$)/i.test(clean))){alert('Please enter a direct .m3u8 URL.');return null}
-    localStorage.setItem(URL_KEY,clean);return clean;
+  function getHlsProxyUrl(sourceUrl){
+    const configured=localStorage.getItem('reel_hls_proxy') || '';
+    if(!configured)return '';
+    try{
+      const u=new URL(configured,location.href);
+      u.searchParams.set('url',sourceUrl);
+      return u.href;
+    }catch(e){return ''}
   }
+  let hlsGeneration=0;
+  let hlsDestroyTimer=null;
+  function destroy(){
+    hlsGeneration++;
+    if(hlsDestroyTimer){clearTimeout(hlsDestroyTimer);hlsDestroyTimer=null}
+    const instance=hls;
+    hls=null;
+    if(instance){
+      try{instance.stopLoad()}catch(e){}
+      try{instance.detachMedia()}catch(e){}
+      try{instance.destroy()}catch(e){}
+    }
+  }
+  // Temporary local test catalog. These are the master HLS manifests you supplied
+  // for testing the custom player. Remove this block when the authorized resolver
+  // is connected.
+  // Vidrift test catalog: store IDs and generate the HLS URL automatically.
+  const TEST_VIDRIFT = [
+    { match: t => /the\s+odyssey/i.test(t), id: '1368337' },
+    { match: t => /spider-man\s*:\s*brand\s+new\s+day/i.test(t) || /spiderman\s+brand\s+new\s+day/i.test(t), id: '969681' }
+  ];
+
+  function vidriftHlsUrl(movieId){
+    const id=String(movieId||'').trim();
+    return /^\d+$/.test(id) ? `https://media.vidrift.in/movie_${id}/vod.m3u8` : '';
+  }
+
+  function getTestHls(title){
+    const item=TEST_VIDRIFT.find(x=>x.match(String(title||'')));
+    return item ? vidriftHlsUrl(item.id) : '';
+  }
+
+  // For movies, Vidrift uses the TMDB movie ID directly in the HLS path.
+  // Example: TMDB 969681 -> https://media.vidrift.in/movie_969681/vod.m3u8
+  function getVidriftMovieHls(film){
+    if(!film || film.type === 'tv') return '';
+    const id = film.tmdbId ?? film.tmdb_id ?? film.id;
+    return vidriftHlsUrl(id);
+  }
+
+  window.reelVidriftHlsUrl = vidriftHlsUrl;
+
+  async function resolveAuthorizedStream(film,season,episode){
+    const title=String(film?.title||'').trim();
+    const movieUrl=getVidriftMovieHls(film);
+    if(movieUrl)return movieUrl;
+    const testUrl=getTestHls(title);
+    if(testUrl)return testUrl;
+    if(!title)return '';
+    const key='reel_resolved_hls:'+title.toLowerCase().replace(/[^a-z0-9]+/g,'_')+':'+(Number(season)||0)+':'+(Number(episode)||0);
+    const cached=localStorage.getItem(key)||'';
+    if(cached && /^https?:\/\//i.test(cached) && /\.m3u8(?:[?#]|$)/i.test(cached)) return cached;
+
+    // Reel only asks your own/local resolver for a stream URL. It does not
+    // scrape third-party movie sites from the browser. The resolver should
+    // return JSON like: {"m3u8":"https://.../master.m3u8"}.
+    const base=localStorage.getItem('reel_stream_resolver') || '/api/resolve-stream';
+    const url=new URL(base,location.href);
+    url.searchParams.set('title',title);
+    if(film?.type==='tv'){url.searchParams.set('season',String(Number(season)||1));url.searchParams.set('episode',String(Number(episode)||1));}
+    url.searchParams.set('type',film?.type==='tv'?'tv':'movie');
+    try{
+      const controller=new AbortController();
+      const timer=setTimeout(()=>controller.abort(),12000);
+      const res=await fetch(url.href,{headers:{'Accept':'application/json'},cache:'no-store',signal:controller.signal});
+      clearTimeout(timer);
+      if(!res.ok)return '';
+      const data=await res.json();
+      const candidate=String(data?.m3u8||data?.url||'').trim();
+
+      const isDirectHls =
+        /^https?:\/\//i.test(candidate) &&
+        /\.m3u8(?:[?#]|$)/i.test(candidate);
+
+      const isVidriftProxy =
+        /^https?:\/\/embed\.vidrift\.in\/api\/proxy\/hls\?/i.test(candidate) &&
+        /(?:^|[?&])url=/i.test(candidate) &&
+        /m3u8/i.test(candidate);
+
+      if(isDirectHls || isVidriftProxy){
+        localStorage.setItem(key,candidate);
+        return candidate;
+      }
+
+    }catch(e){
+      console.info('Reel stream resolver unavailable; falling back to saved/manual HLS URL.',e);
+    }
+    return '';
+  }
+
   async function playCustom(film,season,episode,startTime){
-    const wrap=document.getElementById('videoWrap');if(!wrap)return;
+    const overlay=document.getElementById('watchOverlay');
+    const wrap=document.getElementById('videoWrap');
+    if(!overlay || !wrap){
+      console.error('[Reel] Custom HLS: watch overlay or videoWrap not found');
+      return;
+    }
+
+    // Always open Reel's existing player overlay before rendering Custom HLS.
+    // This prevents the HLS video from playing invisibly while Reel navigates
+    // back to the home page.
+    overlay.classList.add('open','player-only');
+    document.body.classList.add('reel-player-open');
+    document.body.style.overflow='hidden';
+
+    try{
+      const wt=document.getElementById('watchTitle');
+      if(wt) wt.textContent=film?.title || 'Reel';
+
+      const wd=document.getElementById('watchDescription');
+      if(wd) wd.textContent=film?.desc || '';
+
+      const poster=document.getElementById('watchPoster');
+      if(poster) poster.style.display='none';
+
+      const trailer=document.getElementById('trailerFrame');
+      if(trailer){
+        trailer.style.display='none';
+        trailer.innerHTML='';
+      }
+
+      const tb=document.getElementById('trailerButton');
+      if(tb) tb.style.display='none';
+
+      const tc=document.getElementById('tvControls');
+      if(tc) tc.classList.remove('show');
+
+      const ei=document.getElementById('episodeInfo');
+      if(ei) ei.style.display='none';
+    }catch(e){
+      console.warn('[Reel] Custom HLS overlay setup:',e);
+    }
+
     setSource();
-    let url=localStorage.getItem(URL_KEY)||'';
-    if(!url)url=promptUrl();
-    if(!url)return;
-    destroy();
+    let url=await resolveAuthorizedStream(film,season,episode);
+    if(!url){
+      status('Automatic resolver found no direct HLS stream. Trying your normal Reel sources…',false);
+      if(originalHardPlay){
+        const previous=localStorage.getItem('reel_previous_player_source')||'vidking';
+        localStorage.setItem('reel_player_source',previous);
+        return originalHardPlay.call(window,film,season,episode,startTime);
+      }
+      status('No automatic stream resolver is configured.',true);
+      return;
+    }
+    // Custom HLS cleanup: destroy only the previous HLS/video instance.
+    // Do NOT call Reel's generic destroy(), because that can close the watch
+    // overlay and return the user to the home page.
+    try {
+      if(typeof hls !== 'undefined' && hls){
+        try { hls.stopLoad(); } catch(e) {}
+        try { hls.detachMedia(); } catch(e) {}
+        try { hls.destroy(); } catch(e) {}
+        hls = null;
+      }
+    } catch(e) {
+      console.warn('[Reel] Custom HLS cleanup:', e);
+    }
+
     wrap.classList.add('reel-custom-hls-wrap');
     wrap.innerHTML='';
     const video=document.createElement('video');
-    video.id='reelCustomVideo';video.className='reel-custom-video';video.controls=true;video.playsInline=true;video.autoplay=true;video.preload='auto';
+    video.id='reelCustomVideo';
+video.className='reel-custom-video';
+video.controls=true;
+video.playsInline=true;
+video.autoplay=true;
+video.preload='auto';
+video.setAttribute('controls','controls');
+video.style.display='block';
+video.style.width='100%';
+video.style.height='100%';
+video.style.objectFit='contain';
+video.style.pointerEvents='auto';
+video.style.zIndex='10';
     video.title=film?.type==='tv'?`${film.title} - S${season} E${episode}`:(film?.title||'Reel');
     wrap.appendChild(video);
+
+    // Custom HLS settings button.
+    const customSettings=document.createElement('button');
+    customSettings.type='button';
+    customSettings.className='reel-custom-settings';
+    customSettings.textContent='⚙';
+    customSettings.title='Settings';
+
+    customSettings.style.cssText=
+      'position:absolute;right:18px;bottom:62px;z-index:40;width:44px;height:44px;' +
+      'border-radius:50%;border:1px solid rgba(255,255,255,.35);' +
+      'background:rgba(0,0,0,.8);color:white;font-size:20px;cursor:pointer;';
+
+    const settingsMenu=document.createElement('div');
+    settingsMenu.className='reel-custom-settings-menu';
+    settingsMenu.style.cssText=
+      'display:none;position:absolute;right:18px;bottom:115px;z-index:50;' +
+      'width:220px;padding:12px;border-radius:14px;' +
+      'background:rgba(20,20,20,.97);color:white;' +
+      'border:1px solid rgba(255,255,255,.18);' +
+      'box-shadow:0 10px 30px rgba(0,0,0,.5);font-family:inherit;';
+
+    const menuTitle=document.createElement('div');
+    menuTitle.textContent='Playback Settings';
+    menuTitle.style.cssText='font-weight:700;font-size:15px;margin-bottom:10px;';
+    settingsMenu.appendChild(menuTitle);
+
+    const speedLabel=document.createElement('div');
+    speedLabel.textContent='Speed';
+    speedLabel.style.cssText='font-size:12px;opacity:.65;margin:8px 0 5px;';
+    settingsMenu.appendChild(speedLabel);
+
+    const speedSelect=document.createElement('select');
+    speedSelect.style.cssText=
+      'width:100%;padding:8px;border-radius:8px;background:#111;color:white;' +
+      'border:1px solid #444;';
+
+    [0.5,0.75,1,1.25,1.5,1.75,2].forEach(rate=>{
+      const option=document.createElement('option');
+      option.value=rate;
+      option.textContent=rate+'×';
+      if(rate===1) option.selected=true;
+      speedSelect.appendChild(option);
+    });
+
+    speedSelect.onchange=()=>{
+      video.playbackRate=Number(speedSelect.value);
+    };
+
+    settingsMenu.appendChild(speedSelect);
+
+    const qualityLabel=document.createElement('div');
+    qualityLabel.textContent='Quality';
+    qualityLabel.style.cssText='font-size:12px;opacity:.65;margin:12px 0 5px;';
+    settingsMenu.appendChild(qualityLabel);
+
+    const qualitySelect=document.createElement('select');
+    qualitySelect.style.cssText=
+      'width:100%;padding:8px;border-radius:8px;background:#111;color:white;' +
+      'border:1px solid #444;';
+
+    const autoOption=document.createElement('option');
+    autoOption.value='auto';
+    autoOption.textContent='Auto';
+    qualitySelect.appendChild(autoOption);
+
+    function updateQualityOptions(){
+      if(typeof hls!=='undefined' && hls && Array.isArray(hls.levels)){
+        qualitySelect.innerHTML='';
+        const auto=document.createElement('option');
+        auto.value='-1';
+        auto.textContent='Auto';
+        qualitySelect.appendChild(auto);
+
+        hls.levels.forEach((level,index)=>{
+          const option=document.createElement('option');
+          option.value=String(index);
+          option.textContent=(level.height ? level.height+'p' : 'Level '+index);
+          qualitySelect.appendChild(option);
+        });
+
+        qualitySelect.value=String(
+          typeof hls.currentLevel==='number' ? hls.currentLevel : -1
+        );
+      }
+    }
+
+    qualitySelect.onchange=()=>{
+      if(typeof hls!=='undefined' && hls){
+        hls.currentLevel=Number(qualitySelect.value);
+      }
+    };
+
+    settingsMenu.appendChild(qualitySelect);
+
+    customSettings.onclick=(e)=>{
+      e.stopPropagation();
+      settingsMenu.style.display =
+        settingsMenu.style.display==='none' ? 'block' : 'none';
+      updateQualityOptions();
+    };
+
+    settingsMenu.onclick=e=>e.stopPropagation();
+
+    document.addEventListener('click',()=>{
+      settingsMenu.style.display='none';
+    });
+
+    wrap.appendChild(settingsMenu);
+    wrap.appendChild(customSettings);
+
+    const bufferBadge=document.createElement('div');
+    bufferBadge.className='reel-buffer-ahead';
+    bufferBadge.textContent='Buffered ahead: 0s';
+    wrap.appendChild(bufferBadge);
+    const updateBufferBadge=()=>{
+      try{
+        const t=video.currentTime||0;
+        let ahead=0;
+        for(let i=0;i<video.buffered.length;i++){
+          const a=video.buffered.start(i), b=video.buffered.end(i);
+          if(t>=a && t<=b){ahead=Math.max(0,b-t);break;}
+        }
+        bufferBadge.textContent='Buffered ahead: '+Math.floor(ahead)+'s';
+      }catch(e){}
+    };
+    video.addEventListener('progress',updateBufferBadge);
+    video.addEventListener('timeupdate',updateBufferBadge);
     const close=document.createElement('button');close.className='player-close';close.type='button';close.textContent='<';close.setAttribute('aria-label','Back');close.onclick=()=>{destroy();if(typeof closeWatch==='function')closeWatch()};wrap.appendChild(close);
     const bar=document.createElement('div');bar.className='reel-player-toolbar';bar.innerHTML=`<div class="reel-player-title">${typeof escapeHTML==='function'?escapeHTML(video.title):video.title}</div><div class="reel-player-tools"><button type="button" class="reel-player-cog" id="reelCustomCog" aria-label="Player settings">⚙</button></div>`;wrap.appendChild(bar);
     const cog=bar.querySelector('#reelCustomCog');cog.onclick=e=>{e.preventDefault();e.stopPropagation();if(typeof reelOpenPlayerSettings==='function')reelOpenPlayerSettings()};
@@ -11335,10 +11886,63 @@ header .nav > .btn.btn-primary{
       }else{
         const Hls=await ensureHls();
         if(!Hls||!Hls.isSupported())throw new Error('HLS is not supported in this browser');
-        hls=new Hls({enableWorker:true,lowLatencyMode:false,backBufferLength:90,maxBufferLength:30});
-        hls.loadSource(url);hls.attachMedia(video);
-        hls.on(Hls.Events.MANIFEST_PARSED,()=>{status('Custom HLS ready',false);video.play().catch(()=>{})});
-        hls.on(Hls.Events.ERROR,(_,data)=>{if(data?.fatal){status('HLS error: '+(data.details||'stream failed'),true);try{hls.destroy()}catch(e){}}});
+        // Aim for up to ~2 minutes of forward VOD buffering. Actual buffer
+        // depth is still limited by browser/network/memory and the playlist.
+        const generation=++hlsGeneration;
+        let triedProxy=false;
+        let instance=null;
+        let disposed=false;
+        const isCurrent=()=>!disposed && generation===hlsGeneration && hls===instance;
+        const safeDestroyCurrent=()=>{
+          if(disposed)return;
+          disposed=true;
+          if(hlsDestroyTimer){clearTimeout(hlsDestroyTimer);hlsDestroyTimer=null}
+          if(hls===instance)hls=null;
+          // Let any pending transmuxer message finish before tearing down the
+          // instance. This avoids hls.js callbacks touching a null instance.
+          try{instance.stopLoad()}catch(e){}
+          try{instance.detachMedia()}catch(e){}
+          hlsDestroyTimer=setTimeout(()=>{
+            try{instance.destroy()}catch(e){}
+            hlsDestroyTimer=null;
+          },0);
+        };
+        const createAndLoad=async(source,usingProxy=false)=>{
+          const HlsCtor=usingProxy ? await ensureHls() : Hls;
+          if(generation!==hlsGeneration)return;
+          instance=new HlsCtor({enableWorker:true,lowLatencyMode:false,backBufferLength:30,maxBufferLength:120,maxMaxBufferLength:120,maxBufferSize:0});
+          hls=instance;
+          const localInstance=instance;
+          const localIsCurrent=()=>!disposed && generation===hlsGeneration && hls===localInstance;
+          localInstance.attachMedia(video);
+          localInstance.on(HlsCtor.Events.MANIFEST_PARSED,()=>{
+            if(!localIsCurrent())return;
+            status(usingProxy?'Custom HLS ready (proxy)':'Custom HLS ready',false);
+            video.play().catch(()=>{});
+          });
+          localInstance.on(HlsCtor.Events.ERROR,(_,data)=>{
+            if(!localIsCurrent() || !data)return;
+            if(!data.fatal)return;
+            const detail=String(data.details||data.type||'stream failed');
+            const proxy=getHlsProxyUrl(url);
+            if(!triedProxy && proxy && /manifestLoadError|manifestLoadTimeOut|networkError/i.test(detail)){
+              triedProxy=true;
+              safeDestroyCurrent();
+              status('Direct HLS request failed; trying configured proxy…',false);
+              setTimeout(()=>{
+                if(generation!==hlsGeneration)return;
+                createAndLoad(proxy,true).catch(()=>{if(generation===hlsGeneration)status('HLS proxy error: '+detail,true)});
+              },0);
+              return;
+            }
+            // Do not destroy synchronously from an hls.js fatal-error callback:
+            // its transmuxer may still post a worker message.
+            status('HLS error: '+detail,true);
+            safeDestroyCurrent();
+          });
+          localInstance.loadSource(source);
+        };
+        await createAndLoad(url,false);
       }
     }catch(err){console.error(err);status('Could not load the custom HLS player.',true)}
   }
@@ -11357,8 +11961,8 @@ header .nav > .btn.btn-primary{
     if(!sel||sel.dataset.customHlsHook)return;sel.dataset.customHlsHook='1';addCustomOption(sel);
     sel.addEventListener('change',()=>{
       if(sel.value!==CUSTOM)return;
-      const url=promptUrl();
-      if(!url){sel.value=localStorage.getItem('reel_player_source')||'vidking';return}
+      const previous=localStorage.getItem('reel_player_source')||'vidking';
+      localStorage.setItem('reel_previous_player_source',previous);
       setSource();
       const film=getFilm();if(film)playCustom(film,getSeason(),getEpisode(),0);
     },true);
@@ -11378,7 +11982,44 @@ header .nav > .btn.btn-primary{
   const observer=new MutationObserver(()=>{patch();hookSelect(document.getElementById('reelV5Source'))});
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>{patch();observer.observe(document.body,{childList:true,subtree:true})});
   else {patch();observer.observe(document.body,{childList:true,subtree:true})}
-  window.reelCustomHls={play:playCustom,setUrl:url=>{localStorage.setItem(URL_KEY,String(url||''));setSource()},getUrl:()=>localStorage.getItem(URL_KEY)||'',clear:()=>{localStorage.removeItem(URL_KEY);if(sourceIsCustom())localStorage.setItem('reel_player_source','vidking')}};
+  window.playCustom = playCustom;
+
+  window.reelCustomHls={
+    testStreams:()=>TEST_HLS.map(x=>({url:x.url})),
+    playTest:(title)=>{
+      const item=TEST_HLS.find(x=>x.match(title));
+      if(!item) return Promise.reject(new Error('No test stream for '+title));
+      const overlay=document.getElementById('watchOverlay');
+      if(!overlay) return Promise.reject(new Error('Reel watch overlay was not found'));
+      // The test buttons live outside the normal movie-detail flow, so open
+      // the existing Reel player modal before playCustom() tries to use #videoWrap.
+      overlay.classList.add('open','player-only');
+      document.body.classList.add('reel-player-open');
+      document.body.style.overflow='hidden';
+      const wrap=document.getElementById('videoWrap');
+      if(wrap) wrap.innerHTML='<div class="loading">Loading '+String(title).replace(/[<>]/g,'')+'…</div>';
+      return playCustom({title,type:'movie'},1,1,0);
+    },
+    play:playCustom,
+    setUrl:url=>{localStorage.setItem(URL_KEY,String(url||''));setSource()},
+    getUrl:()=>localStorage.getItem(URL_KEY)||'',
+    setResolver:url=>localStorage.setItem('reel_stream_resolver',String(url||'')),
+    getResolver:()=>localStorage.getItem('reel_stream_resolver')||'/api/resolve-stream',
+    setHlsProxy:url=>localStorage.setItem('reel_hls_proxy',String(url||'')),
+    getHlsProxy:()=>localStorage.getItem('reel_hls_proxy')||'',
+    clearHlsProxy:()=>localStorage.removeItem('reel_hls_proxy'),
+    clear:()=>{localStorage.removeItem(URL_KEY);if(sourceIsCustom())localStorage.setItem('reel_player_source','vidking')}
+  };
+})();
+</script>
+
+<!-- Reel stream resolver helper: points at your own/local authorized resolver. -->
+<script id="reel-stream-resolver-helper">
+(function(){
+  const KEY='reel_stream_resolver';
+  const DEFAULT='/api/resolve-stream';
+  window.reelSetStreamResolver=function(url){localStorage.setItem(KEY,String(url||DEFAULT));return localStorage.getItem(KEY)};
+  window.reelGetStreamResolver=function(){return localStorage.getItem(KEY)||DEFAULT};
 })();
 </script>
 
@@ -11410,6 +12051,15 @@ header .nav > .btn.btn-primary{
 .reel-live-detect-head>div{display:flex;align-items:baseline;gap:10px;min-width:0}
 .reel-live-detect-head strong{font-size:13px}
 #liveTvDetectStatus{font:10px 'JetBrains Mono',monospace;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.reel-live-search{display:flex;align-items:center;gap:10px;margin:0 0 12px}
+.reel-live-search-wrap{position:relative;display:flex;align-items:center;flex:1;min-width:0}
+.reel-live-search-icon{position:absolute;left:12px;color:var(--muted);font-size:15px;line-height:1;pointer-events:none}
+.reel-live-search-input{width:100%;box-sizing:border-box;border:1px solid rgba(255,255,255,.09);border-radius:10px;background:rgba(0,0,0,.18);color:var(--text);padding:10px 38px 10px 32px;font:11px 'JetBrains Mono',monospace;outline:none}
+.reel-live-search-input:focus{border-color:rgba(240,190,50,.55);box-shadow:0 0 0 2px rgba(240,190,50,.08)}
+.reel-live-search-input::placeholder{color:var(--muted)}
+.reel-live-search-clear{position:absolute;right:8px;width:24px;height:24px;border:0;border-radius:7px;background:rgba(255,255,255,.08);color:var(--muted);font-size:17px;line-height:20px;cursor:pointer}
+.reel-live-search-clear:hover{background:rgba(255,255,255,.14);color:var(--text)}
+.reel-live-search-count{flex:0 0 auto;font:9px 'JetBrains Mono',monospace;color:var(--muted);white-space:nowrap}
 .reel-live-games{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px}
 .reel-live-game{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px;border:1px solid rgba(255,255,255,.08);border-radius:12px;background:rgba(0,0,0,.16);min-width:0}
 .reel-live-game-main{min-width:0}
@@ -11426,10 +12076,11 @@ header .nav > .btn.btn-primary{
 (function(){
   'use strict';
   const KEY='reel_live_tv_embed_url';
-  const DEFAULT_EMBED='https://embedindia.st/embed/cricket/2026-08-28/eng-pak';
+  const DEFAULT_EMBED='';
   const DEFAULT_HLS='https://vishnu.indianservers.st/secure/QeyfLgGPVgyicfKjfuqPadRFCnfPbFgt/1787900400/1787954400/skycricket/tracks-v1a1/mono.ts.m3u8';
   const DETECT_INTERVAL=120000;
-  const BLOGGER_FEED='https://bintv-nett.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=50';
+  const BLOGGER_FEED='https://bintv-nett.blogspot.com/feeds/posts/default?alt=json-in-script&max-results=150';
+  const BINTV_HOME='https://www.bintv.cc/';
   const LIVE_DETECT_KEY='reel_live_tv_detect_enabled';
   const input=document.getElementById('liveTvEmbedInput');
   const iframe=document.getElementById('liveTvIframe');
@@ -11568,399 +12219,161 @@ header .nav > .btn.btn-primary{
 
   const saved=localStorage.getItem(KEY)||'';
   if(saved){input.value=saved;load(saved)}
-  else {input.value=DEFAULT_EMBED;setStatus('Embed ready · click Load Embed')}
+  else {input.value='';setStatus('Waiting for a live game…')}
 
   // ------------------------------------------------------------
   // Automatic live-game detection
-  // Uses the public Blogger JSONP feed so a static Reel.html can
-  // discover new BINTV posts without needing a backend/proxy.
-  // It extracts EmbedIndia live-sports URLs and turns them into cards.
+  // Reel asks the local Live TV API for BINTV's current event list.
+  // This avoids CORS/file:// limitations of scraping BINTV directly.
+  // Start live_tv_api.py (or start-live-tv-api.command on macOS).
   // ------------------------------------------------------------
   const gamesEl=document.getElementById('liveTvGames');
   const detectStatus=document.getElementById('liveTvDetectStatus');
+  const searchInput=document.getElementById('liveTvSearchInput');
+  const searchClear=document.getElementById('liveTvSearchClear');
+  const searchCount=document.getElementById('liveTvSearchCount');
+  const LIVE_API='http://127.0.0.1:8787';
   let detectTimer=null;
-  let jsonpCounter=0;
+  let allLiveGames=[];
+  let liveGameSearch='';
 
-  function htmlDecode(text){
-    const t=document.createElement('textarea'); t.innerHTML=text||''; return t.value;
-  }
-  function cleanText(text){
-    const tmp=document.createElement('div'); tmp.innerHTML=htmlDecode(text||'');
-    return (tmp.textContent||tmp.innerText||'').replace(/\s+/g,' ').trim();
-  }
-  function normalizeEmbedUrl(raw){
+  // The standalone Reel HTML does not require the old Live TV API.
+  // If a user later configures an API URL, this helper can use it; otherwise
+  // the detector stays quiet instead of throwing a ReferenceError.
+  async function fetchLiveApi(force=false){
+    const configured=(localStorage.getItem('reel_live_api_url')||'').trim().replace(/\/$/,'');
+    if(!configured){
+      return {games:[],source:'standalone',error:'Live TV API not configured'};
+    }
+    const endpoint=configured + '/api/live-games' + (force?'?force=1':'');
+    const controller=new AbortController();
+    const timer=setTimeout(()=>controller.abort(),10000);
     try{
-      let text=htmlDecode(String(raw||'')).trim();
-      // BINTV links wrap the real provider URL in ?src=... .
-      // Example: bintv-nett.blogspot.com/?src=https%3A%2F%2Fembedindia.st%2Fembed%2Ffootball%2F...
-      for(let i=0;i<3;i++){
-        let u=new URL(text,location.href);
-        const wrapped=u.searchParams.get('src') || u.searchParams.get('url') || u.searchParams.get('embed');
-        if(wrapped){ text=decodeURIComponent(wrapped); continue; }
-        u.hash='';
-        return u.href;
-      }
-      return '';
-    }catch(e){return '';}
+      const res=await fetch(endpoint,{headers:{'Accept':'application/json'},cache:'no-store',signal:controller.signal});
+      if(!res.ok) throw new Error('HTTP '+res.status);
+      const data=await res.json();
+      return data && typeof data==='object' ? data : {games:[]};
+    }finally{
+      clearTimeout(timer);
+    }
+  }
+  window.fetchLiveApi = fetchLiveApi;
+
+  function sportFromText(text){
+    const t=String(text||'').toLowerCase();
+    const map=[
+      ['american football','american football'],['australian rules','australian rules'],
+      ['formula 1','motorsport'],['formula one','motorsport'],['motogp','motorsport'],
+      ['ice hockey','hockey'],['table tennis','table tennis'],['mixed martial arts','mma'],
+      ['football','football'],['soccer','football'],['basketball','basketball'],['tennis','tennis'],
+      ['cricket','cricket'],['baseball','baseball'],['hockey','hockey'],['rugby league','rugby league'],
+      ['rugby','rugby'],['motorsport','motorsport'],['boxing','boxing'],['mma','mma'],['ufc','mma'],
+      ['golf','golf'],['volleyball','volleyball'],['wrestling','wrestling'],['wwe','wrestling'],
+      ['darts','darts'],['snooker','snooker'],['table tennis','table tennis'],['esports','esports'],
+      ['cycling','cycling'],['handball','handball'],['badminton','badminton']
+    ];
+    for(const [needle,sport] of map) if(t.includes(needle)) return sport;
+    return '';
   }
   function sportFromUrl(url){
     const m=String(url||'').match(/embedindia\.st\/embed\/([^/?#]+)\//i);
-    if(!m)return '';
-    return decodeURIComponent(m[1]).replace(/[-_]+/g,' ').trim().toLowerCase();
-  }
-  function isEmbedIndiaSportUrl(url){
-    return /^https?:\/\/[^/]*embedindia\.st\/embed\/[^/?#]+\//i.test(String(url||''));
-  }
-  function addCandidate(url,set){
-    const u=normalizeEmbedUrl(url);
-    if(isEmbedIndiaSportUrl(u)) set.add(u);
-  }
-  function extractGameLinks(entry){
-    const html=entry?.content?.$t || entry?.summary?.$t || '';
-    const title=cleanText(entry?.title?.$t || 'Live game');
-    const urls=new Set();
-    const hrefRe=/href\s*=\s*["']([^"']+)["']/gi;
-    let m;
-    while((m=hrefRe.exec(html))) addCandidate(m[1],urls);
-    // Some BINTV cards use the wrapper URL as plain text. Extract both the
-    // wrapper and its encoded src parameter.
-    const plainRe=/https?:\/\/[^\s"'<>]+/gi;
-    while((m=plainRe.exec(htmlDecode(html)))) addCandidate(m[0],urls);
-    // Also inspect the entry's own links, not just post HTML.
-    (entry?.link||[]).forEach(link=>addCandidate(link?.href,urls));
-    return [...urls].map(url=>({title,url,entryUrl:(entry?.link||[]).find(x=>x.rel==='alternate')?.href||''}));
-  }
-  function parseGameTitle(title,url){
-    let t=title||'';
-    try{
-      const u=new URL(url);
-      const qTitle=u.searchParams.get('title') || u.searchParams.get('name');
-      if(qTitle && qTitle.length>2) t=qTitle;
-    }catch(e){}
-    if(/^live game$/i.test(t)||t.length<3){
-      const m=url.match(/\/embed\/[^/?#]+\/([^/?#]+)/i);
-      const part=m?.[1]||'';
-      t=part.replace(/[-_]+/g,' ').replace(/\b\w/g,c=>c.toUpperCase());
-    }
-    return t;
+    return m ? decodeURIComponent(m[1]).replace(/[-_]+/g,' ').trim().toLowerCase() : '';
   }
   function isTodayGame(url){
-    const m=url.match(/\/embed\/[^/?#]+\/(\d{4}-\d{2}-\d{2})(?:\/|$)/i);
+    const m=String(url||'').match(/\/embed\/[^/?#]+\/(\d{4}-\d{2}-\d{2})(?:\/|$)/i);
     if(!m)return false;
     const d=new Date();
     const today=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
     return m[1]===today;
   }
+  function gameSearchText(g){
+    return [g?.title,g?.sport,g?.league,g?.category,g?.channel,g?.status,g?.url].filter(Boolean).join(' ').toLowerCase();
+  }
+
   function renderGames(games){
     if(!gamesEl)return;
+    const source=Array.isArray(games)?games:[];
+    const q=liveGameSearch.trim().toLowerCase();
+    const filtered=q ? source.filter(g=>gameSearchText(g).includes(q)) : source;
     gamesEl.innerHTML='';
-    if(!games.length){
-      gamesEl.innerHTML='<div class="reel-live-games-empty">No live-game embed links were found right now.</div>';
+    if(searchCount)searchCount.textContent=q ? `${filtered.length} of ${source.length}` : (source.length ? `${source.length} live` : '');
+    if(searchClear)searchClear.hidden=!q;
+    if(!filtered.length){
+      const msg=q ? `No live games match “${liveGameSearch.trim()}”.` : 'No live games were returned by the Live TV API.';
+      gamesEl.innerHTML=`<div class="reel-live-games-empty">${msg}</div>`;
       return;
     }
-    games.forEach((g)=>{
+    filtered.forEach(g=>{
       const card=document.createElement('div'); card.className='reel-live-game';
       const main=document.createElement('div'); main.className='reel-live-game-main';
-      const title=document.createElement('div'); title.className='reel-live-game-title'; title.title=g.title; title.textContent=g.title;
-      const live=isTodayGame(g.url);
-      const sport=(g.sport||sportFromUrl(g.url)||'live sport').toUpperCase();
-      const meta=document.createElement('div'); meta.className='reel-live-game-meta'; meta.innerHTML=live ? `<span class="reel-live-game-live">● TODAY</span> · ${sport} · EmbedIndia` : `AVAILABLE · ${sport} · EmbedIndia`;
-      main.append(title,meta);
+      const title=document.createElement('div'); title.className='reel-live-game-title'; title.title=g.title||''; title.textContent=g.title||'Live sport';
+      const sport=(g.sport||sportFromUrl(g.url)||sportFromText(g.title)||'live sport').toUpperCase();
+      const live=(String(g.status||'').toLowerCase()==='live') || isTodayGame(g.url);
+      const meta=document.createElement('div'); meta.className='reel-live-game-meta';
+      meta.innerHTML=`<span class="reel-live-game-live">● ${live?'LIVE':'AVAILABLE'}</span> · ${sport}`;
+      main.appendChild(title); main.appendChild(meta);
       const btn=document.createElement('button'); btn.type='button'; btn.textContent='Watch';
-      btn.addEventListener('click',()=>{ input.value=g.url; load(g.url); });
-      card.append(main,btn); gamesEl.appendChild(card);
-    });
-  }
-  function extractAllUrls(text){
-    const out=[];
-    const src=htmlDecode(String(text||''));
-    // Markdown links: [label](https://...)
-    const md=/\[[^\]]*\]\((https?:\/\/[^)\s]+)\)/gi;
-    let m;
-    while((m=md.exec(src))) out.push(m[1]);
-    // HTML href/src/data attributes.
-    const attr=/\b(?:href|src|data-href|data-url|data-src|data-link)\s*=\s*["']([^"']+)["']/gi;
-    while((m=attr.exec(src))) out.push(m[1]);
-    // JS navigation handlers used by some Blogger themes.
-    const nav=/(?:location\.href|window\.open|open)\s*\(??\s*["']([^"']+)["']/gi;
-    while((m=nav.exec(src))) out.push(m[1]);
-    // Bare query-wrapped provider links, even if the surrounding URL is omitted.
-    const wrapped=/(?:[?&](?:src|url|embed)=)(https?(?:%3A|:)(?:%2F|\/)\/[^\s"'<>]+)/gi;
-    while((m=wrapped.exec(src))) out.push(m[1]);
-    // Plain URLs.
-    const raw=/https?:\/\/[^\s"'<>\]\)]+/gi;
-    while((m=raw.exec(src))) out.push(m[0]);
-    // HTML-escaped/percent-encoded URLs such as https%3A%2F%2Fembedindia...
-    const enc=/https?%3A(?:%2F|\/){2}[^\s"'<>\]\)]+/gi;
-    while((m=enc.exec(src))) out.push(decodeURIComponent(m[0]));
-    return out;
-  }
-  function entriesFromAnyText(text){
-    const found=[];
-    const seen=new Set();
-    extractAllUrls(text).forEach(raw=>{
-      const n=normalizeEmbedUrl(raw);
-      if(!isEmbedIndiaSportUrl(n))return;
-      if(seen.has(n))return;
-      seen.add(n);
-      // Try to recover a nearby human-readable title from markdown/html text.
-      let title='Live sport';
-      try{
-        const clean=cleanText(String(text).replace(/\s+/g,' '));
-        const ix=clean.indexOf(raw);
-        if(ix>0){
-          const before=clean.slice(Math.max(0,ix-180),ix).replace(/https?:\/\/\S+/g,'').trim();
-          if(before) title=before.slice(-110).replace(/^[-–—:|]+/,'').trim() || title;
-        }
-      }catch(e){}
-      found.push({title,url:n,entryUrl:''});
-    });
-    return found;
-  }
-  function parseBloggerJson(text){
-    try{return JSON.parse(text)}catch(e){}
-    const m=text.match(/^[^(]+\((\{[\s\S]*\})\)\s*;?\s*$/);
-    if(m){try{return JSON.parse(m[1])}catch(e){}}
-    return null;
-  }
-  async function fetchText(url, timeoutMs=18000){
-    const controller=new AbortController();
-    const timer=setTimeout(()=>controller.abort(),timeoutMs);
-    try{
-      const res=await fetch(url,{cache:'no-store',signal:controller.signal,headers:{'Accept':'text/html,application/xhtml+xml,application/json,text/plain,*/*'}});
-      if(!res.ok)throw new Error(`HTTP ${res.status}`);
-      return await res.text();
-    }finally{clearTimeout(timer)}
-  }
-  function fetchBloggerJsonp(timeoutMs=9000){
-    return new Promise((resolve,reject)=>{
-      const callbackName='__reelBintv_'+Date.now()+'_'+(++jsonpCounter);
-      const script=document.createElement('script');
-      let finished=false;
-      const timer=setTimeout(()=>finish(new Error('BINTV JSONP timeout')),timeoutMs);
-      function cleanup(){
-        clearTimeout(timer);
-        try{delete window[callbackName]}catch(e){window[callbackName]=undefined}
-        script.remove();
-      }
-      function finish(err,data){
-        if(finished)return;
-        finished=true;
-        cleanup();
-        err?reject(err):resolve(data);
-      }
-      window[callbackName]=(data)=>finish(null,data);
-      script.onerror=()=>finish(new Error('BINTV feed script blocked'));
-      script.async=true;
-      script.src='https://bintv-nett.blogspot.com/feeds/posts/default?alt=json-in-script&callback='+encodeURIComponent(callbackName)+'&max-results=150';
-      document.head.appendChild(script);
+      btn.addEventListener('click',()=>load(g.url));
+      card.appendChild(main); card.appendChild(btn); gamesEl.appendChild(card);
     });
   }
 
-  async function fetchBloggerFeed(){
-    // Blogger's JSONP endpoint is the important path here. It works from a
-    // file:// Reel because it does not require fetch/CORS permissions.
-    try{
-      const data=await fetchBloggerJsonp(9000);
-      if(data?.feed?.entry?.length)return {type:'feed',data};
-      const found=entriesFromAnyText(JSON.stringify(data||{}));
-      if(found.length)return {type:'html',found};
-    }catch(e){
-      console.warn('BINTV JSONP failed:',e);
-    }
-
-    // Only use read-throughs after JSONP fails, and race them rather than
-    // waiting 18 seconds for each proxy one-by-one.
-    const targets=[
-      `https://api.allorigins.win/raw?url=${encodeURIComponent('https://bintv-nett.blogspot.com/?m=1')}`,
-      `https://corsproxy.io/?url=${encodeURIComponent('https://bintv-nett.blogspot.com/?m=1')}`,
-      `https://r.jina.ai/https://bintv-nett.blogspot.com/?m=1`
-    ];
-    const jobs=targets.map(async url=>{
-      const text=await fetchText(url,10000);
-      const json=parseBloggerJson(text);
-      if(json?.feed?.entry)return {type:'feed',data:json};
-      const found=entriesFromAnyText(text);
-      if(found.length)return {type:'html',found};
-      throw new Error('No EmbedIndia links in response');
-    });
-    try{
-      return await Promise.any(jobs);
-    }catch(e){
-      throw new Error('BINTV did not expose its game links');
-    }
+  function setLiveGames(games){
+    allLiveGames=Array.isArray(games)?games.slice():[];
+    renderGames(allLiveGames);
   }
-  async function detectLiveGames(){
+
+  searchInput?.addEventListener('input',()=>{
+    liveGameSearch=searchInput.value||'';
+    renderGames(allLiveGames);
+  });
+  searchInput?.addEventListener('keydown',e=>{
+    if(e.key==='Escape'){
+      searchInput.value=''; liveGameSearch=''; renderGames(allLiveGames);
+    }
+  });
+  searchClear?.addEventListener('click',()=>{
+    searchInput.value=''; liveGameSearch=''; searchInput.focus(); renderGames(allLiveGames);
+  });
+
+  async function detectLiveGames(force=false){
     if(!gamesEl||!detectStatus)return;
-
-    // Never leave the UI stuck on "Checking". Show today's known live event
-    // immediately, then replace it with the live listing when BINTV responds.
-    const today=new Date();
-    const iso=today.getFullYear()+'-'+String(today.getMonth()+1).padStart(2,'0')+'-'+String(today.getDate()).padStart(2,'0');
-    if(iso==='2026-08-28'){
-      const fallback=[{title:'2nd Test - England vs. Pakistan',url:'https://embedindia.st/embed/cricket/2026-08-28/eng-pak',entryUrl:''}];
-      renderGames(fallback);
-      input.value=fallback[0].url;
-      localStorage.setItem(KEY,fallback[0].url);
-      detectStatus.textContent='Live cricket loaded · checking BINTV for more games…';
-    }else{
-      detectStatus.textContent='Checking BINTV…';
-    }
-
+    detectStatus.textContent='Checking Live TV API…';
     try{
-      const result=await fetchBloggerFeed();
-      let found=[];
-      if(result.type==='feed'){
-        const entries=result.data?.feed?.entry||[];
-        entries.forEach(entry=>extractGameLinks(entry).forEach(g=>found.push({...g,title:parseGameTitle(g.title,g.url),sport:sportFromUrl(g.url)})));
-      }else if(result.type==='html'){
-        found=result.found.map(g=>({...g,title:parseGameTitle(g.title,g.url),sport:sportFromUrl(g.url)}));
-      }
+      const result=await fetchLiveApi(force);
       const unique=[]; const seen=new Set();
-      found.forEach(g=>{
-        if(!g?.url||seen.has(g.url))return;
-        seen.add(g.url); unique.push({...g,sport:g.sport||sportFromUrl(g.url)});
+      (result.games||[]).forEach(g=>{
+        if(!g?.url || seen.has(g.url)) return;
+        seen.add(g.url);
+        unique.push({...g,sport:g.sport||sportFromUrl(g.url)||sportFromText(g.title)});
       });
-      unique.sort((a,b)=>Number(isTodayGame(b.url))-Number(isTodayGame(a.url)));
-
+      unique.sort((a,b)=>Number(String(b.status||'').toLowerCase()==='live')-Number(String(a.status||'').toLowerCase()==='live') || Number(isTodayGame(b.url))-Number(isTodayGame(a.url)));
+      setLiveGames(unique);
       if(unique.length){
-        renderGames(unique);
-        const best=unique.find(g=>isTodayGame(g.url))||unique[0];
+        const best=unique.find(g=>String(g.status||'').toLowerCase()==='live') || unique.find(g=>isTodayGame(g.url)) || unique[0];
         input.value=best.url;
         localStorage.setItem(KEY,best.url);
-        const todayCount=unique.filter(g=>isTodayGame(g.url)).length;
-        const sportCount=new Set(unique.map(g=>g.sport||sportFromUrl(g.url)).filter(Boolean)).size;
-        detectStatus.textContent=`${todayCount||unique.length} live game${(todayCount||unique.length)===1?'':'s'} found · ${sportCount||1} sport${(sportCount||1)===1?'':'s'} · auto-refresh 2m`;
+        const sports=new Set(unique.map(g=>g.sport).filter(Boolean));
+        const src=result.source ? ` · ${result.source}` : '';
+        detectStatus.textContent=`${unique.length} game${unique.length===1?'':'s'} found · ${sports.size||1} sport${(sports.size||1)===1?'':'s'}${src} · refresh 2m`;
       }else{
-        detectStatus.textContent=iso==='2026-08-28'
-          ? 'BINTV responded but hid the game links · current game loaded · retrying in 2m'
-          : 'BINTV responded, but no game links were exposed · retrying in 2m';
+        detectStatus.textContent=result.error ? `Live TV API connected, but no games were found · ${result.error}` : 'Live TV API returned no games · refresh 2m';
       }
     }catch(err){
-      console.warn('Reel live-game detection failed:',err);
-      detectStatus.textContent=iso==='2026-08-28'
-        ? 'Current cricket game loaded · BINTV listing unavailable · retrying in 2m'
-        : 'BINTV unavailable · retrying in 2m';
+      console.warn('Reel Live TV API error:',err);
+      renderGames([]);
+      detectStatus.innerHTML='Live TV API is not running. Start <b>start-live-tv-api.command</b>, then press Refresh.';
     }
   }
   function startDetection(){
     if(detectTimer)clearInterval(detectTimer);
-    detectLiveGames();
-    detectTimer=setInterval(detectLiveGames,DETECT_INTERVAL);
+    detectLiveGames(false);
+    detectTimer=setInterval(()=>detectLiveGames(false),DETECT_INTERVAL);
   }
-  document.getElementById('liveTvRefreshBtn')?.addEventListener('click',detectLiveGames);
+  document.getElementById('liveTvRefreshBtn')?.addEventListener('click',()=>detectLiveGames(true));
   startDetection();
 
   window.reelLiveTV={load,clear,defaultEmbed:DEFAULT_EMBED,defaultHls:DEFAULT_HLS,detectLiveGames};
+  window.reelStandaloneReady=true;
 })();
 </script>
-e@leg Documents % curl -i http://127.0.0.1:8080/api/resolve-stream
-HTTP/1.0 404 File not found
-Server: SimpleHTTP/0.6 Python/3.14.6
-Date: Sun, 30 Aug 2026 04:16:18 GMT
-Connection: close
-Content-Type: text/html;charset=utf-8
-Content-Length: 460
-
-<!DOCTYPE HTML>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <style type="text/css">
-            :root {
-                color-scheme: light dark;
-            }
-        </style>
-        <title>Error response</title>
-    </head>
-    <body>
-        <h1>Error response</h1>
-        <p>Error code: 404</p>
-        <p>Message: File not found.</p>
-        <p>Error code explanation: 404 - Nothing matches the given URI.</p>
-    </body>
-</html>
-e@leg Documents % curl -i "http://127.0.0.1:8080/api/resolve-stream?title=Malcolm%20in%20the%20Middle&season=1&episode=1&type=tv"
-HTTP/1.0 404 File not found
-Server: SimpleHTTP/0.6 Python/3.14.6
-Date: Sun, 30 Aug 2026 04:16:21 GMT
-Connection: close
-Content-Type: text/html;charset=utf-8
-Content-Length: 460
-
-<!DOCTYPE HTML>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <style type="text/css">
-            :root {
-                color-scheme: light dark;
-            }
-        </style>
-        <title>Error response</title>
-    </head>
-    <body>
-        <h1>Error response</h1>
-        <p>Error code: 404</p>
-        <p>Message: File not found.</p>
-        <p>Error code explanation: 404 - Nothing matches the given URI.</p>
-    </body>
-</html>
-e@leg Documents % ls -lah ~/Documents
-total 245072
-drwx------@ 32 e  staff   1.0K 30 Aug 14:12 .
-drwxr-x---+ 46 e  staff   1.4K 30 Aug 13:58 ..
--rw-r--r--@  1 e  staff    10K 30 Aug 13:57 .DS_Store
--rw-r--r--   1 e  staff     0B 10 Jul 14:20 .localized
-drwxr-xr-x   3 e  staff    96B 26 Aug 21:01 Codex
-drwxr-xr-x  14 e  staff   448B 24 Aug 10:12 documents
--rw-r--r--@  1 e  staff   298K 28 Aug 21:57 index.html
-drwxr-xr-x   4 e  staff   128B 24 Aug 10:09 reel server
-drwx------@ 11 e  staff   352B 29 Aug 11:25 Reel-Live-TV-API
--rw-r--r--@  1 e  staff   112M 29 Aug 11:28 Reel-Live-TV-API.zip
--rw-r--r--   1 e  staff    73K 30 Aug 13:56 Reel-test-hls-vidrift-visible 2.html.zip
--rw-r--r--   1 e  staff    73K 30 Aug 13:57 Reel-test-hls-vidrift-visible 3.html.zip
--rw-r--r--@  1 e  staff   309K 30 Aug 12:58 Reel-test-hls-vidrift-visible copy working spiderman.html
--rw-r--r--@  1 e  staff   319K 30 Aug 14:06 Reel-test-hls-vidrift-visible-backup.html
--rw-r--r--@  1 e  staff   312K 30 Aug 13:03 Reel-test-hls-vidrift-visible-before-controls.html
--rw-r--r--@  1 e  staff   317K 30 Aug 14:00 Reel-test-hls-vidrift-visible-before-final-hls-fix.html
--rw-r--r--@  1 e  staff   308K 30 Aug 12:58 Reel-test-hls-vidrift-visible-before-overlay-fix.html
--rw-r--r--@  1 e  staff   307K 30 Aug 12:54 Reel-test-hls-vidrift-visible-before-player-fix.html
--rw-r--r--@  1 e  staff   314K 30 Aug 13:04 Reel-test-hls-vidrift-visible-before-settings-menu.html
--rw-r--r--@  1 e  staff   317K 30 Aug 13:37 Reel-test-hls-vidrift-visible-before-tv-proxy-patch.html
--rw-r--r--@  1 e  staff   317K 30 Aug 13:39 Reel-test-hls-vidrift-visible-before-tv-proxy-patch2.html
--rw-r--r--@  1 e  staff   317K 30 Aug 13:41 Reel-test-hls-vidrift-visible-before-tv-proxy-patch3.html
--rw-r--r--@  1 e  staff   317K 30 Aug 13:45 Reel-test-hls-vidrift-visible-before-tv-proxy-patch4.html
--rw-r--r--@  1 e  staff   317K 30 Aug 13:32 Reel-test-hls-vidrift-visible-before-tv-proxy-test.html
--rw-r--r--@  1 e  staff   317K 30 Aug 13:51 Reel-test-hls-vidrift-visible-before-tv-routing-final.html
--rw-r--r--@  1 e  staff   317K 30 Aug 13:48 Reel-test-hls-vidrift-visible-before-tv-routing-patch.html
--rw-r--r--@  1 e  staff   309K 30 Aug 13:00 Reel-test-hls-vidrift-visible-before-ui-fix.html
--rw-r--r--@  1 e  staff   307K 30 Aug 12:38 Reel-test-hls-vidrift-visible-before-vidrift.html
--rw-r--r--@  1 e  staff   307K 30 Aug 12:51 Reel-test-hls-vidrift-visible-pre-custom-patch.html
--rw-r--r--@  1 e  staff   319K 30 Aug 14:12 Reel-test-hls-vidrift-visible.backup.html
--rw-r--r--@  1 e  staff   319K 30 Aug 14:06 Reel-test-hls-vidrift-visible.html
--rw-r--r--   1 e  staff    72K 30 Aug 13:32 Reel-test-hls-vidrift-visible.html.zip
-e@leg Documents % find ~/Documents -maxdepth 2 -type f \( -name "*.py" -o -name "requirements.txt" -o -name "start*.command" \) -print
-/Users/e/Documents/Reel-Live-TV-API/start-live-tv-api.command
-/Users/e/Documents/Reel-Live-TV-API/start-reel.command
-/Users/e/Documents/Reel-Live-TV-API/live_tv_api.py
-e@leg Documents % curl -s http://127.0.0.1:8080/openapi.json | head -c 3000
-<!DOCTYPE HTML>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <style type="text/css">
-            :root {
-                color-scheme: light dark;
-            }
-        </style>
-        <title>Error response</title>
-    </head>
-    <body>
-        <h1>Error response</h1>
-        <p>Error code: 404</p>
-        <p>Message: File not found.</p>
-        <p>Error code explanation: 404 - Nothing matches the given URI.</p>
-    </body>
-</html>
-e@leg Documents %   
