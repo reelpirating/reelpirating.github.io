@@ -9604,54 +9604,87 @@ document.addEventListener('DOMContentLoaded',()=>{
   // Open a TV episode directly inside Reel's embedded VidKing player.
   window.playDetailEpisode = function(season, episode){
     if(!currentDetailFilm) return;
+
     const film = {...currentDetailFilm};
+
+    const selectedSeason = Number(season) || 1;
+    const selectedEpisode = Number(episode) || 1;
+
+    console.log(
+      '[Reel TV FIX] Opening:',
+      film.title,
+      'S' + selectedSeason,
+      'E' + selectedEpisode
+    );
+
+    /*
+     * Preserve the exact clicked episode globally.
+     */
     currentShow = film;
-    currentSeason = Number(season) || 1;
-    currentEpisode = Number(episode) || 1;
+    currentSeason = selectedSeason;
+    currentEpisode = selectedEpisode;
 
+    window.reelSelectedSeason = selectedSeason;
+    window.reelSelectedEpisode = selectedEpisode;
+
+    /*
+     * Keep Reel's saved progress in sync with the
+     * episode the user actually clicked.
+     */
     try {
-      if(typeof addToLibrary === 'function') addToLibrary(film, true);
-      if(typeof closeDetail === 'function') closeDetail();
-      if(typeof cancelAutoplayNext === 'function') cancelAutoplayNext();
-    } catch(e) { console.warn(e); }
+      if(typeof addToLibrary === 'function'){
+        addToLibrary(film, true);
+      }
 
-    // Show the existing Reel player overlay and put the VidKing embed inside it.
-    watchOverlay.classList.add('open', 'player-only');
-    document.body.classList.add('reel-player-open');
-    document.body.style.overflow = 'hidden';
-    watchTitle.textContent = film.title || 'TV Series';
-    watchDescription.textContent = film.desc || 'No description available.';
-    watchTags.innerHTML = `<span class="tag">TV Series</span><span class="tag">S${currentSeason} · E${currentEpisode}</span>`;
-    watchPoster.style.display = 'none';
-    trailerFrame.style.display = 'none';
-    trailerFrame.innerHTML = '';
-    trailerButton.style.display = 'none';
-    tvControls.classList.remove('show');
-    episodeInfo.style.display = 'none';
+      if(typeof saveCurrentProgress === 'function'){
+        saveCurrentProgress();
+      }
 
-    const source = window.reelStorage.getItem("reel_player_source") || "vidking";
-    currentPlayerBaseUrl =
-      source === "vidsrc"
-        ? `https://vidsrc.to/embed/tv/${encodeURIComponent(film.tmdbId)}/${encodeURIComponent(currentSeason)}/${encodeURIComponent(currentEpisode)}`
-        : source === "vidsrc_tw"
-        ? `https://vidsrc.tw/embed/tv/${encodeURIComponent(film.tmdbId)}/${encodeURIComponent(currentSeason)}/${encodeURIComponent(currentEpisode)}`
-        : source === "vidcore"
-        ? `https://www.vidcore.org/embed/tv/${encodeURIComponent(film.tmdbId)}/${encodeURIComponent(currentSeason)}/${encodeURIComponent(currentEpisode)}`
-        : source === "autoembed"
-        ? `https://player.autoembed.cc/embed/tv/${encodeURIComponent(film.tmdbId)}/${encodeURIComponent(currentSeason)}/${encodeURIComponent(currentEpisode)}`
-        : source === "cinesrc"
-        ? `https://cinesrc.st/embed/tv/${encodeURIComponent(film.tmdbId)}?s=${encodeURIComponent(currentSeason)}&e=${encodeURIComponent(currentEpisode)}&autoplay=true`
-        : source === "vidfast"
-        ? `https://vidfast.to/embed/tv/${encodeURIComponent(film.tmdbId)}/${encodeURIComponent(currentSeason)}/${encodeURIComponent(currentEpisode)}`
-        : `https://www.vidking.net/embed/tv/${encodeURIComponent(film.tmdbId)}/${encodeURIComponent(currentSeason)}/${encodeURIComponent(currentEpisode)}?autoPlay=true`;
-    currentPlayerTitle = `${film.title || 'TV Series'} - S${currentSeason} E${currentEpisode}`;
-    currentPlayerTime = 0;
-    renderVidKingPlayer(0);
-    updateAudioSyncDisplay();
-    showSkipIntroButton();
+      if(typeof saveData === 'function'){
+        saveData();
+      }
 
-    if(typeof saveCurrentProgress === 'function') saveCurrentProgress();
-    if(typeof saveData === 'function') saveData();
+      if(typeof cancelAutoplayNext === 'function'){
+        cancelAutoplayNext();
+      }
+
+      if(typeof closeDetail === 'function'){
+        closeDetail();
+      }
+    }catch(e){
+      console.warn('[Reel TV FIX] State setup warning:', e);
+    }
+
+    /*
+     * IMPORTANT:
+     *
+     * Do NOT build a VidKing URL here.
+     *
+     * Use Reel's normal episode path so CinePro gets:
+     *
+     *   TMDB ID
+     *   selected season
+     *   selected episode
+     *
+     * and can call:
+     *
+     * /v1/tv/{id}/seasons/{season}/episodes/{episode}
+     */
+    if(typeof playEpisode === 'function'){
+      playEpisode({
+        episode_number: selectedEpisode,
+        name: 'Episode ' + selectedEpisode
+      });
+      return;
+    }
+
+    /*
+     * Safety fallback if the main playEpisode function
+     * is unavailable.
+     */
+    if(typeof playFilm === 'function'){
+      playFilm(film);
+    }
   };
 
   // Keep recommendations working and clickable.
@@ -10198,6 +10231,293 @@ main,section,.hero{scroll-margin-top:var(--reel-header-space)!important}
 })();
 </script>
 
+
+
+<script id="reel-episode-authoritative-fix">
+(function(){
+  'use strict';
+
+  /*
+   * FINAL TV EPISODE FIX
+   *
+   * The clicked episode card is now authoritative.
+   * We capture the click BEFORE Reel's existing handlers.
+   */
+
+  function setEpisode(season, episode){
+    const s = Number(season);
+    const e = Number(episode);
+
+    if(!Number.isFinite(s) || s < 1) return;
+    if(!Number.isFinite(e) || e < 1) return;
+
+    window.reelSelectedSeason = s;
+    window.reelSelectedEpisode = e;
+
+    try { window.currentSeason = s; } catch(x){}
+    try { window.currentEpisode = e; } catch(x){}
+
+    console.log(
+      '[Reel TV FINAL] AUTHORITATIVE EPISODE:',
+      'S' + s,
+      'E' + e
+    );
+  }
+
+  /*
+   * Capture episode-card clicks before the inline
+   * onclick handler executes.
+   */
+  document.addEventListener('click', function(event){
+
+    const card =
+      event.target &&
+      event.target.closest &&
+      event.target.closest(
+        '#detailEpisodes .episode-grid-card,' +
+        '#detailEpisodes .episode'
+      );
+
+    if(!card) return;
+
+    /*
+     * First try explicit data attributes.
+     */
+    let season =
+      card.dataset.season ||
+      card.getAttribute('data-season');
+
+    let episode =
+      card.dataset.episode ||
+      card.getAttribute('data-episode');
+
+    /*
+     * If the card doesn't have attributes, recover the
+     * episode number from the visible E# label.
+     */
+    if(!episode){
+      const n = card.querySelector('.episode-number');
+
+      if(n){
+        const m = String(n.textContent || '').match(/E\s*(\d+)/i);
+        if(m) episode = m[1];
+      }
+    }
+
+    /*
+     * Recover the currently displayed season.
+     */
+    if(!season){
+      try {
+        season =
+          window.currentSeason ||
+          window.reelSelectedSeason ||
+          1;
+      } catch(e) {
+        season = 1;
+      }
+    }
+
+    if(season && episode){
+      setEpisode(season, episode);
+
+      /*
+       * Stop any stale global state from winning.
+       */
+      try {
+        if(typeof currentSeason !== 'undefined')
+          currentSeason = Number(season);
+      } catch(e){}
+
+      try {
+        if(typeof currentEpisode !== 'undefined')
+          currentEpisode = Number(episode);
+      } catch(e){}
+    }
+
+  }, true);
+
+
+  /*
+   * Replace playDetailEpisode with an authoritative version.
+   */
+  window.playDetailEpisode = function(season, episode){
+
+    const film =
+      window.currentDetailFilm ||
+      (typeof currentDetailFilm !== 'undefined'
+        ? currentDetailFilm
+        : null);
+
+    if(!film) return;
+
+    const s = Number(season) || 1;
+    const e = Number(episode) || 1;
+
+    setEpisode(s, e);
+
+    console.log(
+      '[Reel TV FINAL] playDetailEpisode:',
+      film.title,
+      'S' + s,
+      'E' + e
+    );
+
+    /*
+     * IMPORTANT:
+     * Set both window and lexical/global state BEFORE
+     * calling reelHardPlay.
+     */
+    try { window.currentShow = {...film}; } catch(x){}
+    try { currentShow = {...film}; } catch(x){}
+
+    try { currentSeason = s; } catch(x){}
+    try { currentEpisode = e; } catch(x){}
+
+    try {
+      closeDetail();
+    } catch(x) {
+      const detail = document.getElementById('detailPage');
+      if(detail) detail.classList.remove('open');
+    }
+
+    /*
+     * Call the final player route with the exact values.
+     */
+    if(typeof window.reelHardPlay === 'function'){
+      window.reelHardPlay({...film}, s, e);
+      return;
+    }
+
+    if(typeof playFilm === 'function'){
+      playFilm({...film});
+    }
+  };
+
+
+  /*
+   * Patch reelHardPlay itself so even if another old
+   * wrapper calls it, the selected episode wins.
+   */
+  const installHardPlayPatch = () => {
+
+    const original = window.reelHardPlay;
+
+    if(typeof original !== 'function'){
+      setTimeout(installHardPlayPatch, 100);
+      return;
+    }
+
+    if(original.__authoritativeEpisodeFix)
+      return;
+
+    const wrapped = function(film, season, episode){
+
+      const s =
+        Number(season) ||
+        Number(window.reelSelectedSeason) ||
+        Number(window.currentSeason) ||
+        1;
+
+      const e =
+        Number(episode) ||
+        Number(window.reelSelectedEpisode) ||
+        Number(window.currentEpisode) ||
+        1;
+
+      setEpisode(s, e);
+
+      console.log(
+        '[Reel TV FINAL] reelHardPlay:',
+        'S' + s,
+        'E' + e
+      );
+
+      return original.call(this, film, s, e);
+    };
+
+    wrapped.__authoritativeEpisodeFix = true;
+    wrapped.__original = original;
+
+    window.reelHardPlay = wrapped;
+
+    console.log('[Reel TV FINAL] reelHardPlay patched');
+  };
+
+  installHardPlayPatch();
+
+  /*
+   * Also patch the episode renderer so every card gets
+   * explicit season/episode data.
+   */
+  const installRendererPatch = () => {
+
+    const original = window.renderDetailEpisodes;
+
+    if(typeof original !== 'function'){
+      setTimeout(installRendererPatch, 100);
+      return;
+    }
+
+    if(original.__authoritativeEpisodeFix)
+      return;
+
+    const wrapped = async function(id, season){
+
+      const result = await original.apply(this, arguments);
+
+      const box = document.getElementById('detailEpisodes');
+
+      if(box){
+        box
+          .querySelectorAll('.episode-grid-card, .episode')
+          .forEach(card => {
+
+            const label =
+              card.querySelector('.episode-number');
+
+            let episode = '';
+
+            if(label){
+              const m =
+                String(label.textContent || '')
+                  .match(/E\s*(\d+)/i);
+
+              if(m) episode = m[1];
+            }
+
+            if(episode){
+              card.dataset.season = String(Number(season) || 1);
+              card.dataset.episode = episode;
+            }
+          });
+      }
+
+      /*
+       * Make the rendered season authoritative.
+       */
+      if(Number(season) > 0){
+        window.reelSelectedSeason = Number(season);
+        try { window.currentSeason = Number(season); } catch(e){}
+      }
+
+      return result;
+    };
+
+    wrapped.__authoritativeEpisodeFix = true;
+    wrapped.__original = original;
+
+    window.renderDetailEpisodes = wrapped;
+
+    console.log('[Reel TV FINAL] episode renderer patched');
+  };
+
+  installRendererPatch();
+
+  console.log('[Reel TV FINAL] AUTHORITATIVE EPISODE FIX INSTALLED');
+
+})();
+</script>
 
 <script id="reel-v6-player-hard-fix">
 (function(){
