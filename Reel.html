@@ -3844,7 +3844,7 @@ header .nav > .btn{
           <option value="autoembed">⚡ AutoEmbed</option>
           <option value="cinesrc">🎞️ CineSrc</option>
           <option value="vidfast">🚀 VidFast</option>
-          <option value="videasy">▶️ Videasy</option>
+          <option value="videasy">▶️ Videasy</option><option value="cinepro">🎬 CinePro</option>
           <option value="stream_api">🌐 Stream API</option>
         </select>
       </div>
@@ -9879,8 +9879,8 @@ main,section,.hero{scroll-margin-top:var(--reel-header-space)!important}
 
 <script id="reel-v5-polish-js">
 (function(){
-  const SOURCES=['vidking','vidsrc','vidsrc_tw','vidcore','autoembed','cinesrc','vidfast','videasy','stream_api'];
-  const LABELS={vidking:'VidKing',vidsrc:'VidSrc',vidsrc_tw:'VidSrc TW',vidcore:'VidCore',autoembed:'AutoEmbed',cinesrc:'CineSrc',vidfast:'VidFast',videasy:'Videasy',stream_api:'Stream API'};
+  const SOURCES=['vidking','vidsrc','vidsrc_tw','vidcore','autoembed','cinesrc','vidfast','videasy','cinepro','stream_api'];
+  const LABELS={vidking:'VidKing',vidsrc:'VidSrc',vidsrc_tw:'VidSrc TW',vidcore:'VidCore',autoembed:'AutoEmbed',cinesrc:'CineSrc',vidfast:'VidFast',videasy:'Videasy',cinepro:'CinePro',stream_api:'Stream API'};
   const SPEEDS=['0.5','0.75','1','1.25','1.5','1.75','2'];
   let sourceIndex=0;
   let sourceTimer=null;
@@ -10095,7 +10095,8 @@ main,section,.hero{scroll-margin-top:var(--reel-header-space)!important}
     {id:'autoembed', label:'AutoEmbed', movie:id=>`https://player.autoembed.cc/embed/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://player.autoembed.cc/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`},
     {id:'cinesrc', label:'CineSRC', movie:id=>`https://cinesrc.st/embed/movie/${encodeURIComponent(id)}?autoplay=true`, tv:(id,s,e)=>`https://cinesrc.st/embed/tv/${encodeURIComponent(id)}?s=${encodeURIComponent(s)}&e=${encodeURIComponent(e)}&autoplay=true`},
     {id:'vidfast', label:'VidFast', movie:id=>`https://vidfast.to/embed/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://vidfast.to/embed/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`},
-    {id:'videasy', label:'Videasy', movie:id=>`https://player.videasy.net/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://player.videasy.net/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`}
+    {id:'videasy', label:'Videasy', movie:id=>`https://player.videasy.net/movie/${encodeURIComponent(id)}`, tv:(id,s,e)=>`https://player.videasy.net/tv/${encodeURIComponent(id)}/${encodeURIComponent(s)}/${encodeURIComponent(e)}`},
+    {id:'cinepro', label:'CinePro', movie:id=>`cinepro:${encodeURIComponent(id)}`, tv:(id,s,e)=>`cineprotv:${encodeURIComponent(id)}:${encodeURIComponent(s)}:${encodeURIComponent(e)}`}
   ];
   let timer=null, attempt=0;
 
@@ -10119,6 +10120,197 @@ main,section,.hero{scroll-margin-top:var(--reel-header-space)!important}
     const wrap=document.getElementById('videoWrap');
     if(!film || !film.tmdbId || !wrap)return;
     const source=REEL_SOURCES[sourceIndex];
+
+    if(source && source.id==='cinepro'){
+      const tmdbId = film.tmdbId;
+
+      if(!tmdbId){
+        setStatus('CinePro: missing TMDB ID', false);
+        return;
+      }
+
+      // Reel's current TV state
+      const tvShow =
+        window.currentShow ||
+        window.currentDetailFilm ||
+        film;
+
+      const isTV =
+        film.type === 'tv' ||
+        film.media_type === 'tv';
+
+      const seasonNumber =
+        Number(window.currentSeason || window.currentSeasonNumber || 1);
+
+      const episodeNumber =
+        Number(window.currentEpisode || window.currentEpisodeNumber || 1);
+
+      const apiUrl = isTV
+        ? `http://localhost:3000/v1/tv/${encodeURIComponent(tmdbId)}/seasons/${encodeURIComponent(seasonNumber)}/episodes/${encodeURIComponent(episodeNumber)}`
+        : `http://localhost:3000/v1/movies/${encodeURIComponent(tmdbId)}`;
+
+      console.log('[CinePro] Request:', apiUrl);
+      setStatus('CinePro: finding stream...', true);
+
+      fetch(apiUrl, {
+        method: 'GET',
+        cache: 'no-store'
+      })
+      .then(async response => {
+        if(!response.ok){
+          const text = await response.text().catch(() => '');
+          throw new Error(
+            `CinePro HTTP ${response.status}${text ? ': '+text.slice(0,120) : ''}`
+          );
+        }
+
+        return response.json();
+      })
+      .then(data => {
+        console.log('[CinePro] Response:', data);
+
+        const sources =
+          Array.isArray(data.sources) ? data.sources : [];
+
+        // Prefer HLS.
+        const hls =
+          sources.find(x =>
+            x &&
+            String(x.type || '').toLowerCase() === 'hls' &&
+            typeof x.url === 'string' &&
+            x.url.length > 0
+          ) ||
+          sources.find(x =>
+            x &&
+            typeof x.url === 'string' &&
+            /\.m3u8(\?|$)/i.test(x.url)
+          );
+
+        if(!hls){
+          console.error('[CinePro] No HLS source:', sources);
+          throw new Error('CinePro returned no HLS source');
+        }
+
+        const streamUrl = hls.url;
+
+        console.log('[CinePro] Stream URL:', streamUrl);
+
+        const video =
+          document.querySelector('#videoWrap video') ||
+          document.querySelector('video');
+
+        if(!video){
+          throw new Error('Reel video element not found');
+        }
+
+        /*
+         * IMPORTANT:
+         * Use Reel's existing HLS function if available.
+         * This prevents the manual "Paste the direct .m3u8"
+         * screen from being used.
+         */
+        if(typeof window.reelPlayHls === 'function'){
+          console.log('[CinePro] Sending stream to reelPlayHls()');
+
+          return Promise.resolve(
+            window.reelPlayHls(streamUrl)
+          ).then(() => {
+            setStatus(
+              `CinePro • ${hls.quality || 'HLS'} • ${hls.provider?.name || 'CinePro'}`,
+              true
+            );
+          });
+        }
+
+        // Safari/native HLS.
+        if(video.canPlayType('application/vnd.apple.mpegurl')){
+          video.pause();
+          video.removeAttribute('src');
+          video.load();
+
+          video.src = streamUrl;
+          video.load();
+
+          setStatus(
+            `CinePro • ${hls.quality || 'HLS'}`,
+            true
+          );
+
+          video.play().catch(err =>
+            console.warn('[CinePro] Autoplay prevented:', err)
+          );
+
+          return;
+        }
+
+        // HLS.js fallback.
+        if(typeof ensureHls !== 'function'){
+          throw new Error('HLS.js loader unavailable');
+        }
+
+        return ensureHls().then(Hls => {
+          if(!Hls || !Hls.isSupported()){
+            throw new Error('HLS.js is not supported');
+          }
+
+          if(window.reelStreamApiHls){
+            try{
+              window.reelStreamApiHls.destroy();
+            }catch(e){}
+          }
+
+          const h = new Hls({
+            enableWorker: true,
+            lowLatencyMode: false,
+            backBufferLength: 90,
+            maxBufferLength: 30
+          });
+
+          window.reelStreamApiHls = h;
+
+          h.attachMedia(video);
+
+          h.on(Hls.Events.MEDIA_ATTACHED, () => {
+            console.log('[CinePro] HLS.js attached');
+            h.loadSource(streamUrl);
+          });
+
+          h.on(Hls.Events.MANIFEST_PARSED, () => {
+            console.log('[CinePro] Manifest loaded');
+
+            setStatus(
+              `CinePro • ${hls.quality || 'HLS'} • ${hls.provider?.name || 'CinePro'}`,
+              true
+            );
+
+            video.play().catch(err =>
+              console.warn('[CinePro] Autoplay prevented:', err)
+            );
+          });
+
+          h.on(Hls.Events.ERROR, (event, details) => {
+            console.error('[CinePro] HLS error:', details);
+
+            if(details && details.fatal){
+              setStatus(
+                `CinePro HLS error: ${details.details || 'stream failed'}`,
+                false
+              );
+            }
+          });
+        });
+      })
+      .catch(error => {
+        console.error('[CinePro] FAILED:', error);
+
+        setStatus(
+          `CinePro failed: ${error.message}`,
+          false
+        );
+      });
+
+      return;
+    }
     const isTV=film.type==='tv';
     const season=Number(typeof currentSeason !== 'undefined' ? currentSeason : (window.currentSeason || 1));
     const episode=Number(typeof currentEpisode !== 'undefined' ? currentEpisode : (window.currentEpisode || 1));
