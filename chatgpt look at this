@@ -1,55 +1,509 @@
-[SourceService] Cache MISS for tv:2004:s1:e2
-[SourceService] Fetching from 13 provider(s) (4 filtered out)
-[SourceService] Provider 'Peachify' returned 0 source(s) in 42ms
-[SourceService] Provider 'MafiaEmbed' returned 0 source(s) in 25ms
-[SourceService] Provider 'Tulnex' returned 0 source(s) in 25ms
-[SourceService] Provider 'CineSu' returned 0 source(s) in 88ms
-[SourceService] Provider 'Videasy' returned 0 source(s) in 98ms
-[SourceService] Provider 'Popr' returned 0 source(s) in 117ms
-[SourceService] Provider 'VidApi' returned 0 source(s) in 106ms
-[SourceService] Provider 'VidSrc' returned 0 source(s) in 120ms
-[SourceService] Provider 'VidZee' returned 0 source(s) in 536ms
-[SourceService] Provider 'Icefy' returned 0 source(s) in 1165ms
-[SourceService] Provider 'VixSrc' returned 1 source(s) in 1739ms
-[SourceService] Provider 'VidRock' returned 0 source(s) in 6650ms
-[SourceService] Provider 'VidNest' returned 1 source(s) in 10619ms
-[SourceService] Stored mapping: 9aa0244d-8a0a-4bf1-8930-1ea4f0e3fb84 -> tv:2004:s1:e2
-[2026-09-01T02:27:24.743Z] GET /v1/tv/2004/seasons/1/episodes/2 200 - 11824ms
-[2026-09-01T02:27:25.245Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fvixsrc.to%2Fplaylist%2F194364%3Ftoken%3D8f81a8ddb22b0123b1f62a85578cfc9f%26expires%3D1793413635%26h%3D1%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 489ms
-[2026-09-01T02:27:25.696Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fvixsrc.to%2Fplaylist%2F194364%3Ftype%3Dvideo%26rendition%3D480p%26token%3DpN5J99wGwx9A5kJevigsUQ%26expires%3D1793413635%26edge%3Dsc-u14-01%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 441ms
-[2026-09-01T02:27:25.701Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fvixsrc.to%2Fplaylist%2F194364%3Ftype%3Daudio%26rendition%3Dita%26token%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%26edge%3Dsc-u14-01%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 442ms
-[2026-09-01T02:27:27.661Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0000-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1952ms
-[2026-09-01T02:27:27.893Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F480p%2F0000-0500.ts%3Ftoken%3DpN5J99wGwx9A5kJevigsUQ%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 2188ms
-[2026-09-01T02:27:28.312Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fvixsrc.to%2Fplaylist%2F194364%3Ftype%3Dvideo%26rendition%3D1080p%26token%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%26edge%3Dsc-u14-01%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 388ms
-[2026-09-01T02:27:29.280Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0001-0075.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1355ms
-[2026-09-01T02:27:30.671Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0001-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 2354ms
-[2026-09-01T02:27:30.914Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0002-0075.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1628ms
-[2026-09-01T02:27:32.481Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0003-0075.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1562ms
-[2026-09-01T02:27:32.715Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0002-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 2023ms
-[2026-09-01T02:27:34.108Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0004-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1319ms
-[2026-09-01T02:27:34.894Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0003-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 2159ms
-[2026-09-01T02:27:36.273Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0005-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1323ms
-[2026-09-01T02:27:36.781Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0004-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1870ms
-[2026-09-01T02:27:38.216Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0006-0075.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1317ms
-[2026-09-01T02:27:38.686Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0005-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1888ms
-[2026-09-01T02:27:40.084Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0007-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1322ms
-[2026-09-01T02:27:40.573Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0006-2500.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1866ms
-[2026-09-01T02:27:41.936Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0008-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1320ms
-[2026-09-01T02:27:42.468Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0007-2500.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1881ms
-[2026-09-01T02:27:43.906Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0009-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1329ms
-[2026-09-01T02:27:44.204Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0008-2500.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1715ms
-[2026-09-01T02:27:45.888Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0010-0075.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1651ms
-[2026-09-01T02:27:46.119Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0009-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1894ms
-[2026-09-01T02:27:47.493Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0011-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1319ms
-[2026-09-01T02:27:47.810Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0010-2500.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1672ms
-[2026-09-01T02:27:49.759Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0011-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1913ms
-[2026-09-01T02:27:51.170Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0012-0075.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1319ms
-[2026-09-01T02:27:51.760Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0012-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1968ms
-[2026-09-01T02:27:53.425Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0013-0075.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1620ms
-[2026-09-01T02:27:53.713Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0013-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1917ms
-[2026-09-01T02:27:55.164Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0014-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1322ms
-[2026-09-01T02:27:55.516Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0014-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1765ms
-[2026-09-01T02:27:56.904Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0015-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1323ms
-[2026-09-01T02:27:57.580Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0015-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 2029ms
-[2026-09-01T02:27:58.942Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Faudio%2Fita%2F0016-0100.ts%3Ftoken%3DQx-G_1IftVN0TvKJFMwg9w%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1319ms
-[2026-09-01T02:27:59.538Z] GET /v1/proxy?data=%7B%22url%22%3A%22https%3A%2F%2Fsc-u14-01.vix-content.net%2Fhls%2F22%2Fe%2F9f%2Fe9f85344-a968-4ebc-aee4-332611972524%2Fvideo%2F1080p%2F0016-2000.ts%3Ftoken%3DitTvSDUx67PnFqjHROiG0Q%26expires%3D1793413635%22%2C%22headers%22%3A%7B%22User-Agent%22%3A%22Mozilla%2F5.0%20(Windows%20NT%2010.0%3B%20Win64%3B%20x64)%20AppleWebKit%2F537.36%20(KHTML%2C%20like%20Gecko)%20Chrome%2F150%20Safari%2F537.36%22%2C%22Accept%22%3A%22application%2Fjson%2C%20text%2Fjavascript%2C%20*%2F*%3B%20q%3D0.01%22%2C%22Accept-Language%22%3A%22en-US%2Cen%3Bq%3D0.9%22%2C%22Referer%22%3A%22https%3A%2F%2Fvixsrc.to%2Fapi%2Ftv%2F2004%2F1%2F2%22%2C%22Origin%22%3A%22https%3A%2F%2Fvixsrc.to%22%7D%7D 200 - 1919ms
+Last login: Tue Sep  1 12:21:56 on ttys001
+e@leg ~ % cd ~/core && printf '\n===== VIXSRC.TS =====\n' && nl -ba src/providers/vixsrc/vixsrc.ts && printf '\n===== VIXSRC TYPES =====\n' && nl -ba src/providers/vixsrc/vixsrc.types.ts
+
+===== VIXSRC.TS =====
+     1	import { BaseProvider } from '@omss/framework';
+     2	import type {
+     3	    ProviderCapabilities,
+     4	    ProviderMediaObject,
+     5	    ProviderResult,
+     6	    Source,
+     7	    Subtitle
+     8	} from '@omss/framework';
+     9	import { VixSrcApiResponse } from './vixsrc.types.js';
+    10	
+    11	export class VixSrcProvider extends BaseProvider {
+    12	    readonly id = 'vixsrc';
+    13	    readonly name = 'VixSrc';
+    14	    readonly enabled = true;
+    15	    readonly BASE_URL = 'https://vixsrc.to';
+    16	    readonly HEADERS = {
+    17	        'User-Agent':
+    18	            'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/150 Safari/537.36',
+    19	        Accept: 'application/json, text/javascript, */*; q=0.01',
+    20	        'Accept-Language': 'en-US,en;q=0.9',
+    21	        Referer: this.BASE_URL,
+    22	        Origin: this.BASE_URL
+    23	    };
+    24	
+    25	    readonly capabilities: ProviderCapabilities = {
+    26	        supportedContentTypes: ['movies', 'tv']
+    27	    };
+    28	
+    29	    /**
+    30	     * Fetch movie sources
+    31	     */
+    32	    async getMovieSources(media: ProviderMediaObject): Promise<ProviderResult> {
+    33	        return this.getSources(media);
+    34	    }
+    35	
+    36	    /**
+    37	     * Fetch TV episode sources
+    38	     */
+    39	    async getTVSources(media: ProviderMediaObject): Promise<ProviderResult> {
+    40	        return this.getSources(media);
+    41	    }
+    42	
+    43	    /**
+    44	     * Main scraping logic
+    45	     */
+    46	    private async getSources(
+    47	        media: ProviderMediaObject
+    48	    ): Promise<ProviderResult> {
+    49	        try {
+    50	            const pageUrl = this.buildPageUrl(media);
+    51	
+    52	            const sublink = await this.fetchApi(pageUrl);
+    53	            if (!sublink) {
+    54	                return this.emptyResult('Failed to fetch api', media);
+    55	            }
+    56	
+    57	            const html = await this.fetchPage(sublink.src);
+    58	            if (!html) {
+    59	                return this.emptyResult(
+    60	                    'Failed to fetch second embed page',
+    61	                    media
+    62	                );
+    63	            }
+    64	
+    65	            const tokenData = this.extractTokenData(html, media);
+    66	            if (!tokenData) {
+    67	                return this.emptyResult('Invalid or expired token', media);
+    68	            }
+    69	
+    70	            const masterUrl = this.buildMasterUrl(tokenData);
+    71	
+    72	            const playlistContent = await this.fetchPlaylist(
+    73	                masterUrl,
+    74	                pageUrl,
+    75	                media
+    76	            );
+    77	            if (!playlistContent) {
+    78	                return this.emptyResult('Failed to fetch playlist', media);
+    79	            }
+    80	
+    81	            return this.parsePlaylist(
+    82	                playlistContent,
+    83	                masterUrl,
+    84	                pageUrl,
+    85	                media
+    86	            );
+    87	        } catch (error) {
+    88	            return this.emptyResult(
+    89	                error instanceof Error
+    90	                    ? error.message
+    91	                    : 'Unknown provider error',
+    92	                media
+    93	            );
+    94	        }
+    95	    }
+    96	
+    97	    /**
+    98	     * Build page URL based on media type
+    99	     */
+   100	    private buildPageUrl(media: ProviderMediaObject): string {
+   101	        if (media.type === 'movie') {
+   102	            return `${this.BASE_URL}/api/movie/${media.tmdbId}`;
+   103	        } else {
+   104	            return `${this.BASE_URL}/api/tv/${media.tmdbId}/${media.s}/${media.e}`;
+   105	        }
+   106	    }
+   107	
+   108	    /**
+   109	     * Fetch page HTML
+   110	     */
+   111	    private async fetchApi(url: string): Promise<VixSrcApiResponse | null> {
+   112	        try {
+   113	            const response = await fetch(url, {
+   114	                headers: this.HEADERS,
+   115	                signal: AbortSignal.timeout(5000)
+   116	            });
+   117	
+   118	            if (response.status !== 200) {
+   119	                return null;
+   120	            }
+   121	
+   122	            return (await response.json()) as VixSrcApiResponse;
+   123	        } catch {
+   124	            return null;
+   125	        }
+   126	    }
+   127	
+   128	    private async fetchPage(suburl: string): Promise<string | null> {
+   129	        try {
+   130	            const response = await fetch(this.BASE_URL + suburl, {
+   131	                headers: this.HEADERS,
+   132	                signal: AbortSignal.timeout(5000)
+   133	            });
+   134	
+   135	            if (response.status !== 200) {
+   136	                return null;
+   137	            }
+   138	
+   139	            let content = await response.text();
+   140	
+   141	            // Prefer English audio in VixSrc HLS manifests.
+   142	            // English is made DEFAULT/AutoSelect; non-English tracks are disabled.
+   143	            content = content.replace(/(#EXT-X-MEDIA:TYPE=AUDIO:[^\\n]*)/g, (line) => {
+   144	                const lang = (line.match(/LANGUAGE="([^"]+)"/i)?.[1] ?? "").toLowerCase();
+   145	                const name = (line.match(/NAME="([^"]+)"/i)?.[1] ?? "").toLowerCase();
+   146	                const english =
+   147	                    /^(en|eng|en-us|en-gb)$/.test(lang) ||
+   148	                    /english|original/.test(name);
+   149	
+   150	                // Force English to be the only default/autoselected audio track.
+   151	                line = line
+   152	                    .replace(/DEFAULT=(YES|NO)/i, english ? "DEFAULT=YES" : "DEFAULT=NO")
+   153	                    .replace(/AUTOSELECT=(YES|NO)/i, english ? "AUTOSELECT=YES" : "AUTOSELECT=NO");
+   154	
+   155	                return line;
+   156	            });
+   157	
+   158	            // VixSrc can still return a master playlist where Italian is referenced
+   159	            // first. Reorder AUDIO entries so the English rendition is first.
+   160	            const audioLines = content
+   161	                .split("\n")
+   162	                .filter(line => line.startsWith("#EXT-X-MEDIA:TYPE=AUDIO"));
+   163	
+   164	            if (audioLines.length > 1) {
+   165	                const englishLines = audioLines.filter(line =>
+   166	                    /LANGUAGE="(en|eng|en-us|en-gb)"/i.test(line) ||
+   167	                    /NAME="[^"]*(english|original)[^"]*"/i.test(line)
+   168	                );
+   169	
+   170	                if (englishLines.length > 0) {
+   171	                    const otherLines = audioLines.filter(line => !englishLines.includes(line));
+   172	                    const ordered = [...englishLines, ...otherLines];
+   173	
+   174	                    let i = 0;
+   175	                    content = content.replace(
+   176	                        /#EXT-X-MEDIA:TYPE=AUDIO[^\n]*/g,
+   177	                        () => ordered[i++] ?? ""
+   178	                    );
+   179	                }
+   180	            }
+   181	
+   182	            return content;
+   183	        } catch {
+   184	            return null;
+   185	        }
+   186	    }
+   187	
+   188	    /**
+   189	     * Extract token, expires, and playlist URL from HTML
+   190	     */
+   191	    private extractTokenData(
+   192	        html: string,
+   193	        media: ProviderMediaObject
+   194	    ): { token: string; expires: string; playlist: string } | null {
+   195	        const token = html.match(/token["']\s*:\s*["']([^"']+)/)?.[1];
+   196	        const expires = html.match(/expires["']\s*:\s*["']([^"']+)/)?.[1];
+   197	        const playlist = html.match(/url\s*:\s*["']([^"']+)/)?.[1];
+   198	
+   199	        if (!token || !expires || !playlist) {
+   200	            return null;
+   201	        }
+   202	
+   203	        if (this.isTokenExpired(expires)) {
+   204	            return null;
+   205	        }
+   206	
+   207	        return { token, expires, playlist };
+   208	    }
+   209	
+   210	    /**
+   211	     * Check if token is expired
+   212	     */
+   213	    private isTokenExpired(expires: string): boolean {
+   214	        return parseInt(expires, 10) * 1000 - 60_000 < Date.now();
+   215	    }
+   216	
+   217	    /**
+   218	     * Build master playlist URL with token
+   219	     */
+   220	    private buildMasterUrl(tokenData: {
+   221	        token: string;
+   222	        expires: string;
+   223	        playlist: string;
+   224	    }): string {
+   225	        const { token, expires, playlist } = tokenData;
+   226	        const separator = playlist.includes('?') ? '&' : '?';
+   227	        return `${playlist}${separator}token=${token}&expires=${expires}&h=1`;
+   228	    }
+   229	
+   230	    /**
+   231	     * Fetch playlist content
+   232	     */
+   233	    private async fetchPlaylist(
+   234	        url: string,
+   235	        referer: string,
+   236	        media: ProviderMediaObject
+   237	    ): Promise<string | null> {
+   238	        try {
+   239	            const response = await fetch(url, {
+   240	                headers: {
+   241	                    ...this.HEADERS,
+   242	                    Referer: referer
+   243	                },
+   244	                signal: AbortSignal.timeout(5000)
+   245	            });
+   246	
+   247	            if (response.status !== 200) {
+   248	                return null;
+   249	            }
+   250	
+   251	            const content = await response.text();
+   252	            return this.preferEnglishAudio(content);
+   253	        } catch {
+   254	            return null;
+   255	        }
+   256	    }
+   257	
+   258	    /**
+   259	     * Prefer English audio when the HLS master playlist provides it.
+   260	     */
+   261	    private preferEnglishAudio(content: string): string {
+   262	        const lines = content.split(/\r?\n/);
+   263	
+   264	        const audio = lines
+   265	            .map((line, index) => ({ line, index }))
+   266	            .filter(x => x.line.startsWith("#EXT-X-MEDIA:TYPE=AUDIO"));
+   267	
+   268	        if (audio.length === 0) return content;
+   269	
+   270	        const isEnglish = (line: string): boolean => {
+   271	            const lang =
+   272	                line.match(/LANGUAGE="([^"]+)"/i)?.[1]?.toLowerCase() ?? "";
+   273	            const name =
+   274	                line.match(/NAME="([^"]+)"/i)?.[1]?.toLowerCase() ?? "";
+   275	
+   276	            return (
+   277	                /^(en|eng|en-us|en-gb)(?:[-_].*)?$/.test(lang) ||
+   278	                /\benglish\b/i.test(name) ||
+   279	                /\boriginal\b/i.test(name)
+   280	            );
+   281	        };
+   282	
+   283	        const english = audio.find(x => isEnglish(x.line));
+   284	
+   285	        if (!english) return content;
+   286	
+   287	        const englishUri =
+   288	            english.line.match(/URI="([^"]+)"/i)?.[1];
+   289	
+   290	        return lines.map(line => {
+   291	            if (!line.startsWith("#EXT-X-MEDIA:TYPE=AUDIO")) {
+   292	                return line;
+   293	            }
+   294	
+   295	            const selected = isEnglish(line);
+   296	
+   297	            let out = line
+   298	                .replace(/DEFAULT=(YES|NO)/i,
+   299	                    `DEFAULT=${selected ? "YES" : "NO"}`)
+   300	                .replace(/AUTOSELECT=(YES|NO)/i,
+   301	                    `AUTOSELECT=${selected ? "YES" : "NO"}`);
+   302	
+   303	            if (!selected && englishUri) {
+   304	                out = out.replace(
+   305	                    /URI="[^"]+"/i,
+   306	                    `URI="${englishUri}"`
+   307	                );
+   308	            }
+   309	
+   310	            return out;
+   311	        }).join("\n");
+   312	    }
+   313	
+   314	    /**
+   315	     * Parse HLS playlist content
+   316	     */
+   317	    private parsePlaylist(
+   318	        content: string,
+   319	        masterUrl: string,
+   320	        pageUrl: string,
+   321	        media: ProviderMediaObject
+   322	    ): ProviderResult {
+   323	        const audioTracks = this.parseAudioTracks(content);
+   324	        audioTracks.sort((a, b) => {
+   325	            const score = (x: { language: string; label: string }) =>
+   326	                /^en(?:[-_]|$)/i.test(x.language) || /\benglish\b/i.test(x.label) ? 0 : 1;
+   327	            return score(a) - score(b);
+   328	        });
+   329	        audioTracks.sort((a, b) => {
+   330	            const aEn = /^en(?:[-_]|$)/i.test(a.language) ? 0 : 1;
+   331	            const bEn = /^en(?:[-_]|$)/i.test(b.language) ? 0 : 1;
+   332	            return aEn - bEn;
+   333	        });
+   334	        const subtitles = this.parseSubtitles(content, pageUrl);
+   335	        const variants = this.parseVariants(content);
+   336	
+   337	        if (variants.length === 0) {
+   338	            return this.emptyResult('No streams found in playlist', media);
+   339	        }
+   340	
+   341	        const bestVariant = variants.reduce((best, current) =>
+   342	            current.resolution > best.resolution ? current : best
+   343	        );
+   344	
+   345	        const sources: Source[] = [
+   346	            {
+   347	                url: this.createProxyUrl(masterUrl, {
+   348	                    ...this.HEADERS,
+   349	                    Referer: pageUrl
+   350	                }),
+   351	                type: 'hls',
+   352	                quality: `${bestVariant.resolution}p`,
+   353	                audioTracks:
+   354	                    audioTracks.length > 0
+   355	                        ? audioTracks
+   356	                        : [
+   357	                              {
+   358	                                  language: 'en',
+   359	                                  label: 'English'
+   360	                              }
+   361	                          ],
+   362	                provider: {
+   363	                    id: this.id,
+   364	                    name: this.name
+   365	                }
+   366	            }
+   367	        ];
+   368	
+   369	        return {
+   370	            sources,
+   371	            subtitles,
+   372	            diagnostics:
+   373	                sources.length === 0
+   374	                    ? [
+   375	                          {
+   376	                              code: 'PARTIAL_SCRAPE',
+   377	                              message: 'No playable streams found',
+   378	                              field: 'sources',
+   379	                              severity: 'warning'
+   380	                          }
+   381	                      ]
+   382	                    : []
+   383	        };
+   384	    }
+   385	
+   386	    /**
+   387	     * Parse audio tracks from HLS manifest
+   388	     */
+   389	    private parseAudioTracks(
+   390	        content: string
+   391	    ): Array<{ language: string; label: string }> {
+   392	        const tracks: Array<{ language: string; label: string }> = [];
+   393	        const lines = content.split('\n');
+   394	
+   395	        for (const line of lines) {
+   396	            if (!line.startsWith('#EXT-X-MEDIA:TYPE=AUDIO')) continue;
+   397	
+   398	            const language = line.match(/LANGUAGE="([^"]+)"/)?.[1] ?? 'unknown';
+   399	            const label = line.match(/NAME="([^"]+)"/)?.[1] ?? 'Audio';
+   400	
+   401	            tracks.push({
+   402	                language,
+   403	                label
+   404	            });
+   405	        }
+   406	
+   407	        return tracks;
+   408	    }
+   409	
+   410	    /**
+   411	     * Parse subtitles from HLS manifest
+   412	     */
+   413	    private parseSubtitles(content: string, pageUrl: string): Subtitle[] {
+   414	        const subtitles: Subtitle[] = [];
+   415	
+   416	        /* Doesn't work.. 
+   417	        // TODO: Fix subtitles for vixsrc
+   418	        const lines = content.split('\n');
+   419	
+   420	        for (const line of lines) {
+   421	            if (!line.startsWith('#EXT-X-MEDIA:TYPE=SUBTITLES')) continue;
+   422	
+   423	            const url = line.match(/URI="([^"]+)"/)?.[1];
+   424	            if (!url) continue;
+   425	
+   426	            const language = line.match(/NAME="([^"]+)"/)?.[1] ?? 'unknown';
+   427	
+   428	            subtitles.push({
+   429	                url: this.createProxyUrl(url, {
+   430	                    ...this.HEADERS,
+   431	                    Referer: pageUrl
+   432	                }),
+   433	                label: language,
+   434	                format: 'vtt'
+   435	            });
+   436	        }
+   437	        */
+   438	
+   439	        return subtitles;
+   440	    }
+   441	
+   442	    /**
+   443	     * Parse quality variants from HLS manifest
+   444	     */
+   445	    private parseVariants(
+   446	        content: string
+   447	    ): Array<{ resolution: number; url: string }> {
+   448	        const variants: Array<{ resolution: number; url: string }> = [];
+   449	        const regex =
+   450	            /#EXT-X-STREAM-INF:[^\n]*RESOLUTION=\d+x(\d+)[^\n]*\n([^\n]+)/g;
+   451	        let match;
+   452	
+   453	        while ((match = regex.exec(content)) !== null) {
+   454	            variants.push({
+   455	                resolution: parseInt(match[1], 10),
+   456	                url: match[2]
+   457	            });
+   458	        }
+   459	
+   460	        return variants;
+   461	    }
+   462	
+   463	    /**
+   464	     * Return empty result with diagnostic
+   465	     */
+   466	    private emptyResult(
+   467	        message: string,
+   468	        media: ProviderMediaObject
+   469	    ): ProviderResult {
+   470	        return {
+   471	            sources: [],
+   472	            subtitles: [],
+   473	            diagnostics: [
+   474	                {
+   475	                    code: 'PROVIDER_ERROR',
+   476	                    message: `${this.name}: ${message}`,
+   477	                    field: '',
+   478	                    severity: 'error'
+   479	                }
+   480	            ]
+   481	        };
+   482	    }
+   483	
+   484	    /**
+   485	     * Health check
+   486	     */
+   487	    async healthCheck(): Promise<boolean> {
+   488	        try {
+   489	            const response = await fetch(this.BASE_URL, {
+   490	                method: 'HEAD',
+   491	                headers: this.HEADERS,
+   492	                signal: AbortSignal.timeout(5000)
+   493	            });
+   494	            return response.status === 200;
+   495	        } catch {
+   496	            return false;
+   497	        }
+   498	    }
+   499	}
+
+===== VIXSRC TYPES =====
+     1	export interface VixSrcApiResponse {
+     2	    src: string;
+     3	}
+e@leg core % 
