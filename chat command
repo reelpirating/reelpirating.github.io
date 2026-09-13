@@ -1,4 +1,4 @@
-e@leg unlisted % clear
+e@leg ~ % clear
 
 
 
@@ -12,250 +12,761 @@ e@leg unlisted % clear
 
 
 
-
-
-
-
-
-
-
-
-
-
-e@leg unlisted % poetry run unlisted dig --channel-identifier Skateiq --threads 3 --delay 1000 --output .
-
-                 _ _     _           _
-     /\ /\ _ __ | (_)___| |_ ___  __| |
-    / / \ \ '_ \| | / __| __/ _ \/ _` |
-    \ \_/ / | | | | \__ \ ||  __/ (_| |
-     \___/|_| |_|_|_|___/\__\___|\__,_| Version 0.1.4
-                    made by `ramsy0dev`
-
-╭───────────────────── Traceback (most recent call last) ──────────────────────╮
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/urllib3/connection.py:198 in _new_conn                │
-│                                                                              │
-│    195 │   │   :return: New socket connection.                               │
-│    196 │   │   """                                                           │
-│    197 │   │   try:                                                          │
-│ ❱  198 │   │   │   sock = connection.create_connection(                      │
-│    199 │   │   │   │   (self._dns_host, self.port),                          │
-│    200 │   │   │   │   self.timeout,                                         │
-│    201 │   │   │   │   source_address=self.source_address,                   │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/urllib3/util/connection.py:85 in create_connection    │
-│                                                                              │
-│    82 │                                                                      │
-│    83 │   if err is not None:                                                │
-│    84 │   │   try:                                                           │
-│ ❱  85 │   │   │   raise err                                                  │
-│    86 │   │   finally:                                                       │
-│    87 │   │   │   # Break explicitly a reference cycle                       │
-│    88 │   │   │   err = None                                                 │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/urllib3/util/connection.py:73 in create_connection    │
-│                                                                              │
-│    70 │   │   │   │   sock.settimeout(timeout)                               │
-│    71 │   │   │   if source_address:                                         │
-│    72 │   │   │   │   sock.bind(source_address)                              │
-│ ❱  73 │   │   │   sock.connect(sa)                                           │
-│    74 │   │   │   # Break explicitly a reference cycle                       │
-│    75 │   │   │   err = None                                                 │
-│    76 │   │   │   return sock                                                │
-╰──────────────────────────────────────────────────────────────────────────────╯
-TimeoutError: [Errno 60] Operation timed out
-
-The above exception was the direct cause of the following exception:
-
-╭───────────────────── Traceback (most recent call last) ──────────────────────╮
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/urllib3/connectionpool.py:773 in urlopen              │
-│                                                                              │
-│    770 │   │   │   # Is this a closed/new connection that requires CONNECT   │
-│        tunnelling?                                                           │
-│    771 │   │   │   if self.proxy is not None and http_tunnel_required and    │
-│        conn.is_closed:                                                       │
-│    772 │   │   │   │   try:                                                  │
-│ ❱  773 │   │   │   │   │   self._prepare_proxy(conn)                         │
-│    774 │   │   │   │   except (BaseSSLError, OSError, SocketTimeout) as e:   │
-│    775 │   │   │   │   │   self._raise_timeout(                              │
-│    776 │   │   │   │   │   │   err=e, url=self.proxy.url,                    │
-│        timeout_value=conn.timeout                                            │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/urllib3/connectionpool.py:1042 in _prepare_proxy      │
-│                                                                              │
-│   1039 │   │   │   port=self.port,                                           │
-│   1040 │   │   │   headers=self.proxy_headers,                               │
-│   1041 │   │   )                                                             │
-│ ❱ 1042 │   │   conn.connect()                                                │
-│   1043 │                                                                     │
-│   1044 │   def _new_conn(self) -> BaseHTTPSConnection:                       │
-│   1045 │   │   """                                                           │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/urllib3/connection.py:704 in connect                  │
-│                                                                              │
-│    701 │   │                                                                 │
-│    702 │   │   try:                                                          │
-│    703 │   │   │   sock: socket.socket | ssl.SSLSocket                       │
-│ ❱  704 │   │   │   self.sock = sock = self._new_conn()                       │
-│    705 │   │   │   server_hostname: str = self.host                          │
-│    706 │   │   │   tls_in_tls = False                                        │
-│    707                                                                       │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/urllib3/connection.py:207 in _new_conn                │
-│                                                                              │
-│    204 │   │   except socket.gaierror as e:                                  │
-│    205 │   │   │   raise NameResolutionError(self.host, self, e) from e      │
-│    206 │   │   except SocketTimeout as e:                                    │
-│ ❱  207 │   │   │   raise ConnectTimeoutError(                                │
-│    208 │   │   │   │   self,                                                 │
-│    209 │   │   │   │   f"Connection to {self.host} timed out. (connect       │
-│        timeout={self.timeout})",                                             │
-│    210 │   │   │   ) from e                                                  │
-╰──────────────────────────────────────────────────────────────────────────────╯
-ConnectTimeoutError: (<urllib3.connection.HTTPSConnection object at 
-0x1093e9450>, 'Connection to 212.115.103.200 timed out. (connect timeout=None)')
-
-The above exception was the direct cause of the following exception:
-
-ProxyError: ('Unable to connect to proxy', 
-ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x1093e9450>, 
-'Connection to 212.115.103.200 timed out. (connect timeout=None)'))
-
-The above exception was the direct cause of the following exception:
-
-╭───────────────────── Traceback (most recent call last) ──────────────────────╮
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/requests/adapters.py:645 in send                      │
-│                                                                              │
-│   642 │   │   │   timeout = TimeoutSauce(connect=timeout, read=timeout)      │
-│   643 │   │                                                                  │
-│   644 │   │   try:                                                           │
-│ ❱ 645 │   │   │   resp = conn.urlopen(                                       │
-│   646 │   │   │   │   method=request.method,                                 │
-│   647 │   │   │   │   url=url,                                               │
-│   648 │   │   │   │   body=request.body,                                     │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/urllib3/connectionpool.py:841 in urlopen              │
-│                                                                              │
-│    838 │   │   │   elif isinstance(new_e, (OSError, HTTPException)):         │
-│    839 │   │   │   │   new_e = ProtocolError("Connection aborted.", new_e)   │
-│    840 │   │   │                                                             │
-│ ❱  841 │   │   │   retries = retries.increment(                              │
-│    842 │   │   │   │   method, url, error=new_e, _pool=self,                 │
-│        _stacktrace=sys.exc_info()[2]                                         │
-│    843 │   │   │   )                                                         │
-│    844 │   │   │   retries.sleep()                                           │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/urllib3/util/retry.py:519 in increment                │
-│                                                                              │
-│   516 │   │                                                                  │
-│   517 │   │   if new_retry.is_exhausted():                                   │
-│   518 │   │   │   reason = error or ResponseError(cause)                     │
-│ ❱ 519 │   │   │   raise MaxRetryError(_pool, url, reason) from reason  #     │
-│       type: ignore[arg-type]                                                 │
-│   520 │   │                                                                  │
-│   521 │   │   log.debug("Incremented Retry for (url='%s'): %r", url,         │
-│       new_retry)                                                             │
-│   522                                                                        │
-╰──────────────────────────────────────────────────────────────────────────────╯
-MaxRetryError: HTTPSConnectionPool(host='youtube.com', port=443): Max retries 
-exceeded with url: /@Skateiq (Caused by ProxyError('Unable to connect to proxy',
-ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x1093e9450>, 
-'Connection to 212.115.103.200 timed out. (connect timeout=None)')))
-
-During handling of the above exception, another exception occurred:
-
-╭───────────────────── Traceback (most recent call last) ──────────────────────╮
-│ /Users/e/Documents/unlisted/unlisted/cli.py:160 in dig                       │
-│                                                                              │
-│   157 │   │   if current_channel_url is not None:                            │
-│   158 │   │   │                                                              │
-│       status.update(info.CHECKING_CHANNEL_URL(channel_url=current_channel_ur │
-│       l))                                                                    │
-│   159 │   │   │                                                              │
-│ ❱ 160 │   │   │   if not dig_obj.check_channel_url():                        │
-│   161 │   │   │   │                                                          │
-│       console.log(info.CHANNEL_URL_IS_NOT_VALID(channel_url=current_channel_ │
-│       url))                                                                  │
-│   162 │   │   │   │   sys.exit(1)                                            │
-│   163                                                                        │
-│                                                                              │
-│ /Users/e/Documents/unlisted/unlisted/dig.py:60 in check_channel_url          │
-│                                                                              │
-│    57 │   │                                                                  │
-│    58 │   │   headers = {"User-Agent": generate_user_agent()}                │
-│    59 │   │                                                                  │
-│ ❱  60 │   │   response = requests.get(                                       │
-│    61 │   │   │   self.channel_url,                                          │
-│    62 │   │   │   headers=headers,                                           │
-│    63 │   │   │   proxies=self.proxy_handler.get_random_proxy()              │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/requests/api.py:73 in get                             │
-│                                                                              │
-│    70 │   :rtype: requests.Response                                          │
-│    71 │   """                                                                │
-│    72 │                                                                      │
-│ ❱  73 │   return request("get", url, params=params, **kwargs)                │
-│    74                                                                        │
-│    75                                                                        │
-│    76 def options(url, **kwargs):                                            │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/requests/api.py:59 in request                         │
-│                                                                              │
-│    56 │   # avoid leaving sockets open which can trigger a ResourceWarning   │
-│       in some                                                                │
-│    57 │   # cases, and look like a memory leak in others.                    │
-│    58 │   with sessions.Session() as session:                                │
-│ ❱  59 │   │   return session.request(method=method, url=url, **kwargs)       │
-│    60                                                                        │
-│    61                                                                        │
-│    62 def get(url, params=None, **kwargs):                                   │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/requests/sessions.py:592 in request                   │
-│                                                                              │
-│   589 │   │   │   "allow_redirects": allow_redirects,                        │
-│   590 │   │   }                                                              │
-│   591 │   │   send_kwargs.update(settings)                                   │
-│ ❱ 592 │   │   resp = self.send(prep, **send_kwargs)                          │
-│   593 │   │                                                                  │
-│   594 │   │   return resp                                                    │
-│   595                                                                        │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/requests/sessions.py:706 in send                      │
-│                                                                              │
-│   703 │   │   start = preferred_clock()                                      │
-│   704 │   │                                                                  │
-│   705 │   │   # Send the request                                             │
-│ ❱ 706 │   │   r = adapter.send(request, **kwargs)                            │
-│   707 │   │                                                                  │
-│   708 │   │   # Total elapsed time of the request (approximately)            │
-│   709 │   │   elapsed = preferred_clock() - start                            │
-│                                                                              │
-│ /Users/e/Library/Caches/pypoetry/virtualenvs/unlisted-4MqkG10F-py3.14/lib/py │
-│ thon3.14/site-packages/requests/adapters.py:672 in send                      │
-│                                                                              │
-│   669 │   │   │   │   raise RetryError(e, request=request)                   │
-│   670 │   │   │                                                              │
-│   671 │   │   │   if isinstance(e.reason, _ProxyError):                      │
-│ ❱ 672 │   │   │   │   raise ProxyError(e, request=request)                   │
-│   673 │   │   │                                                              │
-│   674 │   │   │   if isinstance(e.reason, _SSLError):                        │
-│   675 │   │   │   │   # This branch is for urllib3 v1.22 and later.          │
-╰──────────────────────────────────────────────────────────────────────────────╯
-ProxyError: HTTPSConnectionPool(host='youtube.com', port=443): Max retries 
-exceeded with url: /@Skateiq (Caused by ProxyError('Unable to connect to proxy',
-ConnectTimeoutError(<urllib3.connection.HTTPSConnection object at 0x1093e9450>, 
-'Connection to 212.115.103.200 timed out. (connect timeout=None)')))
-e@leg unlisted % 
+e@leg ~ % sudo du -xhd 1 ~/Library/Containers 2>/dev/null | sort -h
+4.0K	/Users/e/Library/Containers/archive.org.waybackmachine.mac.extension
+4.0K	/Users/e/Library/Containers/com.amazon.aiv.AIVApp
+4.0K	/Users/e/Library/Containers/com.amazon.aiv.AIVApp.NotificationServiceExtension
+4.0K	/Users/e/Library/Containers/com.apple.Accessibility-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.accessibility.NameRecognitionNotificationsExtension
+4.0K	/Users/e/Library/Containers/com.apple.AccountsUISettings.AppIntents
+4.0K	/Users/e/Library/Containers/com.apple.aiml.mlpt.FedStats.MLHostPluginClassA
+4.0K	/Users/e/Library/Containers/com.apple.AirDrop-Handoff-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Animoji.StickersApp.MessagesExtension
+4.0K	/Users/e/Library/Containers/com.apple.Appearance-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.AppleAccountIntents
+4.0K	/Users/e/Library/Containers/com.apple.AppleAccountUI.AAUIFollowUpExtension
+4.0K	/Users/e/Library/Containers/com.apple.AppleMediaServices.FollowUpExtension
+4.0K	/Users/e/Library/Containers/com.apple.AppleMediaServicesUI.ComposeReviewExtension
+4.0K	/Users/e/Library/Containers/com.apple.AppSSOKerberos.KerberosExtension
+4.0K	/Users/e/Library/Containers/com.apple.AppStoreDaemon.ASDAskPermissionExtension
+4.0K	/Users/e/Library/Containers/com.apple.Arabesque
+4.0K	/Users/e/Library/Containers/com.apple.AskTo.AskToTestResponseUIExtension
+4.0K	/Users/e/Library/Containers/com.apple.AskToMessagesHost.AskToMessagesExtension
+4.0K	/Users/e/Library/Containers/com.apple.AskToViewExtension
+4.0K	/Users/e/Library/Containers/com.apple.AuthKit.AKDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.AuthKitUI.AKFollowUpServerUIExtension
+4.0K	/Users/e/Library/Containers/com.apple.AvatarUI.AvatarPosterExtension
+4.0K	/Users/e/Library/Containers/com.apple.AVConference.Diagnostic
+4.0K	/Users/e/Library/Containers/com.apple.Batteries
+4.0K	/Users/e/Library/Containers/com.apple.Battery-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.batteryui.BatterySettingsIntents
+4.0K	/Users/e/Library/Containers/com.apple.BiometricKit.BioLogDiagnostic
+4.0K	/Users/e/Library/Containers/com.apple.BiometricsAndPasswordSettingsAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.BlackPowderInferenceExtension
+4.0K	/Users/e/Library/Containers/com.apple.BluetoothSettings
+4.0K	/Users/e/Library/Containers/com.apple.BluetoothSettingsApp.BluetoothSettingsAppIntentsWidget
+4.0K	/Users/e/Library/Containers/com.apple.calendar.EventKitUIRemoteUIExtension
+4.0K	/Users/e/Library/Containers/com.apple.CalendarUI.SpotlightEventPreview
+4.0K	/Users/e/Library/Containers/com.apple.calls.PhoneAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.CD-DVD-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Chess
+4.0K	/Users/e/Library/Containers/com.apple.ClassKit-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.ClassKit.ClassKitAppIntents
+4.0K	/Users/e/Library/Containers/com.apple.ClassKit.diagnosticextension
+4.0K	/Users/e/Library/Containers/com.apple.Classroom-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.ClassroomDeviceExpert
+4.0K	/Users/e/Library/Containers/com.apple.CloudDocs.iCloudDriveFileProviderManaged
+4.0K	/Users/e/Library/Containers/com.apple.CloudDocs.MobileDocumentsFileProviderManaged
+4.0K	/Users/e/Library/Containers/com.apple.CloudDocsDaemon.diagnostic
+4.0K	/Users/e/Library/Containers/com.apple.cloudml.inference.PrivateMLClientInferenceProviderService
+4.0K	/Users/e/Library/Containers/com.apple.cloudos.PCCAgentClientExtension
+4.0K	/Users/e/Library/Containers/com.apple.CloudSharingUI.CopyLink
+4.0K	/Users/e/Library/Containers/com.apple.CloudSharingUI.CreateiCloudLinkExtension
+4.0K	/Users/e/Library/Containers/com.apple.CloudSharingUI.invite
+4.0K	/Users/e/Library/Containers/com.apple.CloudSubscriptionFeatures.CSFFollowUpExtension
+4.0K	/Users/e/Library/Containers/com.apple.CommerceKit.AskPermissionExtension
+4.0K	/Users/e/Library/Containers/com.apple.ConfigurationProfiles.FollowUp
+4.0K	/Users/e/Library/Containers/com.apple.contacts.ContactsAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.ContactsUI.ContactsViewService
+4.0K	/Users/e/Library/Containers/com.apple.ContactsUI.ContactViewViewService
+4.0K	/Users/e/Library/Containers/com.apple.ControlCenter-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.controlcenter.ControlCenterSettingsIntents
+4.0K	/Users/e/Library/Containers/com.apple.CoreCDPUI.CDPFollowUpExtension
+4.0K	/Users/e/Library/Containers/com.apple.CoreEmbeddedSpeechRecognition.SpeechAudioDiagnostic
+4.0K	/Users/e/Library/Containers/com.apple.CoreEmbeddedSpeechRecognition.SpeechProfileDiagnostic
+4.0K	/Users/e/Library/Containers/com.apple.CoreHapticsTools.QLPreviewExtension
+4.0K	/Users/e/Library/Containers/com.apple.CoreHapticsTools.QLThumbnailExtension
+4.0K	/Users/e/Library/Containers/com.apple.CoreMotionFoundationModelExtension
+4.0K	/Users/e/Library/Containers/com.apple.CoreRoutine.RTDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.CTLazuliSupport.diagnosticextension
+4.0K	/Users/e/Library/Containers/com.apple.das.DASDaemon.DuetDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.Date-Time-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.DEC.AppPredictionInternal.DiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.desktopsettings.DesktopSettingsIntents
+4.0K	/Users/e/Library/Containers/com.apple.DeviceActivityUI.DeviceActivityReportService
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.AirPlay
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.AppleBtcDiagnosis
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.BluetoothDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.BluetoothHeadset
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityDE
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.ConnectivityWiFiDE
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.CoreSensingDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.HomeEnergyDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.IMDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.IntelligentRoutingDiagnostic
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.MiLoDiagnostic
+4.0K	/Users/e/Library/Containers/com.apple.diagnosticextensions.osx.filevault
+4.0K	/Users/e/Library/Containers/com.apple.diagnosticextensions.osx.installlog
+4.0K	/Users/e/Library/Containers/com.apple.diagnosticextensions.osx.spotlight
+4.0K	/Users/e/Library/Containers/com.apple.diagnosticextensions.osx.syslog
+4.0K	/Users/e/Library/Containers/com.apple.diagnosticextensions.osx.systemprofile
+4.0K	/Users/e/Library/Containers/com.apple.diagnosticextensions.osx.timemachine
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.PICSDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.ScreenTime
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.shortcuts
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.StorageDESDXC
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.StorageDESSD
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.sysdiagnose
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.ToolKit.shortcuts
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.WallpaperMac
+4.0K	/Users/e/Library/Containers/com.apple.DiagnosticExtensions.WiFi
+4.0K	/Users/e/Library/Containers/com.apple.DiskSpaceDiagnostics.diagnosticextension
+4.0K	/Users/e/Library/Containers/com.apple.donotdisturb.DoNotDisturbAppIntents
+4.0K	/Users/e/Library/Containers/com.apple.dt.DVTFeedbackReporting.DVTFeedbackReportingDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.dt.DVTFeedbackReporting.XCCFeedbackReportingDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.dt.DVTProvisioningProfileQuicklookExtension
+4.0K	/Users/e/Library/Containers/com.apple.dt.Instruments.InstrumentsShareExtension
+4.0K	/Users/e/Library/Containers/com.apple.eventkit.CalendarDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.eventMetaDataExtractor.eventMetaDataExtractorPlugin
+4.0K	/Users/e/Library/Containers/com.apple.extensionkit.AppExtensionManagement
+4.0K	/Users/e/Library/Containers/com.apple.FaceTime.RemotePeoplePicker
+4.0K	/Users/e/Library/Containers/com.apple.Family-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.family.FAFollowupExtension
+4.0K	/Users/e/Library/Containers/com.apple.family.FamilyIntents
+4.0K	/Users/e/Library/Containers/com.apple.FamilyExtensionHost.FamilyOutOfProcessUIExtension
+4.0K	/Users/e/Library/Containers/com.apple.Feedback.DraftingExtension
+4.0K	/Users/e/Library/Containers/com.apple.FileProviderDaemon.diagnostic
+4.0K	/Users/e/Library/Containers/com.apple.findmy.FindMyCoreFollowUpExtension
+4.0K	/Users/e/Library/Containers/com.apple.findmy.FindMyIntents
+4.0K	/Users/e/Library/Containers/com.apple.findmy.FindMyNotificationsServiceExtension
+4.0K	/Users/e/Library/Containers/com.apple.Flurry
+4.0K	/Users/e/Library/Containers/com.apple.Focus-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.FontBook
+4.0K	/Users/e/Library/Containers/com.apple.freeform.sharingextension
+4.0K	/Users/e/Library/Containers/com.apple.freeform.USDRendererExtension
+4.0K	/Users/e/Library/Containers/com.apple.fskit.ftp
+4.0K	/Users/e/Library/Containers/com.apple.Game-Center-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Game-Controller-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.gamecenter.GameCenterUIService.GameCenterMessageExtension
+4.0K	/Users/e/Library/Containers/com.apple.GameCenter.Settings.DeviceExpertExtension
+4.0K	/Users/e/Library/Containers/com.apple.GameCenterDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.games.ChallengesMessageExtension
+4.0K	/Users/e/Library/Containers/com.apple.generativeassistanttools.settingsextension.GenerativeAssistantSettingsExtension
+4.0K	/Users/e/Library/Containers/com.apple.GenerativeFunctions.GenerativeExperiencesSafetyInferenceProvider
+4.0K	/Users/e/Library/Containers/com.apple.GenerativePlaygroundApp.GenerativePlaygroundAppIntents
+4.0K	/Users/e/Library/Containers/com.apple.GenerativePlaygroundApp.MessagesExtension
+4.0K	/Users/e/Library/Containers/com.apple.GenerativePlaygroundApp.remoteUIExtension
+4.0K	/Users/e/Library/Containers/com.apple.HeadGestures.diagnosticextension.HeadGesturesDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.HeadphoneSettings
+4.0K	/Users/e/Library/Containers/com.apple.helpviewer.HelpViewer-Quicklook
+4.0K	/Users/e/Library/Containers/com.apple.Home.HomeAppMessagesExtension
+4.0K	/Users/e/Library/Containers/com.apple.Home.HomeUIUserList
+4.0K	/Users/e/Library/Containers/com.apple.Home.HomeWidgetIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.Home.PrivacySettingsExtension
+4.0K	/Users/e/Library/Containers/com.apple.HomeAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.HomeKit.HomeKitCustomerDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.HomeKitEvents.HomeKitEventsDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.HostInferenceProviderService
+4.0K	/Users/e/Library/Containers/com.apple.HydraQLPreviewExtension
+4.0K	/Users/e/Library/Containers/com.apple.HydraQLThumbnailExtension
+4.0K	/Users/e/Library/Containers/com.apple.HydraUSDAppIntents
+4.0K	/Users/e/Library/Containers/com.apple.ibooks.BookLibrary.BooksDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.ibooks.BookLibraryCore.BooksAskPermissionExtension
+4.0K	/Users/e/Library/Containers/com.apple.iBooks.BooksNotificationContentExtension
+4.0K	/Users/e/Library/Containers/com.apple.iBooks.engagementExtension
+4.0K	/Users/e/Library/Containers/com.apple.iBooksX
+4.0K	/Users/e/Library/Containers/com.apple.iBooksX.CacheDelete
+4.0K	/Users/e/Library/Containers/com.apple.iBooksX.SharingExtension
+4.0K	/Users/e/Library/Containers/com.apple.iCal.CalendarNotificationContentExtention-OSX
+4.0K	/Users/e/Library/Containers/com.apple.icloud.apps.messages.business.extension
+4.0K	/Users/e/Library/Containers/com.apple.icloud.SPOwner.SearchPartyDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.iCloudDriveCore.diagnostic
+4.0K	/Users/e/Library/Containers/com.apple.IconComposerQuickLookPreviewAppExtension
+4.0K	/Users/e/Library/Containers/com.apple.IconComposerThumbnailExtension
+4.0K	/Users/e/Library/Containers/com.apple.ImageIO.imageimporter
+4.0K	/Users/e/Library/Containers/com.apple.ImagePlayground.DiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.ImagePlayground.NonUIExtension
+4.0K	/Users/e/Library/Containers/com.apple.iMovieApp
+4.0K	/Users/e/Library/Containers/com.apple.InferenceProviderService
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.ChineseHandwriting
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.EmojiFunctionRowItem
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.Korean
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.Kotoeri.KanaTyping
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.Kotoeri.RomajiTyping
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.SCIM
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.TCIM
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.TransliterationIM
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.TYIM
+4.0K	/Users/e/Library/Containers/com.apple.inputmethod.VietnameseIM
+4.0K	/Users/e/Library/Containers/com.apple.intelligenceflow.IntelligenceFlowAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.intelligenceflow.IntelligenceFlowRuntime.IntelligenceFlowDiagnostics
+4.0K	/Users/e/Library/Containers/com.apple.intelligenceplatform.IntelligencePlatform.DiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.intelligenceplatform.IntelligencePlatform.IntelligencePlatformDataActionsAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.iphonesimulator.ShareExtension
+4.0K	/Users/e/Library/Containers/com.apple.iWork.Keynote.KeynoteNotificationServiceExtension
+4.0K	/Users/e/Library/Containers/com.apple.iWork.Numbers.NumbersNotificationServiceExtension
+4.0K	/Users/e/Library/Containers/com.apple.iWork.Pages.PagesNotificationServiceExtension
+4.0K	/Users/e/Library/Containers/com.apple.journal
+4.0K	/Users/e/Library/Containers/com.apple.journal.JournalShareExtension
+4.0K	/Users/e/Library/Containers/com.apple.lighthouse.SiriCoreMetricsWorker
+4.0K	/Users/e/Library/Containers/com.apple.LighthouseBitacoraFramework.LighthouseBitacoraPlugin
+4.0K	/Users/e/Library/Containers/com.apple.Localization-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Lock-Screen-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.LoginItems-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.MADViewServiceExtension
+4.0K	/Users/e/Library/Containers/com.apple.mail.MailNotificationContentExtension
+4.0K	/Users/e/Library/Containers/com.apple.mail.MailQuickLookExtension
+4.0K	/Users/e/Library/Containers/com.apple.MailShareExtension
+4.0K	/Users/e/Library/Containers/com.apple.mapkit.private.RemoteUI
+4.0K	/Users/e/Library/Containers/com.apple.MarkupUI.Markup
+4.0K	/Users/e/Library/Containers/com.apple.MarkupUI.MarkupPhotoExtension
+4.0K	/Users/e/Library/Containers/com.apple.MediaPlayer.DiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.MediaRemoteAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.messages.ReplyExtension
+4.0K	/Users/e/Library/Containers/com.apple.messages.ShareExtension
+4.0K	/Users/e/Library/Containers/com.apple.mlhost.SampleWorker
+4.0K	/Users/e/Library/Containers/com.apple.mobilephone
+4.0K	/Users/e/Library/Containers/com.apple.mobileslideshow.photo-picker
+4.0K	/Users/e/Library/Containers/com.apple.mobileslideshow.photospicker
+4.0K	/Users/e/Library/Containers/com.apple.MobileSMS.MessagesPluginNotificationExtension
+4.0K	/Users/e/Library/Containers/com.apple.mobiletimer.ClockAppIntents
+4.0K	/Users/e/Library/Containers/com.apple.Mouse-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Network-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.NetworkEndpointPickerUI.DDUIExtension
+4.0K	/Users/e/Library/Containers/com.apple.NetworkExtensionSettingsUI.NESettingsUIExtension
+4.0K	/Users/e/Library/Containers/com.apple.NetworkInfo.DiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.networkquality.DiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.NewDeviceOutreach.NewDeviceOutreachIntents
+4.0K	/Users/e/Library/Containers/com.apple.news.articlenotificationextension
+4.0K	/Users/e/Library/Containers/com.apple.news.engagementExtension
+4.0K	/Users/e/Library/Containers/com.apple.news.NewsAudioExtension
+4.0K	/Users/e/Library/Containers/com.apple.news.openinnews
+4.0K	/Users/e/Library/Containers/com.apple.Notes.QuickLookExtension
+4.0K	/Users/e/Library/Containers/com.apple.Notifications-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.notifications.NotificationsSettingsIntents
+4.0K	/Users/e/Library/Containers/com.apple.OFDPreview
+4.0K	/Users/e/Library/Containers/com.apple.OFDThumbnail
+4.0K	/Users/e/Library/Containers/com.apple.omniSearch.SearchToolDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.omniSearch.SearchToolExtension
+4.0K	/Users/e/Library/Containers/com.apple.osanalytics.IPSExtension
+4.0K	/Users/e/Library/Containers/com.apple.osx-tailspin
+4.0K	/Users/e/Library/Containers/com.apple.PaperKit.extension.ui
+4.0K	/Users/e/Library/Containers/com.apple.PassbookUIService.PeerPaymentMessagesExtension
+4.0K	/Users/e/Library/Containers/com.apple.Passwords-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.PDFKit.PDFExtensionView
+4.0K	/Users/e/Library/Containers/com.apple.PDFKit.PDFImporter
+4.0K	/Users/e/Library/Containers/com.apple.PeopleMessageService.AskToBuy
+4.0K	/Users/e/Library/Containers/com.apple.PeopleMessageService.LegacyMessageService
+4.0K	/Users/e/Library/Containers/com.apple.PeopleMessageService.ScreenTime
+4.0K	/Users/e/Library/Containers/com.apple.PeopleViewService
+4.0K	/Users/e/Library/Containers/com.apple.PhotoLibraryServices.PhotosDiagnostics
+4.0K	/Users/e/Library/Containers/com.apple.Photos.MacMusicPickerExtension
+4.0K	/Users/e/Library/Containers/com.apple.Photos.PhotosFileProvider
+4.0K	/Users/e/Library/Containers/com.apple.PhotosIntelligence.PhotosStoryDiagnostics
+4.0K	/Users/e/Library/Containers/com.apple.podcasts.MacQuicklookExtension
+4.0K	/Users/e/Library/Containers/com.apple.podcasts.PodcastsNotificationExtension
+4.0K	/Users/e/Library/Containers/com.apple.preferencepane.security.AdvertisingExtension
+4.0K	/Users/e/Library/Containers/com.apple.priml.pfl.Vermillion
+4.0K	/Users/e/Library/Containers/com.apple.priml.PFLMLHostPlugins.AVCPlugin
+4.0K	/Users/e/Library/Containers/com.apple.priml.PFLMLHostPlugins.FedAutoEvalPlugin
+4.0K	/Users/e/Library/Containers/com.apple.priml.PFLMLHostPlugins.PrivateEvolutionPlugin
+4.0K	/Users/e/Library/Containers/com.apple.priml.PFLMLHostPlugins.SiriAutoEvalPlugin
+4.0K	/Users/e/Library/Containers/com.apple.priml.PFLMLHostPlugins.SiriMASPFLPush
+4.0K	/Users/e/Library/Containers/com.apple.priml.PRIMLCKPreemptivePing
+4.0K	/Users/e/Library/Containers/com.apple.Print-Scan-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.printcenter
+4.0K	/Users/e/Library/Containers/com.apple.proactive.AppleIntelligenceReportingSELFIngestor
+4.0K	/Users/e/Library/Containers/com.apple.Profiles-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Profiles-Settings.intents
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.AudiovisualExtension
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.CalendarExtension
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.ClippingsExtension
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.ContactExtension
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.FontExtension
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.ImageExtension
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.OfficeExtension
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.PackageExtension
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.TextExtension
+4.0K	/Users/e/Library/Containers/com.apple.quicklook.thumbnail.WebExtension
+4.0K	/Users/e/Library/Containers/com.apple.RAQLPreviewExtension
+4.0K	/Users/e/Library/Containers/com.apple.RAQLThumbnailExtension
+4.0K	/Users/e/Library/Containers/com.apple.RelativeMotion.TempestDiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.reminders.quicklookextension
+4.0K	/Users/e/Library/Containers/com.apple.reminders.sharingextension
+4.0K	/Users/e/Library/Containers/com.apple.replayKit.RPBroadcastActivityExtension-macOS
+4.0K	/Users/e/Library/Containers/com.apple.replayKit.RPVideoEditorExtension-macOS
+4.0K	/Users/e/Library/Containers/com.apple.Safari.DiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.Safari.SafariQuickLookPreview
+4.0K	/Users/e/Library/Containers/com.apple.SceneKitQLPreviewExtension
+4.0K	/Users/e/Library/Containers/com.apple.SceneKitQLThumbnailExtension
+4.0K	/Users/e/Library/Containers/com.apple.screensaver.AlbumArtwork
+4.0K	/Users/e/Library/Containers/com.apple.ScreenSaver.Computer-Name
+4.0K	/Users/e/Library/Containers/com.apple.ScreenSaver.Drift
+4.0K	/Users/e/Library/Containers/com.apple.ScreenSaver.Engine.legacyScreenSaver
+4.0K	/Users/e/Library/Containers/com.apple.ScreenSaver.Engine.legacyScreenSaver.x86-64
+4.0K	/Users/e/Library/Containers/com.apple.ScreenSaver.Hello
+4.0K	/Users/e/Library/Containers/com.apple.ScreenSaver.iLife-Slideshow-Extension
+4.0K	/Users/e/Library/Containers/com.apple.ScreenSaver.Monterey
+4.0K	/Users/e/Library/Containers/com.apple.ScreenSaver.Ventura
+4.0K	/Users/e/Library/Containers/com.apple.ScreenTimeSwift.ScreenTimeDeviceActivityMonitorExtension
+4.0K	/Users/e/Library/Containers/com.apple.SecurityImprovements-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.SensitiveContentAnalysis.SCARemoteView.Extension
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.AirDropHandoffIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.AppearanceIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.DateTimeIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.LockScreenIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.LoginItemsIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.mouse
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.NetworkSettingsIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.PrinterScannerIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.ScreenSaverIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.trackpad
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.TransferResetIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.UsersGroupsIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings-intents.WallpaperIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings.PrivacySecurity.extension
+4.0K	/Users/e/Library/Containers/com.apple.settings.SecurityPrefQADirector.SecurityPrivacyIntents
+4.0K	/Users/e/Library/Containers/com.apple.settings.Storage
+4.0K	/Users/e/Library/Containers/com.apple.settings.Storage.StorageSettingsIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.share.Mail.compose-back-to-sender
+4.0K	/Users/e/Library/Containers/com.apple.share.Messages.window
+4.0K	/Users/e/Library/Containers/com.apple.share.System.add-to-iphoto
+4.0K	/Users/e/Library/Containers/com.apple.share.System.add-to-safari-reading-list
+4.0K	/Users/e/Library/Containers/com.apple.share.System.set-account-picture
+4.0K	/Users/e/Library/Containers/com.apple.share.System.set-desktop-image
+4.0K	/Users/e/Library/Containers/com.apple.Sharing-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Shell
+4.0K	/Users/e/Library/Containers/com.apple.shortcuts.QuickLookExtension
+4.0K	/Users/e/Library/Containers/com.apple.shortcuts.ThumbnailExtension
+4.0K	/Users/e/Library/Containers/com.apple.Siri-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.siri.AssistantSettingsControls
+4.0K	/Users/e/Library/Containers/com.apple.siri.AudioAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.car.PnRCarPlayOnDeviceWorker
+4.0K	/Users/e/Library/Containers/com.apple.siri.inference.SiriInference.SiriInferenceRuntimeDiagnostics
+4.0K	/Users/e/Library/Containers/com.apple.siri.OnDeviceAnalytics.SiriAttentionAndInvocationExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.OnDeviceAnalytics.SpeakerIdSamplingExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.parsec.HashtagImagesApp.HashtagImagesExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriAppLaunchIntents.AppLaunchIntentExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriGeo.SiriGeoIntentExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriIdentityInternal.IdentityIntentExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriPrivateLearningAnalytics.SiriUserSegments.Plugin
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriSettingsIntents.SettingsIntentExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriSignals.MusicAppSelectionPFLPlugin
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriTimeInternal.AlarmIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriTimeInternal.TimerIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriTTSService.STSDiagnostic
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriVideoAppIntents
+4.0K	/Users/e/Library/Containers/com.apple.siri.SiriVideoIntents.VideoIntentExtension
+4.0K	/Users/e/Library/Containers/com.apple.siriplugin.FileSearch
+4.0K	/Users/e/Library/Containers/com.apple.SmartReplies.SmartRepliesMLRuntimePlugin
+4.0K	/Users/e/Library/Containers/com.apple.Software-Update-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.SoftwareUpdate.SoftwareUpdateSettingsWidget
+4.0K	/Users/e/Library/Containers/com.apple.SonicKit.diagnostics
+4.0K	/Users/e/Library/Containers/com.apple.Sound-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Spotlight-Settings.extension.SpotlightSettingsIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.Startup-Disk-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.StartupDisk.StartupDiskWidgetExtension
+4.0K	/Users/e/Library/Containers/com.apple.STMExtension.AppleInternal
+4.0K	/Users/e/Library/Containers/com.apple.StoreKit.SKAskPermissionExtension
+4.0K	/Users/e/Library/Containers/com.apple.systempreferences.AboutSettingsIntents
+4.0K	/Users/e/Library/Containers/com.apple.systempreferences.DisplaysSettingsIntents
+4.0K	/Users/e/Library/Containers/com.apple.systempreferences.InternationalSettingsExtension
+4.0K	/Users/e/Library/Containers/com.apple.systempreferences.KeyboardSettingsExtension
+4.0K	/Users/e/Library/Containers/com.apple.systempreferences.SharingSettingsIntents
+4.0K	/Users/e/Library/Containers/com.apple.SystemProfiler.AboutExtension
+4.0K	/Users/e/Library/Containers/com.apple.TelephonyUtilities.PhoneIntentHandler
+4.0K	/Users/e/Library/Containers/com.apple.TextToSpeechVoiceBankingSupport.VoiceBankingDiagnostics
+4.0K	/Users/e/Library/Containers/com.apple.tgondeviceinferenceproviderservice
+4.0K	/Users/e/Library/Containers/com.apple.Time-Machine-Settings-Intents.extension
+4.0K	/Users/e/Library/Containers/com.apple.Time-Machine-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.tips
+4.0K	/Users/e/Library/Containers/com.apple.tips.TipsQuicklook
+4.0K	/Users/e/Library/Containers/com.apple.Touch-ID-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Trackpad-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Transfer-Reset-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.Translate.TranslationAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.Translation.TranslationAPIExtension
+4.0K	/Users/e/Library/Containers/com.apple.Translation.TranslationAPISupportExtension
+4.0K	/Users/e/Library/Containers/com.apple.TranslationUIServices.TranslationUIService
+4.0K	/Users/e/Library/Containers/com.apple.TransparencySettingsIntents
+4.0K	/Users/e/Library/Containers/com.apple.TransparencyUI.FollowUpExtension
+4.0K	/Users/e/Library/Containers/com.apple.TransparencyUI.SWTFollowUpExtension
+4.0K	/Users/e/Library/Containers/com.apple.UIUnderstanding.diagnosticextension
+4.0K	/Users/e/Library/Containers/com.apple.UniversalAccess.UASettingsShortcuts
+4.0K	/Users/e/Library/Containers/com.apple.Users-Groups-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.VideoSubscriberAccount.VideoSubscriberAccountUIFramework.AuthenticationExtension
+4.0K	/Users/e/Library/Containers/com.apple.VisualGeneration.inference
+4.0K	/Users/e/Library/Containers/com.apple.VoiceMemos.SpotlightIndexExtension
+4.0K	/Users/e/Library/Containers/com.apple.VoiceMemos.VoiceMemosIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.VPNAppIntentWidget
+4.0K	/Users/e/Library/Containers/com.apple.WalletSettingsExtension
+4.0K	/Users/e/Library/Containers/com.apple.Wallpaper-Settings.extension
+4.0K	/Users/e/Library/Containers/com.apple.wallpaper.agent.WallpaperIntents
+4.0K	/Users/e/Library/Containers/com.apple.wallpaper.extension.monterey
+4.0K	/Users/e/Library/Containers/com.apple.wallpaper.extension.ventura
+4.0K	/Users/e/Library/Containers/com.apple.WatchFaceAlert.ThumbnailExtension
+4.0K	/Users/e/Library/Containers/com.apple.weather.diagnosticextension
+4.0K	/Users/e/Library/Containers/com.apple.weather.menu
+4.0K	/Users/e/Library/Containers/com.apple.weather.WeatherAppIntents
+4.0K	/Users/e/Library/Containers/com.apple.wifi-settings-extension
+4.0K	/Users/e/Library/Containers/com.apple.wifiqa.NPTKit.NPTWiFiDiagnosticsExtension
+4.0K	/Users/e/Library/Containers/com.apple.WiFiVelocity.DiagnosticExtension
+4.0K	/Users/e/Library/Containers/com.apple.WordOfTheDay
+4.0K	/Users/e/Library/Containers/com.apple.WorkflowKit.ShortcutsIntents
+4.0K	/Users/e/Library/Containers/com.apple.WorkflowUI.AddShortcutExtension
+4.0K	/Users/e/Library/Containers/com.apple.WorkflowUI.WidgetConfigurationExtension
+4.0K	/Users/e/Library/Containers/com.apple.WritingTools.WritingToolsAppIntentsExtension
+4.0K	/Users/e/Library/Containers/com.apple.zeolite.ZeoliteEvalExtension
+4.0K	/Users/e/Library/Containers/com.duckduckgo.mobile.ios.vpn.agent.network-protection-extension
+4.0K	/Users/e/Library/Containers/com.duckduckgo.mobile.ios.vpn.agent.proxy
+4.0K	/Users/e/Library/Containers/com.microsoft.OneDrive-mac.FinderSync
+4.0K	/Users/e/Library/Containers/com.microsoft.onenote.mac.shareextension
+4.0K	/Users/e/Library/Containers/com.microsoft.rdc.macos.qlx
+4.0K	/Users/e/Library/Containers/com.oecoway.friendlynetflix.debugInspectorExt
+4.0K	/Users/e/Library/Containers/com.sindresorhus.Plash.ShareExtension
+4.0K	/Users/e/Library/Containers/im.nik.Popcorn
+4.0K	/Users/e/Library/Containers/im.nik.Popcorn.Extension
+4.0K	/Users/e/Library/Containers/net.raymondhill.uBlock-Origin-Lite
+4.0K	/Users/e/Library/Containers/net.raymondhill.uBlock-Origin-Lite.Extension
+4.0K	/Users/e/Library/Containers/net.whatsapp.WhatsApp.Intents
+8.0K	/Users/e/Library/Containers/com.apple.assessmentagent
+8.0K	/Users/e/Library/Containers/com.apple.managedcorespotlightd
+8.0K	/Users/e/Library/Containers/com.gamemac.www.thumbnail
+ 20K	/Users/e/Library/Containers/com.apple.ScreenSaver.Engine
+ 24K	/Users/e/Library/Containers/com.apple.iBooksX.BooksThumbnail
+ 24K	/Users/e/Library/Containers/com.apple.QuickLookUIFramework.QLPreviewGenerationExtension
+ 24K	/Users/e/Library/Containers/com.franke.Whisky.WhiskyThumbnail
+ 24K	/Users/e/Library/Containers/com.gamemac.www.quicklook
+ 28K	/Users/e/Library/Containers/com.apple.configurator.xpc.DeviceService
+ 28K	/Users/e/Library/Containers/com.apple.CryptoTokenKit.pivtoken
+ 28K	/Users/e/Library/Containers/com.apple.fskit.exfat
+ 28K	/Users/e/Library/Containers/com.apple.fskit.msdos
+ 28K	/Users/e/Library/Containers/com.apple.LoginUserService
+ 28K	/Users/e/Library/Containers/com.apple.PressAndHold
+ 28K	/Users/e/Library/Containers/com.apple.StickiesMigration
+ 28K	/Users/e/Library/Containers/com.apple.STMExtension.GarageBand
+ 28K	/Users/e/Library/Containers/com.apple.tonelibraryd
+ 28K	/Users/e/Library/Containers/com.apple.wallpaper.extension.video
+ 28K	/Users/e/Library/Containers/com.apple.windowmanager.ShowDesktopEducation
+ 32K	/Users/e/Library/Containers/archive.org.waybackmachine.mac
+ 32K	/Users/e/Library/Containers/com.apple.aiml.RepackagingWorker
+ 32K	/Users/e/Library/Containers/com.apple.aiml.UnilogTelemetryWorker
+ 32K	/Users/e/Library/Containers/com.apple.AirPlayUIAgent
+ 32K	/Users/e/Library/Containers/com.apple.appkit.xpc.ColorSampler
+ 32K	/Users/e/Library/Containers/com.apple.AquaAppearanceHelper
+ 32K	/Users/e/Library/Containers/com.apple.AuthKitUI.AKAppSSOExtension
+ 32K	/Users/e/Library/Containers/com.apple.ax.KonaTTSSupport.KonaSynthesizer
+ 32K	/Users/e/Library/Containers/com.apple.CloudDocsDaemon.StorageManagement
+ 32K	/Users/e/Library/Containers/com.apple.contacts.ContactsCoreSpotlightExtension
+ 32K	/Users/e/Library/Containers/com.apple.controlcenter.ringlighthelper
+ 32K	/Users/e/Library/Containers/com.apple.CoreDevice.remotepairingd
+ 32K	/Users/e/Library/Containers/com.apple.CryptoTokenKit.ctkcard.ctkcardtoken
+ 32K	/Users/e/Library/Containers/com.apple.DataDetectorsLocalSources
+ 32K	/Users/e/Library/Containers/com.apple.Desktop-Settings.extension
+ 32K	/Users/e/Library/Containers/com.apple.DifferentialPrivacy.TelemetryAggregator
+ 32K	/Users/e/Library/Containers/com.apple.DoNotDisturb.Intents
+ 32K	/Users/e/Library/Containers/com.apple.ExtensionsSettings.LegacyPluginEnablementExtension
+ 32K	/Users/e/Library/Containers/com.apple.FollowUpSettings.FollowUpSettingsExtension
+ 32K	/Users/e/Library/Containers/com.apple.fskit.ModuleEnablement
+ 32K	/Users/e/Library/Containers/com.apple.iBooks.iBooksSpotlightExtension
+ 32K	/Users/e/Library/Containers/com.apple.iBooksX.DiskSpaceEfficiency
+ 32K	/Users/e/Library/Containers/com.apple.iCal.FaceTimeExtension
+ 32K	/Users/e/Library/Containers/com.apple.IOUIAgent
+ 32K	/Users/e/Library/Containers/com.apple.IPAInstaller
+ 32K	/Users/e/Library/Containers/com.apple.languageassetd
+ 32K	/Users/e/Library/Containers/com.apple.lighthouse.InferenceExtension
+ 32K	/Users/e/Library/Containers/com.apple.lighthouse.SAExtensionOrchestrator
+ 32K	/Users/e/Library/Containers/com.apple.LinkedNotesUIService
+ 32K	/Users/e/Library/Containers/com.apple.LinkPresentation.LinkSnapshotGeneratorService
+ 32K	/Users/e/Library/Containers/com.apple.ManagedSettings.ManagedSettingsMacOSExtension
+ 32K	/Users/e/Library/Containers/com.apple.MediaExtensions-Settings
+ 32K	/Users/e/Library/Containers/com.apple.MediaMLPluginApp.MediaMLExtension
+ 32K	/Users/e/Library/Containers/com.apple.mlhost.TelemetryWorker
+ 32K	/Users/e/Library/Containers/com.apple.mobiletimer-framework.MobileTimerIntents
+ 32K	/Users/e/Library/Containers/com.apple.Music.MusicCacheExtension
+ 32K	/Users/e/Library/Containers/com.apple.Music.MusicStorageExtension
+ 32K	/Users/e/Library/Containers/com.apple.NeptuneOneExtension
+ 32K	/Users/e/Library/Containers/com.apple.NetworkExtension.IKEv2Provider
+ 32K	/Users/e/Library/Containers/com.apple.NewDeviceOutreachApp
+ 32K	/Users/e/Library/Containers/com.apple.parsec.SafariBrowsingAssistantWorker
+ 32K	/Users/e/Library/Containers/com.apple.Photos.StorageManagementExtension
+ 32K	/Users/e/Library/Containers/com.apple.photos.VideoConversionService
+ 32K	/Users/e/Library/Containers/com.apple.PlatformSSO.AccessKey
+ 32K	/Users/e/Library/Containers/com.apple.PlatformSSOToken
+ 32K	/Users/e/Library/Containers/com.apple.ScreenTime.ScreenTimeWebExtension
+ 32K	/Users/e/Library/Containers/com.apple.share.Mail.compose
+ 32K	/Users/e/Library/Containers/com.apple.siri.GMSSELFIngestor
+ 32K	/Users/e/Library/Containers/com.apple.SiriUI.SiriUISetupXPC
+ 32K	/Users/e/Library/Containers/com.apple.Sound-Settings.SoundIntents
+ 32K	/Users/e/Library/Containers/com.apple.speech.MacinTalkFramework.MacinTalkAUSP
+ 32K	/Users/e/Library/Containers/com.apple.speech.SpeechSynthesisServerXPC
+ 32K	/Users/e/Library/Containers/com.apple.STMExtension.Developer
+ 32K	/Users/e/Library/Containers/com.apple.STMExtension.iOSFiles
+ 32K	/Users/e/Library/Containers/com.apple.STMExtension.OtherUsers
+ 32K	/Users/e/Library/Containers/com.apple.STMExtension.Trash
+ 32K	/Users/e/Library/Containers/com.apple.SystemExtensions-Settings.extension
+ 32K	/Users/e/Library/Containers/com.apple.systempreferences.GeneralSettings
+ 32K	/Users/e/Library/Containers/com.apple.TV.TVCacheExtension
+ 32K	/Users/e/Library/Containers/com.apple.TV.TVStorageExtension
+ 32K	/Users/e/Library/Containers/com.apple.unilog.search.MacMailSearchLogProcessor
+ 32K	/Users/e/Library/Containers/com.apple.unilog.SiriUploadWorker
+ 32K	/Users/e/Library/Containers/com.apple.wallpaper.agent.controls
+ 32K	/Users/e/Library/Containers/com.apple.wallpaper.extension.dynamic
+ 32K	/Users/e/Library/Containers/com.apple.wallpaper.extension.gradient
+ 32K	/Users/e/Library/Containers/com.apple.wallpaper.extension.macintosh
+ 32K	/Users/e/Library/Containers/com.apple.wallpaper.extension.sequoia
+ 32K	/Users/e/Library/Containers/com.apple.wallpaper.extension.sonoma
+ 32K	/Users/e/Library/Containers/com.apple.windowmanager.StageManagerOnboarding
+ 32K	/Users/e/Library/Containers/com.avast.AAFM.finderextension
+ 32K	/Users/e/Library/Containers/com.dwarvesv.LauncherApplication
+ 32K	/Users/e/Library/Containers/com.mac.xvpn.tunnel
+ 32K	/Users/e/Library/Containers/com.microsoft.OneDriveLauncher
+ 32K	/Users/e/Library/Containers/com.microsoft.pasteboard-xpc
+ 32K	/Users/e/Library/Containers/com.microsoft.teams2.notificationcenter
+ 32K	/Users/e/Library/Containers/com.microsoft.teams2.respawn
+ 32K	/Users/e/Library/Containers/com.tonycoco.Picture-In-Picture.Extension
+ 32K	/Users/e/Library/Containers/com.utmapp.QEMUHelper
+ 32K	/Users/e/Library/Containers/com.vmware.mksSandbox
+ 32K	/Users/e/Library/Containers/org.pqrs.Karabiner-VirtualHIDDevice-Manager
+ 32K	/Users/e/Library/Containers/se.oblador.Hush
+ 32K	/Users/e/Library/Containers/se.oblador.Hush.ContentBlocker
+ 36K	/Users/e/Library/Containers/com.Ababe.UnzipAnyFile
+ 36K	/Users/e/Library/Containers/com.apple.accessibility.axassetsd
+ 36K	/Users/e/Library/Containers/com.apple.ActionKit.BundledIntentHandler
+ 36K	/Users/e/Library/Containers/com.apple.AMPDeviceDiscoveryAgent
+ 36K	/Users/e/Library/Containers/com.apple.AutoFillPanelService
+ 36K	/Users/e/Library/Containers/com.apple.AvatarUI.AvatarPickerMemojiEditor
+ 36K	/Users/e/Library/Containers/com.apple.ax.MauiTTSSupport.MauiAUSP
+ 36K	/Users/e/Library/Containers/com.apple.calculator.CalculatorWidget
+ 36K	/Users/e/Library/Containers/com.apple.calendar.CalendarIntentsExtension
+ 36K	/Users/e/Library/Containers/com.apple.CalendarWidget.IntentsExtension
+ 36K	/Users/e/Library/Containers/com.apple.CloudKit.ShareBear
+ 36K	/Users/e/Library/Containers/com.apple.CloudPhotosConfiguration
+ 36K	/Users/e/Library/Containers/com.apple.configurator.ui
+ 36K	/Users/e/Library/Containers/com.apple.configurator.xpc.AirTrafficService
+ 36K	/Users/e/Library/Containers/com.apple.configurator.xpc.MigrationService
+ 36K	/Users/e/Library/Containers/com.apple.ContactsUI.ContactPickerService
+ 36K	/Users/e/Library/Containers/com.apple.CoreRoutine.helperservice
+ 36K	/Users/e/Library/Containers/com.apple.DeskCam
+ 36K	/Users/e/Library/Containers/com.apple.Displays-Settings.extension
+ 36K	/Users/e/Library/Containers/com.apple.ExtensionsSettings.DefaultExtensionEnablement
+ 36K	/Users/e/Library/Containers/com.apple.facetime.NotificationViewBridgeService
+ 36K	/Users/e/Library/Containers/com.apple.iCloudDriveCore.telemetry-disk-checker
+ 36K	/Users/e/Library/Containers/com.apple.Keyboard-Settings.extension
+ 36K	/Users/e/Library/Containers/com.apple.lighthouse.IFTelemetrySELFIngestor
+ 36K	/Users/e/Library/Containers/com.apple.lighthouse.IFTranscriptSELFIngestor
+ 36K	/Users/e/Library/Containers/com.apple.lighthouse.PnROnDeviceWorker
+ 36K	/Users/e/Library/Containers/com.apple.MailCacheDelete
+ 36K	/Users/e/Library/Containers/com.apple.messages.AssistantExtension
+ 36K	/Users/e/Library/Containers/com.apple.messages.StorageManagementExtension
+ 36K	/Users/e/Library/Containers/com.apple.mlhost.CloudWorker
+ 36K	/Users/e/Library/Containers/com.apple.MobileSMS.MessagesActionExtension
+ 36K	/Users/e/Library/Containers/com.apple.NewDeviceOutreachMac.Extension
+ 36K	/Users/e/Library/Containers/com.apple.PhotoBooth
+ 36K	/Users/e/Library/Containers/com.apple.photos.ImageConversionService
+ 36K	/Users/e/Library/Containers/com.apple.podcasts.MacPodcastsStorageExtension
+ 36K	/Users/e/Library/Containers/com.apple.poirot.MessagesAnalyticsWorker
+ 36K	/Users/e/Library/Containers/com.apple.reminders.spotlightindexextension
+ 36K	/Users/e/Library/Containers/com.apple.Safari.SafariLinkExtension
+ 36K	/Users/e/Library/Containers/com.apple.SafariFoundation.CredentialProviderExtensionHelper
+ 36K	/Users/e/Library/Containers/com.apple.ScreenTimeViewService
+ 36K	/Users/e/Library/Containers/com.apple.ScreenTimeWidgetApplication.ScreenTimeWidgetIntentsExtension
+ 36K	/Users/e/Library/Containers/com.apple.sharing.ShareSheetUI
+ 36K	/Users/e/Library/Containers/com.apple.siri.metrics.MetricsExtension
+ 36K	/Users/e/Library/Containers/com.apple.siri.ODDIExperimentationExtension
+ 36K	/Users/e/Library/Containers/com.apple.siri.ODDIMetricsExtension
+ 36K	/Users/e/Library/Containers/com.apple.speech.MacinTalkFramework.WardaSynthesizer
+ 36K	/Users/e/Library/Containers/com.apple.speech.MacinTalkFramework.WardaSynthesizer.arm64
+ 36K	/Users/e/Library/Containers/com.apple.speech.MacinTalkFramework.WardaSynthesizer.x86-64
+ 36K	/Users/e/Library/Containers/com.apple.Spotlight-Settings.extension
+ 36K	/Users/e/Library/Containers/com.apple.STMExtension.Applications
+ 36K	/Users/e/Library/Containers/com.apple.StorageManagement.CloudStorageHelper
+ 36K	/Users/e/Library/Containers/com.apple.StorageManagement.MessagesHelper
+ 36K	/Users/e/Library/Containers/com.apple.TextEdit
+ 36K	/Users/e/Library/Containers/com.apple.texttospeech.SiriAUSP
+ 36K	/Users/e/Library/Containers/com.apple.unilog.SearchUploadWorker
+ 36K	/Users/e/Library/Containers/com.apple.VoiceMemos.VoiceMemosSettingsWidget
+ 36K	/Users/e/Library/Containers/com.apple.wallpaper.extension.aerials
+ 36K	/Users/e/Library/Containers/com.apple.wallpaper.extension.legacy
+ 36K	/Users/e/Library/Containers/com.apple.weather.WeatherIntents
+ 36K	/Users/e/Library/Containers/com.coldflint.chime
+ 36K	/Users/e/Library/Containers/com.dwarvesv.minimalbar
+ 36K	/Users/e/Library/Containers/com.microsoft.teams2.widgetextension
+ 36K	/Users/e/Library/Containers/net.whatsapp.WhatsApp.WAAppKitBridgeService
+ 40K	/Users/e/Library/Containers/com.apple.BKAgentService
+ 40K	/Users/e/Library/Containers/com.apple.CloudDocs.iCloudDriveFileProvider
+ 40K	/Users/e/Library/Containers/com.apple.CMViewSrvc
+ 40K	/Users/e/Library/Containers/com.apple.ContactsUI.MonogramPosterExtension
+ 40K	/Users/e/Library/Containers/com.apple.ContinuityCaptureOnboardingUI
+ 40K	/Users/e/Library/Containers/com.apple.dock.controls
+ 40K	/Users/e/Library/Containers/com.apple.dt.ExternalViewService
+ 40K	/Users/e/Library/Containers/com.apple.Family
+ 40K	/Users/e/Library/Containers/com.apple.FamilyControlsAgent
+ 40K	/Users/e/Library/Containers/com.apple.findmy.FindMyWidgetIntentsItems
+ 40K	/Users/e/Library/Containers/com.apple.lighthouse.BiomeSELFIngestor
+ 40K	/Users/e/Library/Containers/com.apple.LighthouseBitacoraFramework.BitacoraWorker
+ 40K	/Users/e/Library/Containers/com.apple.mail.SpotlightIndexExtension
+ 40K	/Users/e/Library/Containers/com.apple.Notes.SpotlightIndexExtension
+ 40K	/Users/e/Library/Containers/com.apple.PassKit.PaymentAuthorizationUIExtension
+ 40K	/Users/e/Library/Containers/com.apple.PeopleViewService.SelectPerson-iOS
+ 40K	/Users/e/Library/Containers/com.apple.printcenter.PrintCenterWidget
+ 40K	/Users/e/Library/Containers/com.apple.reminders.macOSIntentsExtension
+ 40K	/Users/e/Library/Containers/com.apple.shortcuts.events
+ 40K	/Users/e/Library/Containers/com.apple.siri.metrics.AssetMetricsExtension
+ 40K	/Users/e/Library/Containers/com.apple.siri.metrics.DevicePropertiesExtension
+ 40K	/Users/e/Library/Containers/com.apple.siri.ODDIPoirotExperimentationExtension
+ 40K	/Users/e/Library/Containers/com.apple.siri.ODDIPoirotMetricsExtension
+ 40K	/Users/e/Library/Containers/com.apple.siri.SiriPrivateLearningAnalytics.SiriUserSegmentation
+ 40K	/Users/e/Library/Containers/com.apple.SiriMetrics.SiriTurnRestatementExtension
+ 40K	/Users/e/Library/Containers/com.apple.Stickies
+ 40K	/Users/e/Library/Containers/com.apple.STMExtension.Mail
+ 40K	/Users/e/Library/Containers/com.apple.systempreferences
+ 40K	/Users/e/Library/Containers/com.apple.systempreferences.SpotlightIndexExtension
+ 40K	/Users/e/Library/Containers/com.apple.VoiceMemos.RecordWidget
+ 40K	/Users/e/Library/Containers/com.goodsnooze.sebby
+ 44K	/Users/e/Library/Containers/com.apple.aiml.mlpt.FedStats.MLHostPlugin
+ 44K	/Users/e/Library/Containers/com.apple.aiml.mlpt.FedStats.MLHostPluginClassB
+ 44K	/Users/e/Library/Containers/com.apple.Internet-Accounts-Settings.extension
+ 44K	/Users/e/Library/Containers/com.apple.Notes.IntentsExtension
+ 44K	/Users/e/Library/Containers/com.apple.preferences.sharing.SharingPrefsExtension
+ 44K	/Users/e/Library/Containers/com.apple.quicklook.ui.helper
+ 44K	/Users/e/Library/Containers/com.apple.Screen-Time-Settings.extension
+ 44K	/Users/e/Library/Containers/com.apple.ScreenContinuity
+ 44K	/Users/e/Library/Containers/com.apple.shortcuts.Run-Workflow
+ 48K	/Users/e/Library/Containers/com.apple.AddressBook
+ 48K	/Users/e/Library/Containers/com.apple.Dictionary
+ 48K	/Users/e/Library/Containers/com.apple.generativeassistanttools.GenerativeAssistantExtension
+ 48K	/Users/e/Library/Containers/com.apple.iCal
+ 48K	/Users/e/Library/Containers/com.apple.quicklook.QuickLookUIService
+ 48K	/Users/e/Library/Containers/com.apple.Siri
+ 48K	/Users/e/Library/Containers/com.apple.siri.SiriSuggestionsLightHousePlugin
+ 48K	/Users/e/Library/Containers/com.apple.WorkflowUI.CatalystContentExtension
+ 52K	/Users/e/Library/Containers/com.apple.CharacterPaletteIM
+ 52K	/Users/e/Library/Containers/com.apple.clock
+ 52K	/Users/e/Library/Containers/com.apple.contacts.donation-agent
+ 52K	/Users/e/Library/Containers/com.apple.notificationcenterui
+ 52K	/Users/e/Library/Containers/com.apple.QuickTimePlayerX
+ 56K	/Users/e/Library/Containers/com.apple.AskToExtension
+ 60K	/Users/e/Library/Containers/com.apple.corerecents.recentsd
+ 64K	/Users/e/Library/Containers/com.apple.controls.display
+ 64K	/Users/e/Library/Containers/com.apple.controls.screenshot
+ 64K	/Users/e/Library/Containers/com.apple.routined
+ 68K	/Users/e/Library/Containers/com.apple.FaceTime.FaceTimeNotificationExtension
+ 68K	/Users/e/Library/Containers/com.apple.SiriNCService
+ 68K	/Users/e/Library/Containers/com.apple.WindowManager.controls
+ 84K	/Users/e/Library/Containers/com.apple.journal.widgets.secure
+ 88K	/Users/e/Library/Containers/app.peeku.Peeku.PeekuMacWidget
+ 88K	/Users/e/Library/Containers/com.apple.CoreDevice.CoreDeviceService
+100K	/Users/e/Library/Containers/com.apple.CalendarWeatherKitService
+104K	/Users/e/Library/Containers/com.apple.Batteries.BatteriesAvocadoWidgetExtension
+112K	/Users/e/Library/Containers/com.apple.findmy
+116K	/Users/e/Library/Containers/com.apple.findmy.FindMyWidgetIntentsPeople
+136K	/Users/e/Library/Containers/com.apple.AccessibilitySettingsWidgetExtension
+136K	/Users/e/Library/Containers/com.apple.Maps
+140K	/Users/e/Library/Containers/com.apple.shortcuts.ShortcutsWidget
+144K	/Users/e/Library/Containers/com.apple.tips.Widget
+148K	/Users/e/Library/Containers/com.apple.journal.widgets
+156K	/Users/e/Library/Containers/com.apple.Home.HomeWidget.Interactive
+172K	/Users/e/Library/Containers/eu.exelban.Stats.Widgets
+180K	/Users/e/Library/Containers/com.apple.PhotosUIPrivate.PhotosPosterProvider
+184K	/Users/e/Library/Containers/com.apple.LookupViewService
+192K	/Users/e/Library/Containers/app.peeku.Peeku
+216K	/Users/e/Library/Containers/com.lemon.lvoverseas
+236K	/Users/e/Library/Containers/com.microsoft.Outlook.CalendarWidget
+240K	/Users/e/Library/Containers/com.apple.freeform
+244K	/Users/e/Library/Containers/com.apple.Notes.SharingExtension
+256K	/Users/e/Library/Containers/com.apple.Home.HomeEnergyWidgets
+256K	/Users/e/Library/Containers/com.apple.siri.media-indexer
+280K	/Users/e/Library/Containers/com.apple.amp.devicesui
+280K	/Users/e/Library/Containers/com.apple.Safari.CacheDeleteExtension
+288K	/Users/e/Library/Containers/com.apple.Notes.WidgetExtension
+300K	/Users/e/Library/Containers/com.apple.UsageTrackingAgent
+308K	/Users/e/Library/Containers/com.apple.findmy.FindMyWidgetPeople
+316K	/Users/e/Library/Containers/com.apple.findmy.FindMyWidgetItems
+324K	/Users/e/Library/Containers/app.portal.ios.v1.widgets
+328K	/Users/e/Library/Containers/com.apple.Coverage-Settings.extension
+336K	/Users/e/Library/Containers/com.apple.iCloudQuota.ICQFollowup
+336K	/Users/e/Library/Containers/com.apple.transcriptBackgroundPoster.GradientExtension
+340K	/Users/e/Library/Containers/com.apple.voicebankingd
+356K	/Users/e/Library/Containers/com.microsoft.errorreporting
+372K	/Users/e/Library/Containers/com.apple.Preview
+376K	/Users/e/Library/Containers/com.apple.reminders.WidgetExtension
+400K	/Users/e/Library/Containers/com.microsoft.Word.widgetextension
+404K	/Users/e/Library/Containers/com.microsoft.Powerpoint.widgetextension
+412K	/Users/e/Library/Containers/com.apple.Safari.SafariWidgetExtension
+412K	/Users/e/Library/Containers/com.microsoft.Excel.widgetextension
+448K	/Users/e/Library/Containers/com.apple.share.AirDrop.send
+460K	/Users/e/Library/Containers/com.apple.configurator.xpc.InternetService
+480K	/Users/e/Library/Containers/com.tonycoco.Picture-In-Picture
+608K	/Users/e/Library/Containers/reljapps.AirPosture.app
+668K	/Users/e/Library/Containers/com.apple.iWork.Keynote
+728K	/Users/e/Library/Containers/com.apple.reminders
+740K	/Users/e/Library/Containers/com.apple.ScreenTimeWidgetApplication.ScreenTimeWidgetExtension
+756K	/Users/e/Library/Containers/com.apple.podcasts.SpotlightIndexExtension
+760K	/Users/e/Library/Containers/com.apple.GameOverlayViewService
+764K	/Users/e/Library/Containers/com.apple.StoreKit.UIService
+820K	/Users/e/Library/Containers/com.apple.iWork.Pages
+824K	/Users/e/Library/Containers/com.apple.news.widgetintents
+976K	/Users/e/Library/Containers/com.apple.podcasts.widget
+1.0M	/Users/e/Library/Containers/com.apple.WorkflowKit.ShortcutsViewService
+1.1M	/Users/e/Library/Containers/com.dejal.timeout.free
+1.1M	/Users/e/Library/Containers/com.microsoft.rdc.macos
+1.2M	/Users/e/Library/Containers/com.apple.PasswordManagerBrowserExtensionHelper
+1.2M	/Users/e/Library/Containers/com.apple.SafariPlatformSupport.Helper
+1.2M	/Users/e/Library/Containers/com.apple.transcriptBackgroundPoster.DynamicExtension
+1.2M	/Users/e/Library/Containers/com.sindresorhus.Plash
+1.2M	/Users/e/Library/Containers/openai
+1.4M	/Users/e/Library/Containers/com.apple.GenerativePlaygroundApp
+1.4M	/Users/e/Library/Containers/com.apple.PeopleViewService.PeopleWidget-macOS
+1.5M	/Users/e/Library/Containers/com.apple.news.tag
+1.5M	/Users/e/Library/Containers/com.apple.Photos.PhotosReliveWidget
+1.7M	/Users/e/Library/Containers/com.apple.news.widget
+1.8M	/Users/e/Library/Containers/com.apple.Safari.BrowserDataImportingService
+1.9M	/Users/e/Library/Containers/com.apple.MobileAddressBook.RemoteCatalystPosterExtension
+2.0M	/Users/e/Library/Containers/com.apple.iCal.CalendarWidgetExtension
+2.2M	/Users/e/Library/Containers/com.apple.systempreferences.AppleIDSettings
+2.3M	/Users/e/Library/Containers/com.apple.clock.WorldClockWidget
+2.3M	/Users/e/Library/Containers/com.google.ios.youtube
+2.5M	/Users/e/Library/Containers/com.apple.ScreenTimeAgent
+2.7M	/Users/e/Library/Containers/com.apple.weather.widget
+3.3M	/Users/e/Library/Containers/net.rafaelconde.Hand-Mirror
+3.5M	/Users/e/Library/Containers/com.apple.Photos
+4.2M	/Users/e/Library/Containers/com.apple.Passwords
+4.3M	/Users/e/Library/Containers/com.apple.iWork.Numbers
+4.5M	/Users/e/Library/Containers/com.mac.xvpn
+4.7M	/Users/e/Library/Containers/com.ookla.speedtest-macos
+4.8M	/Users/e/Library/Containers/com.apple.stocks.widget
+5.1M	/Users/e/Library/Containers/com.apple.shortcuts.ShortcutLiveActivityWidget
+5.2M	/Users/e/Library/Containers/com.apple.AMSUIPaymentViewService
+5.4M	/Users/e/Library/Containers/com.apple.calculator
+6.2M	/Users/e/Library/Containers/net.whatsapp.WhatsApp.ServiceExtension
+7.2M	/Users/e/Library/Containers/com.microsoft.OneDrive-mac.FileProvider
+7.6M	/Users/e/Library/Containers/com.apple.shortcuts
+8.6M	/Users/e/Library/Containers/com.apple.AvatarUI.AvatarPickerPosePicker
+9.0M	/Users/e/Library/Containers/com.microsoft.teams2.agent
+9.7M	/Users/e/Library/Containers/com.apple.mediastream.mstreamd
+9.8M	/Users/e/Library/Containers/com.apple.AppleMediaServicesUI.UtilityExtension
+ 10M	/Users/e/Library/Containers/com.apple.AMPArtworkAgent
+ 10M	/Users/e/Library/Containers/com.apple.weather
+ 12M	/Users/e/Library/Containers/com.apple.FaceTime
+ 14M	/Users/e/Library/Containers/com.apple.helpviewer
+ 16M	/Users/e/Library/Containers/com.apple.photolibraryd
+ 21M	/Users/e/Library/Containers/app.portal.ios.v1
+ 21M	/Users/e/Library/Containers/net.whatsapp.WhatsApp
+ 25M	/Users/e/Library/Containers/com.apple.podcasts
+ 29M	/Users/e/Library/Containers/ch.protonvpn.mac
+ 29M	/Users/e/Library/Containers/com.dejal.timeout.free.break
+ 30M	/Users/e/Library/Containers/com.duckduckgo.mobile.ios
+ 32M	/Users/e/Library/Containers/com.microsoft.Excel
+ 35M	/Users/e/Library/Containers/com.apple.geod
+ 36M	/Users/e/Library/Containers/com.apple.AppStore
+ 43M	/Users/e/Library/Containers/com.apple.AvatarUI.AvatarPickerMemojiPicker
+ 55M	/Users/e/Library/Containers/com.apple.Stickers.UserGenerated.MessagesExtension
+ 55M	/Users/e/Library/Containers/jp.ne.ibis.ibisPaintMac
+ 88M	/Users/e/Library/Containers/com.microsoft.OneDrive-mac
+ 91M	/Users/e/Library/Containers/com.apple.photoanalysisd
+100M	/Users/e/Library/Containers/com.microsoft.Outlook
+110M	/Users/e/Library/Containers/com.microsoft.Word
+112M	/Users/e/Library/Containers/com.microsoft.onenote.mac
+252M	/Users/e/Library/Containers/com.microsoft.Powerpoint
+313M	/Users/e/Library/Containers/io.playcover.PlayCover
+493M	/Users/e/Library/Containers/com.apple.mediaanalysisd
+671M	/Users/e/Library/Containers/com.apple.wallpaper.extension.image
+724M	/Users/e/Library/Containers/com.franke.Whisky
+988M	/Users/e/Library/Containers/com.microsoft.teams2
+989M	/Users/e/Library/Containers/com.oecoway.friendlynetflix
+4.7G	/Users/e/Library/Containers/com.docker.docker
+7.6G	/Users/e/Library/Containers/com.apple.wallpaper.agent
+102G	/Users/e/Library/Containers/com.utmapp.UTM
+120G	/Users/e/Library/Containers
+e@leg ~ % 
